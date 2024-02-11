@@ -11,4 +11,28 @@ Hello to anyone reading this.  This is Jason Caballes' notes for CSE 560 :)
 
 ## Syllabus
 
+### Piazza
+[Click here for the piazza!](https://piazza.com/buffalo/spring2024/cse460560)
+
+### Zoom Link
+[Click here for the zoom link!](https://buffalo.zoom.us/my/sreyasee?pwd=Mlg4bmEyMGNJQVhhcUJqV3dkSFdCdz09)
+
+### Class Weighting
+
+| Segment | Weight |
+|:-------:|:------:|
+| Semester Projects | 20% |
+| Class Activities | 10% |
+| Weekly Quizzes | 10% |
+| Midterm One | 20% |
+| Midterm Two | 20% |
+| Final | 20% |
+
+### Exam Schedule
+| Exam | Time |
+|:----:|:----:|
+| Midterm One | Wednesday, March 6th, 2024, from 18:30-22:00 |
+| Midterm Two | Tuesday, April 9th, 2024, from 18:30-22:00 |
+| Final | Monday, May 13th, 2024, from 19:15-22:15 in Norton 190 |
+
 
