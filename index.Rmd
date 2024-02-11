@@ -1,12 +1,14 @@
 ---
 title: "CSE 560 - Notes"
 author: "Jason Caballes"
-site: bookdown::bookdown_site
-documentclass: book
+site: "bookdown::bookdown_site"
+documentclass: "book"
 output:
-  bookdown::bs4_book: default
+  bookdown::bs4_book: "default"
 ---
-# Jason's CSE 560 Notes {-}
+# Jason's CSE 560 Notes
 Hello to anyone reading this.  This is Jason Caballes' notes for CSE 560 :)
+
+## Syllabus
 
 

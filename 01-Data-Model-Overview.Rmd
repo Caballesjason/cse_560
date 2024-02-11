@@ -1,7 +1,7 @@
 
 #  Data Model Overview
-
 ## Relational Model Basics
+
 ### What is a data model?
 A data model is an abstract is an abstract model to describe a collection of data and how we can interact with it.
 
