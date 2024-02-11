@@ -1,0 +1,155 @@
+---
+site: "bookdown::bookdown_site"
+documentclass: "book"
+output:
+  bookdown::bs4_book: "default"
+---
+#  Relational Databases
+## Relational Model Basics
+
+### What is a data model?
+A data model is an abstract is an abstract model to describe a collection of data and how we can interact with it.
+
+Data models contain three parts:    
+1. Structure of Data    
+2. Operation on Data    
+3. Constraints on Data    
+
+### Types of Data Models
+There are two mainstream types of data models:
+1. Relational Models
+2. Semi-structured Models
+
+Relational models include object_relational models.  Operations applied to relational models are based off of relational algebra.  Data is organized in a two-dimensional table called a relation.
+
+Why do we use relations?  Relations are simple and intuitive to use.  They are also the models that underly SQL.  Object-relational extentions also add storage of non-primitive objects and methods for relations.
+
+Semi-structured Models typically store tree based data like XML files.  Data and data types are organized by tags (think of HTML tags).
+
+### Relational Models: Structure, Operations, Constraints
+__Columns__ are called __attributes__.  They describe the information being provided.  
+
+The __schema__ describes the name of a relation and the set of all attributes for the relation.  
+
+__Attributes in__ a __schema__ are a __set__ and NOT a list (all values are unique and order does not matter).  When creating a relation schema, the order of attributes matter.  
+
+The __set of schemas for relations__ in a database is know as a "__Database Schema__".    
+
+__Tuples__ are the rows of a __relation__.    
+A __component__ is the tuple's value for an attribute provided by a schema.   
+tuples have one component for each attribute provided by a schema.   In practice, start a relation name with a capital letter and attributes with a lowercase letter.   
+The __domain__ of an attribute/tuple is the __data type__ associated with it.  __All domains__ must be of __atomic__ (primitive) data types.   
+Relations are sets of tuples, therefore all tuples in a relation are unique and the order of relations does not matter.   
+A _subset of tuples__ from a relation is known as an __instance of that relation__.   
+We can reorder attributes and therefore the components of an instance, however changing the order of a relation's schema changes the default attribute order of new instances of that relation.    
+Database systems store a relation instance that mimics the relation's schema.  This is instance is known as the __current instance__.   
+Past versions of the current instance are called __temporal instances__
+
+### Relation Keys
+A set of attributes in a relation form a __key__ if we do not allow two tuples in the relation to have the same values for that set of attributes.  That is, for each tuple, their components must be unique to all other tuples for the attributes assigned to be a key.    
+If a set of attributes is a key for a relation, then the same set of attributes must be a key for all instances of that relation.   
+Many real-world databases use artificial keys (think UB person Number).   
+Keys are pretty common in industry.
+
+## Defining Relationship Schemas in SQL
+The current standard for SQL is __SQL-99__.  There are two aspects to SQL:    
+1. The __Data-Definition__ to declare database schemas    
+2. The __Data_Manipulation__ sub-language for querying/modifying databases    
+
+### Relations in SQL
+SQL makes a distinction between three kinds of relations:   
+1. __Stored relations__, which are called __tables__    
+2. __Views__, which are relations designed by some computation.  This relations are not stored, but constructed when needed   
+3. __Temporary Tables__ which are constructed by the SQL language processor when executing queries and data modifications.  These relations are not stored and discarded when no longer used.   
+
+To declare a schema for a stored relation, do the following
+
+```
+CREATE TABLE -- SOME TABLE NAME --
+```
+
+### Data Types
+The following are primitive data types that are supported by SQL    
+
+#### Character Strings
+They can be of fixed or variable length.  To type a fixed length character string, use `CHAR(n)` for some length $n$.  To create a variable length character string, use `VARCHAR(n)` for some length $n$.  If a component of a tuple with a domain of `CHAR(n)` is given and the length of the component is less than $n$, the component is padded with white space. 
+
+#### Bit Strings
+Bit strings can be of fixed or varying length. This data type is analogous to character strings, but their values are strings of bits rather than characters.
+
+#### BOOLEANs
+Booleans denote an attribute whose value is logical.  The possible values that a boolean can take are __TRUE, FALSE, UNKNOWN__.
+
+#### INTs
+Ints or (Integers) denote some integer value.  `SHORTINT` is also an int but is may have less bits.
+
+#### Floating-Point Numbers
+Floating points are denoted by `FLOAT` or `REAL`.  If you would like higher precision with floats, use `DOUBLE PRECISION`.  Like character strings, floats can be of fixed decimal length.  You can declare decimal length but calling `DECIMAL(n, d)` where $n$ is the total number of digits allowed for the float nad $d$ is the number of digits passed the decimal. 
+
+#### Dates and Times
+Dates and times are declared using `DATE` and `TIME` respectively. Dates and times are a special form of character strings.  Adding a string after the `DATE` declaration specifies the format of the date.  For example `DATE '1948-05-14'` creates a date value with the form "YYYY-MM-DD".  The same can be done with time.  For example `TIME '15:00:02.5'` specifies that you want to represent time with the format "HH:MM:SS" with the attachment of milliseconds. 
+
+The follow is a simple example of a Relation Schema declaration
+
+```{SQL}
+CREATE TABLE Movies(
+  title CHAR(100) -- Character string with 100 characters
+  ,year INT
+  ,lengh INT
+  ,genre CHAR(10)
+  ,studioName CHAR(30)
+  ,producerC# INT
+);
+```
+
+### Modifying Relation Schemas
+To delete or "drop" a table from a database, execute the following    
+
+```{SQL}
+DROP TABLE -- SOME TABLE --;
+```
+
+When dropping at able, the table no longer exists in the database schema.  To modify and existing table, use the `ALTER` keyword   
+
+```{SQL}
+---- Modifying a table to add a new attribute to its schema ----
+ALTER TABLE -- SOME TABLE -- ADD -- SOME ATTRIBUTE -- CHAR(16); 
+
+---- Modifying a table to remove an attribute from its schema ----
+ALTER TABLE -- SOME TABLE -- DROP -- SOME ATTRIBUTE IN SCHEMA --; 
+```
+
+### Default Values
+When adding a new attribute to a relation's schema, all tuples require some value for that attribute.  Database systems will default that value to `NULL`, but what if you want a specific value for it default to?  What if data is uploaded randomly and not all tuples have values for each component?   In this case we can use the `DEFAULT` keyword to add a specific value instead using `NULL`.
+
+```{SQL}
+---- Creating attributes and adding a default value when no data is made available ----
+gender CHAR(1) DEFAULT '?'
+name VARCHAR(10) DEFAULT 'No Name :('
+```
+
+#### Declaring Keys
+There are two ways to assign a set of attributes to be a key.  Keys are defined in the declaration of the database schema, i.e. the  `CREATE TABLE` statement.
+
+Use `PRIMARY KEY` or `UNIQUE` to declare a set of attributes to be a key.  Remember, that keys must always be unique for each tuple.  The difference between `PRIMARY KEY` and `UNIQUE` is that components a tuple are allowed to have `NULL` as a value when using `UNIQUE`.  On the other hand, using `PRIMARY KEY` does not allow `NULL` to be in a key.
+
+```{SQL}
+---- Assigning name as a primary key ---
+CREATE TABLE MovieStar(
+  name CHAR(30) PRIMARY KEY
+  ,address VARCHAR(255)
+  ,gender CHAR(1)
+  ,birthdate DATE
+);
+
+---- You can assign keys after declaring all attributes as well! ----
+CREATE TABLE MovieStar(
+  name CHAR(30)
+  ,address VARCHAR(255)
+  ,gender CHAR(1)
+  ,birthdate DATE
+  PRIMARY KEY (name)
+);
+```
+
+## Constraints

@@ -1,7 +1,10 @@
 ---
 rmd_files:
   - "index.Rmd"
-  - "01-Data-Model-Overview.Rmd"
+  - "01-Relational-Databases.Rmd"
+  - "02-Relational-Algebra.Rmd"
+  - "03-Intro-Sql.Rmd"
+  
 site: bookdown::bookdown_site
 output:
   bookdown::bs4_book: default
