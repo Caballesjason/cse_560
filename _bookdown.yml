@@ -9,5 +9,5 @@ site: bookdown::bookdown_site
 output:
   bookdown::bs4_book: default
 delete_merged_file: true
-output_dir: bookOutput
+output_dir: docs
 ---

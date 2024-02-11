@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 Introducion to SQL | CSE 560 - Notes</title>
+<meta name="author" content="Jason Caballes">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="4 Introducion to SQL | CSE 560 - Notes">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 Introducion to SQL | CSE 560 - Notes">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="4.1 Defining Relationship Schemas in SQL The current standard for SQL is SQL-99. There are two aspects to SQL: 1. The Data-Definition to declare database schemas 2. The Data_Manipulation...">
+<meta property="og:description" content="4.1 Defining Relationship Schemas in SQL The current standard for SQL is SQL-99. There are two aspects to SQL: 1. The Data-Definition to declare database schemas 2. The Data_Manipulation...">
+<meta name="twitter:description" content="4.1 Defining Relationship Schemas in SQL The current standard for SQL is SQL-99. There are two aspects to SQL: 1. The Data-Definition to declare database schemas 2. The Data_Manipulation...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">CSE 560 - Notes</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Jason’s CSE 560 Notes</a></li>
+<li><a class="" href="relational-databases.html"><span class="header-section-number">2</span> Relational Databases</a></li>
+<li><a class="" href="relational-algebra.html"><span class="header-section-number">3</span> Relational Algebra</a></li>
+<li><a class="active" href="introducion-to-sql.html"><span class="header-section-number">4</span> Introducion to SQL</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introducion-to-sql" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Introducion to SQL<a class="anchor" aria-label="anchor" href="#introducion-to-sql"><i class="fas fa-link"></i></a>
+</h1>
+<div id="defining-relationship-schemas-in-sql" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Defining Relationship Schemas in SQL<a class="anchor" aria-label="anchor" href="#defining-relationship-schemas-in-sql"><i class="fas fa-link"></i></a>
+</h2>
+<p>The current standard for SQL is <strong>SQL-99</strong>. There are two aspects to SQL:<br>
+1. The <strong>Data-Definition</strong> to declare database schemas<br>
+2. The <strong>Data_Manipulation</strong> sub-language for querying/modifying databases</p>
+<div id="relations-in-sql" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> Relations in SQL<a class="anchor" aria-label="anchor" href="#relations-in-sql"><i class="fas fa-link"></i></a>
+</h3>
+<p>SQL makes a distinction between three kinds of relations:<br>
+1. <strong>Stored relations</strong>, which are called <strong>tables</strong><br>
+2. <strong>Views</strong>, which are relations designed by some computation. This relations are not stored, but constructed when needed<br>
+3. <strong>Temporary Tables</strong> which are constructed by the SQL language processor when executing queries and data modifications. These relations are not stored and discarded when no longer used.</p>
+<p>To declare a schema for a stored relation, do the following</p>
+<pre><code>CREATE TABLE -- SOME TABLE NAME --</code></pre>
+</div>
+<div id="data-types" class="section level3" number="4.1.2">
+<h3>
+<span class="header-section-number">4.1.2</span> Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
+</h3>
+<p>The following are primitive data types that are supported by SQL</p>
+<div id="character-strings" class="section level4" number="4.1.2.1">
+<h4>
+<span class="header-section-number">4.1.2.1</span> Character Strings<a class="anchor" aria-label="anchor" href="#character-strings"><i class="fas fa-link"></i></a>
+</h4>
+<p>They can be of fixed or variable length. To type a fixed length character string, use <code>CHAR(n)</code> for some length <span class="math inline">\(n\)</span>. To create a variable length character string, use <code>VARCHAR(n)</code> for some length <span class="math inline">\(n\)</span>. If a component of a tuple with a domain of <code>CHAR(n)</code> is given and the length of the component is less than <span class="math inline">\(n\)</span>, the component is padded with white space.</p>
+</div>
+<div id="bit-strings" class="section level4" number="4.1.2.2">
+<h4>
+<span class="header-section-number">4.1.2.2</span> Bit Strings<a class="anchor" aria-label="anchor" href="#bit-strings"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bit strings can be of fixed or varying length. This data type is analogous to character strings, but their values are strings of bits rather than characters.</p>
+</div>
+<div id="booleans" class="section level4" number="4.1.2.3">
+<h4>
+<span class="header-section-number">4.1.2.3</span> BOOLEANs<a class="anchor" aria-label="anchor" href="#booleans"><i class="fas fa-link"></i></a>
+</h4>
+<p>Booleans denote an attribute whose value is logical. The possible values that a boolean can take are <strong>TRUE, FALSE, UNKNOWN</strong>.</p>
+</div>
+<div id="ints" class="section level4" number="4.1.2.4">
+<h4>
+<span class="header-section-number">4.1.2.4</span> INTs<a class="anchor" aria-label="anchor" href="#ints"><i class="fas fa-link"></i></a>
+</h4>
+<p>Ints or (Integers) denote some integer value. <code>SHORTINT</code> is also an int but is may have less bits.</p>
+</div>
+<div id="floating-point-numbers" class="section level4" number="4.1.2.5">
+<h4>
+<span class="header-section-number">4.1.2.5</span> Floating-Point Numbers<a class="anchor" aria-label="anchor" href="#floating-point-numbers"><i class="fas fa-link"></i></a>
+</h4>
+<p>Floating points are denoted by <code>FLOAT</code> or <code>REAL</code>. If you would like higher precision with floats, use <code>DOUBLE PRECISION</code>. Like character strings, floats can be of fixed decimal length. You can declare decimal length but calling <code>DECIMAL(n, d)</code> where <span class="math inline">\(n\)</span> is the total number of digits allowed for the float nad <span class="math inline">\(d\)</span> is the number of digits passed the decimal.</p>
+</div>
+<div id="dates-and-times" class="section level4" number="4.1.2.6">
+<h4>
+<span class="header-section-number">4.1.2.6</span> Dates and Times<a class="anchor" aria-label="anchor" href="#dates-and-times"><i class="fas fa-link"></i></a>
+</h4>
+<p>Dates and times are declared using <code>DATE</code> and <code>TIME</code> respectively. Dates and times are a special form of character strings. Adding a string after the <code>DATE</code> declaration specifies the format of the date. For example <code>DATE '1948-05-14'</code> creates a date value with the form “YYYY-MM-DD”. The same can be done with time. For example <code>TIME '15:00:02.5'</code> specifies that you want to represent time with the format “HH:MM:SS” with the attachment of milliseconds.</p>
+<p>The follow is a simple example of a Relation Schema declaration</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="introducion-to-sql.html#cb2-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> Movies(</span>
+<span id="cb2-2"><a href="introducion-to-sql.html#cb2-2" tabindex="-1"></a>  title <span class="dt">CHAR</span>(<span class="dv">100</span>) <span class="co">-- Character string with 100 characters</span></span>
+<span id="cb2-3"><a href="introducion-to-sql.html#cb2-3" tabindex="-1"></a>  ,<span class="dt">year</span> <span class="dt">INT</span></span>
+<span id="cb2-4"><a href="introducion-to-sql.html#cb2-4" tabindex="-1"></a>  ,lengh <span class="dt">INT</span></span>
+<span id="cb2-5"><a href="introducion-to-sql.html#cb2-5" tabindex="-1"></a>  ,genre <span class="dt">CHAR</span>(<span class="dv">10</span>)</span>
+<span id="cb2-6"><a href="introducion-to-sql.html#cb2-6" tabindex="-1"></a>  ,studioName <span class="dt">CHAR</span>(<span class="dv">30</span>)</span>
+<span id="cb2-7"><a href="introducion-to-sql.html#cb2-7" tabindex="-1"></a>  ,producerC# <span class="dt">INT</span></span>
+<span id="cb2-8"><a href="introducion-to-sql.html#cb2-8" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+</div>
+<div id="modifying-relation-schemas" class="section level3" number="4.1.3">
+<h3>
+<span class="header-section-number">4.1.3</span> Modifying Relation Schemas<a class="anchor" aria-label="anchor" href="#modifying-relation-schemas"><i class="fas fa-link"></i></a>
+</h3>
+<p>To delete or “drop” a table from a database, execute the following</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="introducion-to-sql.html#cb3-1" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE --;</span></span></code></pre></div>
+<p>When dropping at able, the table no longer exists in the database schema. To modify and existing table, use the <code>ALTER</code> keyword</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="introducion-to-sql.html#cb4-1" tabindex="-1"></a><span class="co">---- Modifying a table to add a new attribute to its schema ----</span></span>
+<span id="cb4-2"><a href="introducion-to-sql.html#cb4-2" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE -- ADD -- SOME ATTRIBUTE -- CHAR(16); </span></span>
+<span id="cb4-3"><a href="introducion-to-sql.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="introducion-to-sql.html#cb4-4" tabindex="-1"></a><span class="co">---- Modifying a table to remove an attribute from its schema ----</span></span>
+<span id="cb4-5"><a href="introducion-to-sql.html#cb4-5" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE -- DROP -- SOME ATTRIBUTE IN SCHEMA --; </span></span></code></pre></div>
+</div>
+<div id="default-values" class="section level3" number="4.1.4">
+<h3>
+<span class="header-section-number">4.1.4</span> Default Values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>When adding a new attribute to a relation’s schema, all tuples require some value for that attribute. Database systems will default that value to <code>NULL</code>, but what if you want a specific value for it default to? What if data is uploaded randomly and not all tuples have values for each component? In this case we can use the <code>DEFAULT</code> keyword to add a specific value instead using <code>NULL</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="introducion-to-sql.html#cb5-1" tabindex="-1"></a><span class="co">---- Creating attributes and adding a default value when no data is made available ----</span></span>
+<span id="cb5-2"><a href="introducion-to-sql.html#cb5-2" tabindex="-1"></a>gender <span class="dt">CHAR</span>(<span class="dv">1</span>) <span class="kw">DEFAULT</span> <span class="st">'?'</span></span>
+<span id="cb5-3"><a href="introducion-to-sql.html#cb5-3" tabindex="-1"></a>name <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">DEFAULT</span> <span class="st">'No Name :('</span></span></code></pre></div>
+<div id="declaring-keys" class="section level4" number="4.1.4.1">
+<h4>
+<span class="header-section-number">4.1.4.1</span> Declaring Keys<a class="anchor" aria-label="anchor" href="#declaring-keys"><i class="fas fa-link"></i></a>
+</h4>
+<p>There are two ways to assign a set of attributes to be a key. Keys are defined in the declaration of the database schema, i.e. the <code>CREATE TABLE</code> statement.</p>
+<p>Use <code>PRIMARY KEY</code> or <code>UNIQUE</code> to declare a set of attributes to be a key. Remember, that keys must always be unique for each tuple. The difference between <code>PRIMARY KEY</code> and <code>UNIQUE</code> is that components a tuple are allowed to have <code>NULL</code> as a value when using <code>UNIQUE</code>. On the other hand, using <code>PRIMARY KEY</code> does not allow <code>NULL</code> to be in a key.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="introducion-to-sql.html#cb6-1" tabindex="-1"></a><span class="co">---- Assigning name as a primary key ---</span></span>
+<span id="cb6-2"><a href="introducion-to-sql.html#cb6-2" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar(</span>
+<span id="cb6-3"><a href="introducion-to-sql.html#cb6-3" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span></span>
+<span id="cb6-4"><a href="introducion-to-sql.html#cb6-4" tabindex="-1"></a>  ,address <span class="dt">VARCHAR</span>(<span class="dv">255</span>)</span>
+<span id="cb6-5"><a href="introducion-to-sql.html#cb6-5" tabindex="-1"></a>  ,gender <span class="dt">CHAR</span>(<span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="introducion-to-sql.html#cb6-6" tabindex="-1"></a>  ,birthdate <span class="dt">DATE</span></span>
+<span id="cb6-7"><a href="introducion-to-sql.html#cb6-7" tabindex="-1"></a>);</span>
+<span id="cb6-8"><a href="introducion-to-sql.html#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="introducion-to-sql.html#cb6-9" tabindex="-1"></a><span class="co">---- You can assign keys after declaring all attributes as well! ----</span></span>
+<span id="cb6-10"><a href="introducion-to-sql.html#cb6-10" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar(</span>
+<span id="cb6-11"><a href="introducion-to-sql.html#cb6-11" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>)</span>
+<span id="cb6-12"><a href="introducion-to-sql.html#cb6-12" tabindex="-1"></a>  ,address <span class="dt">VARCHAR</span>(<span class="dv">255</span>)</span>
+<span id="cb6-13"><a href="introducion-to-sql.html#cb6-13" tabindex="-1"></a>  ,gender <span class="dt">CHAR</span>(<span class="dv">1</span>)</span>
+<span id="cb6-14"><a href="introducion-to-sql.html#cb6-14" tabindex="-1"></a>  ,birthdate <span class="dt">DATE</span></span>
+<span id="cb6-15"><a href="introducion-to-sql.html#cb6-15" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (name)</span>
+<span id="cb6-16"><a href="introducion-to-sql.html#cb6-16" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="constraints" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Constraints<a class="anchor" aria-label="anchor" href="#constraints"><i class="fas fa-link"></i></a>
+</h2>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="relational-algebra.html"><span class="header-section-number">3</span> Relational Algebra</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introducion-to-sql"><span class="header-section-number">4</span> Introducion to SQL</a></li>
+<li>
+<a class="nav-link" href="#defining-relationship-schemas-in-sql"><span class="header-section-number">4.1</span> Defining Relationship Schemas in SQL</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#relations-in-sql"><span class="header-section-number">4.1.1</span> Relations in SQL</a></li>
+<li><a class="nav-link" href="#data-types"><span class="header-section-number">4.1.2</span> Data Types</a></li>
+<li><a class="nav-link" href="#modifying-relation-schemas"><span class="header-section-number">4.1.3</span> Modifying Relation Schemas</a></li>
+<li><a class="nav-link" href="#default-values"><span class="header-section-number">4.1.4</span> Default Values</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#constraints"><span class="header-section-number">4.2</span> Constraints</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>CSE 560 - Notes</strong>" was written by Jason Caballes. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

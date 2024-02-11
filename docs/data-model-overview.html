@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 Data Model Overview | CSE 560 - Notes</title>
+<meta name="author" content="Jason Caballes">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="2 Data Model Overview | CSE 560 - Notes">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 Data Model Overview | CSE 560 - Notes">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="2.1 Relational Model Basics  2.1.1 What is a data model? A data model is an abstract is an abstract model to describe a collection of data and how we can interact with it. Data models contain...">
+<meta property="og:description" content="2.1 Relational Model Basics  2.1.1 What is a data model? A data model is an abstract is an abstract model to describe a collection of data and how we can interact with it. Data models contain...">
+<meta name="twitter:description" content="2.1 Relational Model Basics  2.1.1 What is a data model? A data model is an abstract is an abstract model to describe a collection of data and how we can interact with it. Data models contain...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">CSE 560 - Notes</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Jason’s CSE 560 Notes</a></li>
+<li><a class="active" href="data-model-overview.html"><span class="header-section-number">2</span> Data Model Overview</a></li>
+<li><a class="" href="relational-algebra.html"><span class="header-section-number">3</span> Relational Algebra</a></li>
+<li><a class="" href="introducion-to-sql.html"><span class="header-section-number">4</span> Introducion to SQL</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="data-model-overview" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Data Model Overview<a class="anchor" aria-label="anchor" href="#data-model-overview"><i class="fas fa-link"></i></a>
+</h1>
+<div id="relational-model-basics" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Relational Model Basics<a class="anchor" aria-label="anchor" href="#relational-model-basics"><i class="fas fa-link"></i></a>
+</h2>
+<div id="what-is-a-data-model" class="section level3" number="2.1.1">
+<h3>
+<span class="header-section-number">2.1.1</span> What is a data model?<a class="anchor" aria-label="anchor" href="#what-is-a-data-model"><i class="fas fa-link"></i></a>
+</h3>
+<p>A data model is an abstract is an abstract model to describe a collection of data and how we can interact with it.</p>
+<p>Data models contain three parts:<br>
+1. Structure of Data<br>
+2. Operation on Data<br>
+3. Constraints on Data</p>
+</div>
+<div id="types-of-data-models" class="section level3" number="2.1.2">
+<h3>
+<span class="header-section-number">2.1.2</span> Types of Data Models<a class="anchor" aria-label="anchor" href="#types-of-data-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are two mainstream types of data models:
+1. Relational Models
+2. Semi-structured Models</p>
+<p>Relational models include object_relational models. Operations applied to relational models are based off of relational algebra. Data is organized in a two-dimensional table called a relation.</p>
+<p>Why do we use relations? Relations are simple and intuitive to use. They are also the models that underly SQL. Object-relational extentions also add storage of non-primitive objects and methods for relations.</p>
+<p>Semi-structured Models typically store tree based data like XML files. Data and data types are organized by tags (think of HTML tags).</p>
+</div>
+<div id="relational-models-structure-operations-constraints" class="section level3" number="2.1.3">
+<h3>
+<span class="header-section-number">2.1.3</span> Relational Models: Structure, Operations, Constraints<a class="anchor" aria-label="anchor" href="#relational-models-structure-operations-constraints"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Columns</strong> are called <strong>attributes</strong>. They describe the information being provided.</p>
+<p>The <strong>schema</strong> describes the name of a relation and the set of all attributes for the relation.</p>
+<p><strong>Attributes in</strong> a <strong>schema</strong> are a <strong>set</strong> and NOT a list (all values are unique and order does not matter). When creating a relation schema, the order of attributes matter.</p>
+<p>The <strong>set of schemas for relations</strong> in a database is know as a “<strong>Database Schema</strong>”.</p>
+<p><strong>Tuples</strong> are the rows of a <strong>relation</strong>.<br>
+A <strong>component</strong> is the tuple’s value for an attribute provided by a schema.<br>
+tuples have one component for each attribute provided by a schema. In practice, start a relation name with a capital letter and attributes with a lowercase letter.<br>
+The <strong>domain</strong> of an attribute/tuple is the <strong>data type</strong> associated with it. <strong>All domains</strong> must be of <strong>atomic</strong> (primitive) data types.<br>
+Relations are sets of tuples, therefore all tuples in a relation are unique and the order of relations does not matter.<br>
+A _subset of tuples__ from a relation is known as an <strong>instance of that relation</strong>.<br>
+We can reorder attributes and therefore the components of an instance, however changing the order of a relation’s schema changes the default attribute order of new instances of that relation.<br>
+Database systems store a relation instance that mimics the relation’s schema. This is instance is known as the <strong>current instance</strong>.<br>
+Past versions of the current instance are called <strong>temporal instances</strong></p>
+</div>
+<div id="relation-keys" class="section level3" number="2.1.4">
+<h3>
+<span class="header-section-number">2.1.4</span> Relation Keys<a class="anchor" aria-label="anchor" href="#relation-keys"><i class="fas fa-link"></i></a>
+</h3>
+<p>A set of attributes in a relation form a <strong>key</strong> if we do not allow two tuples in the relation to have the same values for that set of attributes. That is, for each tuple, their components must be unique to all other tuples for the attributes assigned to be a key.<br>
+If a set of attributes is a key for a relation, then the same set of attributes must be a key for all instances of that relation.<br>
+Many real-world databases use artificial keys (think UB person Number).<br>
+Keys are pretty common in industry.</p>
+</div>
+</div>
+<div id="defining-relationship-schemas-in-sql" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Defining Relationship Schemas in SQL<a class="anchor" aria-label="anchor" href="#defining-relationship-schemas-in-sql"><i class="fas fa-link"></i></a>
+</h2>
+<p>The current standard for SQL is <strong>SQL-99</strong>. There are two aspects to SQL:<br>
+1. The <strong>Data-Definition</strong> to declare database schemas<br>
+2. The <strong>Data_Manipulation</strong> sub-language for querying/modifying databases</p>
+<div id="relations-in-sql" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Relations in SQL<a class="anchor" aria-label="anchor" href="#relations-in-sql"><i class="fas fa-link"></i></a>
+</h3>
+<p>SQL makes a distinction between three kinds of relations:<br>
+1. <strong>Stored relations</strong>, which are called <strong>tables</strong><br>
+2. <strong>Views</strong>, which are relations designed by some computation. This relations are not stored, but constructed when needed<br>
+3. <strong>Temporary Tables</strong> which are constructed by the SQL language processor when executing queries and data modifications. These relations are not stored and discarded when no longer used.</p>
+<p>To declare a schema for a stored relation, do the following</p>
+<pre><code>CREATE TABLE -- SOME TABLE NAME --</code></pre>
+</div>
+<div id="data-types" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
+</h3>
+<p>The following are primitive data types that are supported by SQL</p>
+<div id="character-strings" class="section level4" number="2.2.2.1">
+<h4>
+<span class="header-section-number">2.2.2.1</span> Character Strings<a class="anchor" aria-label="anchor" href="#character-strings"><i class="fas fa-link"></i></a>
+</h4>
+<p>They can be of fixed or variable length. To type a fixed length character string, use <code>CHAR(n)</code> for some length <span class="math inline">\(n\)</span>. To create a variable length character string, use <code>VARCHAR(n)</code> for some length <span class="math inline">\(n\)</span>. If a component of a tuple with a domain of <code>CHAR(n)</code> is given and the length of the component is less than <span class="math inline">\(n\)</span>, the component is padded with white space.</p>
+</div>
+<div id="bit-strings" class="section level4" number="2.2.2.2">
+<h4>
+<span class="header-section-number">2.2.2.2</span> Bit Strings<a class="anchor" aria-label="anchor" href="#bit-strings"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bit strings can be of fixed or varying length. This data type is analogous to character strings, but their values are strings of bits rather than characters.</p>
+</div>
+<div id="booleans" class="section level4" number="2.2.2.3">
+<h4>
+<span class="header-section-number">2.2.2.3</span> BOOLEANs<a class="anchor" aria-label="anchor" href="#booleans"><i class="fas fa-link"></i></a>
+</h4>
+<p>Booleans denote an attribute whose value is logical. The possible values that a boolean can take are <strong>TRUE, FALSE, UNKNOWN</strong>.</p>
+</div>
+<div id="ints" class="section level4" number="2.2.2.4">
+<h4>
+<span class="header-section-number">2.2.2.4</span> INTs<a class="anchor" aria-label="anchor" href="#ints"><i class="fas fa-link"></i></a>
+</h4>
+<p>Ints or (Integers) denote some integer value. <code>SHORTINT</code> is also an int but is may have less bits.</p>
+</div>
+<div id="floating-point-numbers" class="section level4" number="2.2.2.5">
+<h4>
+<span class="header-section-number">2.2.2.5</span> Floating-Point Numbers<a class="anchor" aria-label="anchor" href="#floating-point-numbers"><i class="fas fa-link"></i></a>
+</h4>
+<p>Floating points are denoted by <code>FLOAT</code> or <code>REAL</code>. If you would like higher precision with floats, use <code>DOUBLE PRECISION</code>. Like character strings, floats can be of fixed decimal length. You can declare decimal length but calling <code>DECIMAL(n, d)</code> where <span class="math inline">\(n\)</span> is the total number of digits allowed for the float nad <span class="math inline">\(d\)</span> is the number of digits passed the decimal.</p>
+</div>
+<div id="dates-and-times" class="section level4" number="2.2.2.6">
+<h4>
+<span class="header-section-number">2.2.2.6</span> Dates and Times<a class="anchor" aria-label="anchor" href="#dates-and-times"><i class="fas fa-link"></i></a>
+</h4>
+<p>Dates and times are declared using <code>DATE</code> and <code>TIME</code> respectively. Dates and times are a special form of character strings. Adding a string after the <code>DATE</code> declaration specifies the format of the date. For example <code>DATE '1948-05-14'</code> creates a date value with the form “YYYY-MM-DD”. The same can be done with time. For example <code>TIME '15:00:02.5'</code> specifies that you want to represent time with the format “HH:MM:SS” with the attachment of milliseconds.</p>
+<p>The follow is a simple example of a Relation Schema declaration</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="data-model-overview.html#cb2-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> Movies(</span>
+<span id="cb2-2"><a href="data-model-overview.html#cb2-2" tabindex="-1"></a>  title <span class="dt">CHAR</span>(<span class="dv">100</span>) <span class="co">-- Character string with 100 characters</span></span>
+<span id="cb2-3"><a href="data-model-overview.html#cb2-3" tabindex="-1"></a>  ,<span class="dt">year</span> <span class="dt">INT</span></span>
+<span id="cb2-4"><a href="data-model-overview.html#cb2-4" tabindex="-1"></a>  ,lengh <span class="dt">INT</span></span>
+<span id="cb2-5"><a href="data-model-overview.html#cb2-5" tabindex="-1"></a>  ,genre <span class="dt">CHAR</span>(<span class="dv">10</span>)</span>
+<span id="cb2-6"><a href="data-model-overview.html#cb2-6" tabindex="-1"></a>  ,studioName <span class="dt">CHAR</span>(<span class="dv">30</span>)</span>
+<span id="cb2-7"><a href="data-model-overview.html#cb2-7" tabindex="-1"></a>  ,producerC# <span class="dt">INT</span></span>
+<span id="cb2-8"><a href="data-model-overview.html#cb2-8" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+</div>
+<div id="modifying-relation-schemas" class="section level3" number="2.2.3">
+<h3>
+<span class="header-section-number">2.2.3</span> Modifying Relation Schemas<a class="anchor" aria-label="anchor" href="#modifying-relation-schemas"><i class="fas fa-link"></i></a>
+</h3>
+<p>To delete or “drop” a table from a database, execute the following</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="data-model-overview.html#cb3-1" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE --;</span></span></code></pre></div>
+<p>When dropping at able, the table no longer exists in the database schema. To modify and existing table, use the <code>ALTER</code> keyword</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="data-model-overview.html#cb4-1" tabindex="-1"></a><span class="co">---- Modifying a table to add a new attribute to its schema ----</span></span>
+<span id="cb4-2"><a href="data-model-overview.html#cb4-2" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE -- ADD -- SOME ATTRIBUTE -- CHAR(16); </span></span>
+<span id="cb4-3"><a href="data-model-overview.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="data-model-overview.html#cb4-4" tabindex="-1"></a><span class="co">---- Modifying a table to remove an attribute from its schema ----</span></span>
+<span id="cb4-5"><a href="data-model-overview.html#cb4-5" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE -- DROP -- SOME ATTRIBUTE IN SCHEMA --; </span></span></code></pre></div>
+</div>
+<div id="default-values" class="section level3" number="2.2.4">
+<h3>
+<span class="header-section-number">2.2.4</span> Default Values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>When adding a new attribute to a relation’s schema, all tuples require some value for that attribute. Database systems will default that value to <code>NULL</code>, but what if you want a specific value for it default to? What if data is uploaded randomly and not all tuples have values for each component? In this case we can use the <code>DEFAULT</code> keyword to add a specific value instead using <code>NULL</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="data-model-overview.html#cb5-1" tabindex="-1"></a><span class="co">---- Creating attributes and adding a default value when no data is made available ----</span></span>
+<span id="cb5-2"><a href="data-model-overview.html#cb5-2" tabindex="-1"></a>gender <span class="dt">CHAR</span>(<span class="dv">1</span>) <span class="kw">DEFAULT</span> <span class="st">'?'</span></span>
+<span id="cb5-3"><a href="data-model-overview.html#cb5-3" tabindex="-1"></a>name <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">DEFAULT</span> <span class="st">'No Name :('</span></span></code></pre></div>
+<div id="declaring-keys" class="section level4" number="2.2.4.1">
+<h4>
+<span class="header-section-number">2.2.4.1</span> Declaring Keys<a class="anchor" aria-label="anchor" href="#declaring-keys"><i class="fas fa-link"></i></a>
+</h4>
+<p>There are two ways to assign a set of attributes to be a key. Keys are defined in the declaration of the database schema, i.e. the <code>CREATE TABLE</code> statement.</p>
+<p>Use <code>PRIMARY KEY</code> or <code>UNIQUE</code> to declare a set of attributes to be a key. Remember, that keys must always be unique for each tuple. The difference between <code>PRIMARY KEY</code> and <code>UNIQUE</code> is that components a tuple are allowed to have <code>NULL</code> as a value when using <code>UNIQUE</code>. On the other hand, using <code>PRIMARY KEY</code> does not allow <code>NULL</code> to be in a key.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="data-model-overview.html#cb6-1" tabindex="-1"></a><span class="co">---- Assigning name as a primary key ---</span></span>
+<span id="cb6-2"><a href="data-model-overview.html#cb6-2" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar(</span>
+<span id="cb6-3"><a href="data-model-overview.html#cb6-3" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span></span>
+<span id="cb6-4"><a href="data-model-overview.html#cb6-4" tabindex="-1"></a>  ,address <span class="dt">VARCHAR</span>(<span class="dv">255</span>)</span>
+<span id="cb6-5"><a href="data-model-overview.html#cb6-5" tabindex="-1"></a>  ,gender <span class="dt">CHAR</span>(<span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="data-model-overview.html#cb6-6" tabindex="-1"></a>  ,birthdate <span class="dt">DATE</span></span>
+<span id="cb6-7"><a href="data-model-overview.html#cb6-7" tabindex="-1"></a>);</span>
+<span id="cb6-8"><a href="data-model-overview.html#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="data-model-overview.html#cb6-9" tabindex="-1"></a><span class="co">---- You can assign keys after declaring all attributes as well! ----</span></span>
+<span id="cb6-10"><a href="data-model-overview.html#cb6-10" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar(</span>
+<span id="cb6-11"><a href="data-model-overview.html#cb6-11" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>)</span>
+<span id="cb6-12"><a href="data-model-overview.html#cb6-12" tabindex="-1"></a>  ,address <span class="dt">VARCHAR</span>(<span class="dv">255</span>)</span>
+<span id="cb6-13"><a href="data-model-overview.html#cb6-13" tabindex="-1"></a>  ,gender <span class="dt">CHAR</span>(<span class="dv">1</span>)</span>
+<span id="cb6-14"><a href="data-model-overview.html#cb6-14" tabindex="-1"></a>  ,birthdate <span class="dt">DATE</span></span>
+<span id="cb6-15"><a href="data-model-overview.html#cb6-15" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (name)</span>
+<span id="cb6-16"><a href="data-model-overview.html#cb6-16" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="algebraic-query-language" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Algebraic Query Language<a class="anchor" aria-label="anchor" href="#algebraic-query-language"><i class="fas fa-link"></i></a>
+</h2>
+<p>SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. Relational algebra is designed to be simple and less powerful in comparison to languages like C or Java to allow for optimization and ease of use. Relational algebra is justa form of algebra.<br>
+In relational algebra, relations are variables and finite relations are constants. Relations are the operands in relational algebra.</p>
+<div id="operations-of-relational-algebra" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Operations of Relational Algebra<a class="anchor" aria-label="anchor" href="#operations-of-relational-algebra"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are four fundamental types of operations in relational algebra:<br>
+1. <strong>Selection <span class="math inline">\(\sigma_{C}{(R)}\)</span></strong> - This operation chooses a subset of tuples. <span class="math inline">\(C\)</span> is a set of conditions and <span class="math inline">\(R\)</span> is the input of function indicating the relation we want to apply the selection to.<br>
+2. <strong>Projection <span class="math inline">\(\pi_{A_{1}, A_{2}, ...}\)</span></strong> - This operation choose a subset of columns. Each <span class="math inline">\(A_{i}\)</span> in the subscript is simply the attributes we want to project. In relational algebra of sets, duplicate tuples are always removed.<br>
+3. <strong>Cartesian Product <span class="math inline">\(R \times S\)</span></strong> - This concatenates two tuples together. Conventionally, the attributes of in the left side of <span class="math inline">\(\times\)</span> are populated first!<br>
+4. <strong>Renaming <span class="math inline">\(\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}\)</span></strong> - This changes the names of attributes or relations in the relation schema. <span class="math inline">\(R\)</span> is the relation whos name we are trying to change, <span class="math inline">\(S\)</span> is the new name of <span class="math inline">\(R\)</span>, and <span class="math inline">\(A_{1}, A_{2},..., A_{n}\)</span> are the attribute with their corresponding new names. The attributes are listed in order of their definition in the relation’s schema. If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.</p>
+<p>When working with multiple relations, we typically follow the fundamental operations from set theory:<br>
+1. <strong>Unions <span class="math inline">\(R \cup S\)</span></strong> - This is the set of elements in R or S or both. If an element appears in both, it is presented only once in union<br>
+2. <strong>Intersection <span class="math inline">\(R \cap S\)</span></strong> - This is the set of elements in both R and S<br>
+3. <strong>Difference <span class="math inline">\(R - S\)</span> (R not in S)</strong> - This is the set of elements in R, but not in S. Note that this is different from <span class="math inline">\(S - R\)</span>, which means the set of elements in S, but not in R.</p>
+<p>When applying these operations to two tables, we implement some conditions with it:<br>
+1. R and S must have schemas with idential attributres and the domains for each attribute must be the same in R and S<br>
+2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations. We cannot do operations on <span class="math inline">\(R = \{Int, Char\}\)</span> to <span class="math inline">\(S = \{Char, Int\}\)</span>. If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations.</p>
+</div>
+<div id="natural-joins---r-bowtie-s" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> Natural Joins - <span class="math inline">\(R \bowtie S\)</span><a class="anchor" aria-label="anchor" href="#natural-joins---r-bowtie-s"><i class="fas fa-link"></i></a>
+</h3>
+<p>If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join. The equivalent component will only appear once. A tuple that fails to pair with any tuple of another relation in a join is know as a <em>dangling tuple</em></p>
+</div>
+<div id="theta-joins---r-bowtie_c-s" class="section level3" number="2.3.3">
+<h3>
+<span class="header-section-number">2.3.3</span> Theta Joins - <span class="math inline">\(R \bowtie_{C} S\)</span><a class="anchor" aria-label="anchor" href="#theta-joins---r-bowtie_c-s"><i class="fas fa-link"></i></a>
+</h3>
+<p>Theta joins are simply natural joins with a condition. To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions. Theta joins are called theta joins because the conditions were originally represented by <span class="math inline">\(\theta\)</span>.</p>
+</div>
+</div>
+<div id="constraints" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Constraints<a class="anchor" aria-label="anchor" href="#constraints"><i class="fas fa-link"></i></a>
+</h2>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Jason’s CSE 560 Notes</a></div>
+<div class="next"><a href="relational-algebra.html"><span class="header-section-number">3</span> Relational Algebra</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-model-overview"><span class="header-section-number">2</span> Data Model Overview</a></li>
+<li>
+<a class="nav-link" href="#relational-model-basics"><span class="header-section-number">2.1</span> Relational Model Basics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#what-is-a-data-model"><span class="header-section-number">2.1.1</span> What is a data model?</a></li>
+<li><a class="nav-link" href="#types-of-data-models"><span class="header-section-number">2.1.2</span> Types of Data Models</a></li>
+<li><a class="nav-link" href="#relational-models-structure-operations-constraints"><span class="header-section-number">2.1.3</span> Relational Models: Structure, Operations, Constraints</a></li>
+<li><a class="nav-link" href="#relation-keys"><span class="header-section-number">2.1.4</span> Relation Keys</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#defining-relationship-schemas-in-sql"><span class="header-section-number">2.2</span> Defining Relationship Schemas in SQL</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#relations-in-sql"><span class="header-section-number">2.2.1</span> Relations in SQL</a></li>
+<li><a class="nav-link" href="#data-types"><span class="header-section-number">2.2.2</span> Data Types</a></li>
+<li><a class="nav-link" href="#modifying-relation-schemas"><span class="header-section-number">2.2.3</span> Modifying Relation Schemas</a></li>
+<li><a class="nav-link" href="#default-values"><span class="header-section-number">2.2.4</span> Default Values</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#algebraic-query-language"><span class="header-section-number">2.3</span> Algebraic Query Language</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#operations-of-relational-algebra"><span class="header-section-number">2.3.1</span> Operations of Relational Algebra</a></li>
+<li><a class="nav-link" href="#natural-joins---r-bowtie-s"><span class="header-section-number">2.3.2</span> Natural Joins - \(R \bowtie S\)</a></li>
+<li><a class="nav-link" href="#theta-joins---r-bowtie_c-s"><span class="header-section-number">2.3.3</span> Theta Joins - \(R \bowtie_{C} S\)</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#constraints"><span class="header-section-number">2.4</span> Constraints</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>CSE 560 - Notes</strong>" was written by Jason Caballes. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
