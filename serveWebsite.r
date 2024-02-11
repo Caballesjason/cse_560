@@ -8,6 +8,3 @@ run_test_site <- function() {
 }
 
 run_test_site()
-
-
-

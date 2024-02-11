@@ -24,7 +24,7 @@ When working with multiple relations, we typically follow the fundamental operat
 3. __Difference $R - S$ (R not in S)__ - This is the set of elements in R, but not in S.  Note that this is different from $S - R$, which means the set of elements in S, but not in R.
 
 When applying these operations to two tables, we implement some conditions with it:   
-1. R and S must have schemas with idential attributres and the domains for each attribute must be the same in R and S   
+1. R and S must have schemas with identical attributes and the domains for each attribute must be the same in R and S   
 2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations.  We cannot do operations on $R = \{Int, Char\}$ to $S = \{Char, Int\}$.  If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations.
 
 ## Natural Joins - $R \bowtie S$
