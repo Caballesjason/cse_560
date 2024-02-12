@@ -1,4 +1,3 @@
-jasons-cse-560-notes
 syllabus
 piazza
 zoom-link
@@ -12,7 +11,7 @@ relation-keys
 expressing-tables-without-relational-algebra-and-sql
 relational-algebra
 algebraic-query-language
-operations-of-relational-algebra
+relational-algebra-operations
 natural-joins---r-bowtie-s
 theta-joins---r-bowtie_c-s
 introducion-to-sql

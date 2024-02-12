@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>3 Relational Algebra | CSE 560 - Notes</title>
+<title>2 Relational Algebra | CSE 560 - Notes</title>
 <meta name="author" content="Jason Caballes">
 <meta name="generator" content="bookdown 0.37 with bs4_book()">
-<meta property="og:title" content="3 Relational Algebra | CSE 560 - Notes">
+<meta property="og:title" content="2 Relational Algebra | CSE 560 - Notes">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3 Relational Algebra | CSE 560 - Notes">
+<meta name="twitter:title" content="2 Relational Algebra | CSE 560 - Notes">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="3.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. Relational algebra is designed to be simple and less...">
-<meta property="og:description" content="3.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. Relational algebra is designed to be simple and less...">
-<meta name="twitter:description" content="3.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. Relational algebra is designed to be simple and less...">
+<meta name="description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and...">
+<meta property="og:description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and...">
+<meta name="twitter:description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -41,72 +41,72 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html"><span class="header-section-number">1</span> Jason’s CSE 560 Notes</a></li>
-<li><a class="" href="relational-databases.html"><span class="header-section-number">2</span> Relational Databases</a></li>
-<li><a class="active" href="relational-algebra.html"><span class="header-section-number">3</span> Relational Algebra</a></li>
-<li><a class="" href="introducion-to-sql.html"><span class="header-section-number">4</span> Introducion to SQL</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">2</span> Relational Algebra</a></li></ul>
 
         <div class="book-extra">
           
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="relational-algebra" class="section level1" number="3">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="relational-algebra" class="section level1" number="2">
 <h1>
-<span class="header-section-number">3</span> Relational Algebra<a class="anchor" aria-label="anchor" href="#relational-algebra"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2</span> Relational Algebra<a class="anchor" aria-label="anchor" href="#relational-algebra"><i class="fas fa-link"></i></a>
 </h1>
-<div id="algebraic-query-language" class="section level2" number="3.1">
+<div id="algebraic-query-language" class="section level2" number="2.1">
 <h2>
-<span class="header-section-number">3.1</span> Algebraic Query Language<a class="anchor" aria-label="anchor" href="#algebraic-query-language"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1</span> Algebraic Query Language<a class="anchor" aria-label="anchor" href="#algebraic-query-language"><i class="fas fa-link"></i></a>
 </h2>
-<p>SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. Relational algebra is designed to be simple and less powerful in comparison to languages like C or Java to allow for optimization and ease of use. Relational algebra is justa form of algebra.<br>
-In relational algebra, relations are variables and finite relations are constants. Relations are the operands in relational algebra.</p>
-</div>
-<div id="operations-of-relational-algebra" class="section level2" number="3.2">
-<h2>
-<span class="header-section-number">3.2</span> Operations of Relational Algebra<a class="anchor" aria-label="anchor" href="#operations-of-relational-algebra"><i class="fas fa-link"></i></a>
-</h2>
-<p>There are four fundamental types of operations in relational algebra:<br>
-1. <strong>Selection <span class="math inline">\(\sigma_{C}{(R)}\)</span></strong> - This operation chooses a subset of tuples. <span class="math inline">\(C\)</span> is a set of conditions and <span class="math inline">\(R\)</span> is the input of function indicating the relation we want to apply the selection to.<br>
-2. <strong>Projection <span class="math inline">\(\pi_{A_{1}, A_{2}, ...}\)</span></strong> - This operation choose a subset of columns. Each <span class="math inline">\(A_{i}\)</span> in the subscript is simply the attributes we want to project. In relational algebra of sets, duplicate tuples are always removed.<br>
-3. <strong>Cartesian Product <span class="math inline">\(R \times S\)</span></strong> - This concatenates two tuples together. Conventionally, the attributes of in the left side of <span class="math inline">\(\times\)</span> are populated first!<br>
-4. <strong>Renaming <span class="math inline">\(\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}\)</span></strong> - This changes the names of attributes or relations in the relation schema. <span class="math inline">\(R\)</span> is the relation whos name we are trying to change, <span class="math inline">\(S\)</span> is the new name of <span class="math inline">\(R\)</span>, and <span class="math inline">\(A_{1}, A_{2},..., A_{n}\)</span> are the attribute with their corresponding new names. The attributes are listed in order of their definition in the relation’s schema. If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.</p>
-<p>When working with multiple relations, we typically follow the fundamental operations from set theory:<br>
+<p>SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and C. Java and C allows for freedom and choice of how to manipulate/organize data. This can be used to optimize code, but you require the knowledge to do so. SQL is simplistic to avoid the knowledge gap. Relational algebra is just a form of algebra. In relational algebra, relations are variables and finite relations are constants. In other words, relations are the operands in relational algebra.</p>
+<p>When Database Management Systems (DBMS) process queries, the first thing the system does is translate the queries into relational algebra or a very similar internal representation of it.</p>
+<p>We will talk about the following operations in that can be done in relational algebra:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Selection <span class="math inline">\(\sigma_{C}{(R)}\)</span></strong> - This operation chooses a subset of tuples. <span class="math inline">\(C\)</span> is a set of conditions that determines which tuples are chosen and <span class="math inline">\(R\)</span> is the input of <span class="math inline">\(\sigma\)</span> that indicates which relation we want to execute the selection on.<br>
+</li>
+<li>
+<strong>Projection <span class="math inline">\(\pi_{A_{1}, A_{2}, ...}\)</span></strong> - This operation choose a subset of columns. Each <span class="math inline">\(A_{i}\)</span> in the subscript is simply the attributes we want to project (select). In relational algebra of sets, duplicate tuples are always removed.<br>
+</li>
+<li>
+<strong>Cartesian Products/Joins <span class="math inline">\(R \times S\)</span></strong> - This concatenates two tuples together. Conventionally, the attributes of in the left side of <span class="math inline">\(\times\)</span> are populated first!<br>
+</li>
+<li>
+<strong>Renaming <span class="math inline">\(\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}\)</span></strong> - This changes the names of attributes or relations in the relation schema. <span class="math inline">\(R\)</span> is the relation whos name we are trying to change, <span class="math inline">\(S\)</span> is the new name of <span class="math inline">\(R\)</span>, and <span class="math inline">\(A_{1}, A_{2},..., A_{n}\)</span> are the attribute with their corresponding new names. The attributes are listed in order of their definition in the relation’s schema. If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.</li>
+</ol>
+<p>When working with multiple relations, we typically also apply the fundamental operations from set theory:<br>
 1. <strong>Unions <span class="math inline">\(R \cup S\)</span></strong> - This is the set of elements in R or S or both. If an element appears in both, it is presented only once in union<br>
 2. <strong>Intersection <span class="math inline">\(R \cap S\)</span></strong> - This is the set of elements in both R and S<br>
 3. <strong>Difference <span class="math inline">\(R - S\)</span> (R not in S)</strong> - This is the set of elements in R, but not in S. Note that this is different from <span class="math inline">\(S - R\)</span>, which means the set of elements in S, but not in R.</p>
-<p>When applying these operations to two tables, we implement some conditions with it:<br>
+<p>When applying these operations to two tables, we implement some constraints with it:<br>
 1. R and S must have schemas with identical attributes and the domains for each attribute must be the same in R and S<br>
-2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations. We cannot do operations on <span class="math inline">\(R = \{Int, Char\}\)</span> to <span class="math inline">\(S = \{Char, Int\}\)</span>. If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations.</p>
+2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations. We cannot do operations on <span class="math inline">\(R = \{Int, Char\}\)</span> to <span class="math inline">\(S = \{Char, Int\}\)</span>. If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations. This is because we can just rename the attributes.</p>
+<p>We will now go in more depth with each operation.</p>
+<!-- Continue here -->
 </div>
-<div id="natural-joins---r-bowtie-s" class="section level2" number="3.3">
+<div id="relational-algebra-operations" class="section level2" number="2.2">
 <h2>
-<span class="header-section-number">3.3</span> Natural Joins - <span class="math inline">\(R \bowtie S\)</span><a class="anchor" aria-label="anchor" href="#natural-joins---r-bowtie-s"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2</span> Relational Algebra Operations<a class="anchor" aria-label="anchor" href="#relational-algebra-operations"><i class="fas fa-link"></i></a>
 </h2>
+<div id="natural-joins---r-bowtie-s" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Natural Joins - <span class="math inline">\(R \bowtie S\)</span><a class="anchor" aria-label="anchor" href="#natural-joins---r-bowtie-s"><i class="fas fa-link"></i></a>
+</h3>
 <p>If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join. The equivalent component will only appear once. A tuple that fails to pair with any tuple of another relation in a join is know as a <em>dangling tuple</em></p>
 </div>
-<div id="theta-joins---r-bowtie_c-s" class="section level2" number="3.4">
-<h2>
-<span class="header-section-number">3.4</span> Theta Joins - <span class="math inline">\(R \bowtie_{C} S\)</span><a class="anchor" aria-label="anchor" href="#theta-joins---r-bowtie_c-s"><i class="fas fa-link"></i></a>
-</h2>
+<div id="theta-joins---r-bowtie_c-s" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Theta Joins - <span class="math inline">\(R \bowtie_{C} S\)</span><a class="anchor" aria-label="anchor" href="#theta-joins---r-bowtie_c-s"><i class="fas fa-link"></i></a>
+</h3>
 <p>Theta joins are simply natural joins with a condition. To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions. Theta joins are called theta joins because the conditions were originally represented by <span class="math inline">\(\theta\)</span>.</p>
 
 </div>
 </div>
+</div>
   <div class="chapter-nav">
-<div class="prev"><a href="relational-databases.html"><span class="header-section-number">2</span> Relational Databases</a></div>
-<div class="next"><a href="introducion-to-sql.html"><span class="header-section-number">4</span> Introducion to SQL</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#relational-algebra"><span class="header-section-number">3</span> Relational Algebra</a></li>
-<li><a class="nav-link" href="#algebraic-query-language"><span class="header-section-number">3.1</span> Algebraic Query Language</a></li>
-<li><a class="nav-link" href="#operations-of-relational-algebra"><span class="header-section-number">3.2</span> Operations of Relational Algebra</a></li>
-<li><a class="nav-link" href="#natural-joins---r-bowtie-s"><span class="header-section-number">3.3</span> Natural Joins - \(R \bowtie S\)</a></li>
-<li><a class="nav-link" href="#theta-joins---r-bowtie_c-s"><span class="header-section-number">3.4</span> Theta Joins - \(R \bowtie_{C} S\)</a></li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">

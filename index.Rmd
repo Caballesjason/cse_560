@@ -6,7 +6,10 @@ documentclass: "book"
 output:
   bookdown::bs4_book: "default"
 ---
-# Jason's CSE 560 Notes
+
+<!-- Use "{-}" if you want to exclude a heading in the numbering of headings -->
+
+# Jason's CSE 560 Notes {-}
 Hello to anyone reading this.  This is Jason Caballes' notes for CSE 560 :)
 
 ## Syllabus

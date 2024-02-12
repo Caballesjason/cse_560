@@ -7,28 +7,34 @@ output:
 
 # Relational Algebra
 ## Algebraic Query Language
-SQL is built upon relational Algebra and typically is "syntactically sugared" for optimization and ease of use. Relational algebra is designed to be simple and less powerful in comparison to languages like C or Java to allow for optimization and ease of use.  Relational algebra is justa form of algebra.   
-In relational algebra, relations are variables and finite relations are constants.  Relations are the operands in relational algebra.
+SQL is built upon relational Algebra and typically is "syntactically sugared" for optimization and ease of use.  This is a different approach in comparison to Java and C.  Java and C allows for freedom and choice of how to manipulate/organize data.  This can be used to optimize code, but you require the knowledge to do so.  SQL is simplistic to avoid the knowledge gap.  Relational algebra is just a form of algebra.  In relational algebra, relations are variables and finite relations are constants.  In other words, relations are the operands in relational algebra.
 
-## Operations of Relational Algebra
-There are four fundamental types of operations in relational algebra:   
-1. __Selection $\sigma_{C}{(R)}$__ - This operation chooses a subset of tuples.  $C$ is a set of conditions and $R$ is the input of function indicating the relation we want to apply the selection to.    
-2. __Projection $\pi_{A_{1}, A_{2}, ...}$__ - This operation choose a subset of columns.  Each $A_{i}$ in the subscript is simply the attributes we want to project.  In relational algebra of sets, duplicate tuples are always removed.    
-3. __Cartesian Product $R \times S$__ - This concatenates two tuples together.  Conventionally, the attributes of in the left side of $\times$ are populated first!    
+When Database Management Systems (DBMS) process queries,  the first thing the system does is translate the queries into relational algebra or a very similar internal representation of it.
+
+We will talk about the following operations in that can be done in relational algebra:
+
+1. __Selection $\sigma_{C}{(R)}$__ - This operation chooses a subset of tuples.  $C$ is a set of conditions that determines which tuples are chosen and $R$ is the input of $\sigma$ that indicates which relation we want to execute the selection on.    
+2. __Projection $\pi_{A_{1}, A_{2}, ...}$__ - This operation choose a subset of columns.  Each $A_{i}$ in the subscript is simply the attributes we want to project (select).  In relational algebra of sets, duplicate tuples are always removed.    
+3. __Cartesian Products/Joins  $R \times S$__ - This concatenates two tuples together.  Conventionally, the attributes of in the left side of $\times$ are populated first!    
 4. __Renaming $\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}$__ - This changes the names of attributes or relations in the relation schema.  $R$ is the relation whos name we are trying to change, $S$ is the new name of $R$, and $A_{1}, A_{2},..., A_{n}$ are the attribute with their corresponding new names.  The attributes are listed in order of their definition in the relation's schema.  If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.
 
-
-When working with multiple relations, we typically follow the fundamental operations from set theory:   
+When working with multiple relations, we typically also apply the fundamental operations from set theory:   
 1. __Unions $R \cup S$__ - This is the set of elements in R or S or both.  If an element appears in both, it is presented only once in union    
 2. __Intersection $R \cap S$__ - This is the set of elements in both R and S    
 3. __Difference $R - S$ (R not in S)__ - This is the set of elements in R, but not in S.  Note that this is different from $S - R$, which means the set of elements in S, but not in R.
 
-When applying these operations to two tables, we implement some conditions with it:   
+When applying these operations to two tables, we implement some constraints with it:   
 1. R and S must have schemas with identical attributes and the domains for each attribute must be the same in R and S   
-2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations.  We cannot do operations on $R = \{Int, Char\}$ to $S = \{Char, Int\}$.  If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations.
+2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations.  We cannot do operations on $R = \{Int, Char\}$ to $S = \{Char, Int\}$.  If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations.  This is because we can just rename the attributes.
 
-## Natural Joins - $R \bowtie S$
+We will now go in more depth with each operation.
+
+<!-- Continue here -->
+
+## Relational Algebra Operations
+
+### Natural Joins - $R \bowtie S$
 If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
 
-## Theta Joins - $R \bowtie_{C} S$
+### Theta Joins - $R \bowtie_{C} S$
 Theta joins are simply natural joins with a condition.  To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions.  Theta joins are called theta joins because the conditions were originally represented by $\theta$.   
