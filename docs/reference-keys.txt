@@ -16,6 +16,7 @@ algebraic-query-language
 relational-algebra-operations
 selection
 projection
+extended-projection
 introducion-to-sql
 defining-relationship-schemas-in-sql
 relations-in-sql

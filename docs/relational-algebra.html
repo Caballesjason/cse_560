@@ -41,12 +41,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Jason’s CSE 560 Notes</a></li>
-<li><a class="" href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></li>
-<li><a class="active" href="relational-algebra.html"><span class="header-section-number">2</span> Relational Algebra</a></li>
-<li><a class="" href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">2</span> Relational Algebra</a></li></ul>
 
         <div class="book-extra">
           
@@ -203,33 +198,42 @@ R1 := \pi_{L}({R2}) \\ \text{L - List of attributes from R2} \\ \text{In English
 </tbody>
 </table></div>
 </div>
-<!-- Continue on slide 9 of relational algebra lecture -->
+<div id="extended-projection" class="section level4" number="2.2.2.1">
+<h4>
+<span class="header-section-number">2.2.2.1</span> Extended Projection<a class="anchor" aria-label="anchor" href="#extended-projection"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can create attributes for a projection by applying operations to attributes. Think of adding a constant to component of every tuple. or finding the difference between two columns as a new column.</p>
+<p>For example:</p>
+<p><span class="math display">\[
+R = \begin{matrix}
+A &amp; B \\
+\hline
+1 &amp; 2 \\
+3 &amp; 4
+\end{matrix}
+\qquad \text{Some relation } R
+\\~\\~\\ % ~ is an operartor to add multiple new lines
+R2 := \pi_{A+B\rightarrow{C}, A, B}({R}) \qquad \text{Assigning a new relation } R2 \text{ with  columns } A, B, C
+\]</span>
+<!-- Continue on slide 10 of relational algebra lecture -->
 <!---
 ### Natural Joins - $R \bowtie S$
 If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
 
 ### Theta Joins - $R \bowtie_{C} S$
 Theta joins are simply natural joins with a condition.  To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions.  Theta joins are called theta joins because the conditions were originally represented by $\theta$.   
---->
+---></p>
 
 </div>
 </div>
 </div>
+</div>
   <div class="chapter-nav">
-<div class="prev"><a href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></div>
-<div class="next"><a href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#relational-algebra"><span class="header-section-number">2</span> Relational Algebra</a></li>
-<li><a class="nav-link" href="#algebraic-query-language"><span class="header-section-number">2.1</span> Algebraic Query Language</a></li>
-<li>
-<a class="nav-link" href="#relational-algebra-operations"><span class="header-section-number">2.2</span> Relational Algebra Operations</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#selection"><span class="header-section-number">2.2.1</span> Selection</a></li>
-<li><a class="nav-link" href="#projection"><span class="header-section-number">2.2.2</span> Projection</a></li>
-</ul>
-</li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">

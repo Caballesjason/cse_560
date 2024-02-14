@@ -76,7 +76,22 @@ FROM instructor
 ```
 
 
+#### Extended Projection
+We can create attributes for a projection by applying operations to attributes.  Think of adding a constant to component of every tuple. or finding the difference between two columns as a new column.
 
+For example:
+
+$$
+R = \begin{matrix}
+A & B \\
+\hline
+1 & 2 \\
+3 & 4
+\end{matrix}
+\qquad \text{Some relation } R
+\\~\\~\\ % ~ is an operartor to add multiple new lines
+R2 := \pi_{A+B\rightarrow{C}, A, B}({R}) \qquad \text{Assigning a new relation } R2 \text{ with  columns } A, B, C
+$$
 <!-- Continue on slide 9 of relational algebra lecture -->
 <!---
 ### Natural Joins - $R \bowtie S$
