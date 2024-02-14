@@ -5,9 +5,14 @@ output:
   bookdown::bs4_book: "default"
 ---
 
+```{r Connection to University Database, message=FALSE, warning=FALSE, include=FALSE}
+library(DBI)
+library(RSQLite)
+conn <- dbConnect(RSQLite::SQLite(), "databases/University_Database.db")
+```
 # Relational Algebra
 ## Algebraic Query Language
-SQL is built upon relational Algebra and typically is "syntactically sugared" for optimization and ease of use.  This is a different approach in comparison to Java and C.  Java and C allows for freedom and choice of how to manipulate/organize data.  This can be used to optimize code, but you require the knowledge to do so.  SQL is simplistic to avoid the knowledge gap.  Relational algebra is just a form of algebra.  In relational algebra, relations are variables and finite relations are constants.  In other words, relations are the operands in relational algebra.
+SQL is built upon relational Algebra and is simplified for optimization and ease of use.  In relational algebra, relations are variables and finite relations are constants.  In other words, relations are the operands (thngs we apply operators to) in relational algebra.
 
 When Database Management Systems (DBMS) process queries,  the first thing the system does is translate the queries into relational algebra or a very similar internal representation of it.
 
@@ -15,26 +20,68 @@ We will talk about the following operations in that can be done in relational al
 
 1. __Selection $\sigma_{C}{(R)}$__ - This operation chooses a subset of tuples.  $C$ is a set of conditions that determines which tuples are chosen and $R$ is the input of $\sigma$ that indicates which relation we want to execute the selection on.    
 2. __Projection $\pi_{A_{1}, A_{2}, ...}$__ - This operation choose a subset of columns.  Each $A_{i}$ in the subscript is simply the attributes we want to project (select).  In relational algebra of sets, duplicate tuples are always removed.    
-3. __Cartesian Products/Joins  $R \times S$__ - This concatenates two tuples together.  Conventionally, the attributes of in the left side of $\times$ are populated first!    
+3. __Cartesian Products/Joins  $R \times S$__ - This concatenates two tuples together.  Conventionally, the attributes of in the left side of $\times$ are populated first.
 4. __Renaming $\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}$__ - This changes the names of attributes or relations in the relation schema.  $R$ is the relation whos name we are trying to change, $S$ is the new name of $R$, and $A_{1}, A_{2},..., A_{n}$ are the attribute with their corresponding new names.  The attributes are listed in order of their definition in the relation's schema.  If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.
 
-When working with multiple relations, we typically also apply the fundamental operations from set theory:   
+When joining relations together, we typically also apply the fundamental operations from set theory:   
 1. __Unions $R \cup S$__ - This is the set of elements in R or S or both.  If an element appears in both, it is presented only once in union    
 2. __Intersection $R \cap S$__ - This is the set of elements in both R and S    
 3. __Difference $R - S$ (R not in S)__ - This is the set of elements in R, but not in S.  Note that this is different from $S - R$, which means the set of elements in S, but not in R.
 
-When applying these operations to two tables, we implement some constraints with it:   
+When applying these operations to two tables, we implement some constraints:   
 1. R and S must have schemas with identical attributes and the domains for each attribute must be the same in R and S   
 2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations.  We cannot do operations on $R = \{Int, Char\}$ to $S = \{Char, Int\}$.  If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations.  This is because we can just rename the attributes.
 
 We will now go in more depth with each operation.
 
-<!-- Continue here -->
+\
 
 ## Relational Algebra Operations
+Before we talk about the various operations in relational algebra, we will define what a clause and predicate is.
 
+__Clause__:  A clause is any function or keyword in SQL that allows you to filter tuples
+__Predicate__:  A predicate is anything that returns a boolean (True, False, Unknown)
+
+![[SQL Clauses](https://www.scaler.com/topics/clause-in-sql/)](images/clause_graph.png){width=100%}
+
+### Selection
+__Selection__ chooses which attributes we want in our relation.  For example:
+
+```{sql Selection, connection=conn, max.print=5}
+SELECT *
+FROM instructor
+```
+
+The notation for selection is $\sigma_{C}({R2})$.  $C$ is the the set of conditions we may want to apply to the selection.  The input $R2$ is the relation we like to pull the attributes from. When committing any operator to a relation, we usually assign expression to a new relation.  For example:
+
+$$
+R1 := \sigma_{C}({R2})
+$$
+
+Here $R1$ is the new relation from the expression  $\sigma_{C}({R2})$.  $:=$ is an assignment operator that assigns $R1$ to be the relation returned from $\sigma_{C}({R2})$.  When creating relations from any expression, it will have the same schema as the inputted relation.  To put our expression in English, we are selecting all tuples.  We are not using any conditions to exclude tuples!
+
+### Projection
+
+__Projection__ selects a subset of attributes from a relation.  The order of attributes must be specified or the order of the relation from the schema is returned.  Any duplicates are eliminated.
+
+$$
+R1 := \pi_{L}({R2}) \\ \text{L - List of attributes from R2} \\ \text{In English - R1 is the the attributes "L" from R2}
+$$
+
+```{sql Projection, connection=conn, max.print=5}
+SELECT name
+  ,dept_name
+  ,salary
+FROM instructor
+```
+
+
+
+<!-- Continue on slide 9 of relational algebra lecture -->
+<!---
 ### Natural Joins - $R \bowtie S$
 If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
 
 ### Theta Joins - $R \bowtie_{C} S$
 Theta joins are simply natural joins with a condition.  To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions.  Theta joins are called theta joins because the conditions were originally represented by $\theta$.   
+--->

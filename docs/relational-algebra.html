@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and...">
-<meta property="og:description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and...">
-<meta name="twitter:description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and...">
+<meta name="description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and is simplified for optimization and ease of use. In relational algebra, relations are variables and finite relations are...">
+<meta property="og:description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and is simplified for optimization and ease of use. In relational algebra, relations are variables and finite relations are...">
+<meta name="twitter:description" content="2.1 Algebraic Query Language SQL is built upon relational Algebra and is simplified for optimization and ease of use. In relational algebra, relations are variables and finite relations are...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -61,7 +61,7 @@
 <h2>
 <span class="header-section-number">2.1</span> Algebraic Query Language<a class="anchor" aria-label="anchor" href="#algebraic-query-language"><i class="fas fa-link"></i></a>
 </h2>
-<p>SQL is built upon relational Algebra and typically is “syntactically sugared” for optimization and ease of use. This is a different approach in comparison to Java and C. Java and C allows for freedom and choice of how to manipulate/organize data. This can be used to optimize code, but you require the knowledge to do so. SQL is simplistic to avoid the knowledge gap. Relational algebra is just a form of algebra. In relational algebra, relations are variables and finite relations are constants. In other words, relations are the operands in relational algebra.</p>
+<p>SQL is built upon relational Algebra and is simplified for optimization and ease of use. In relational algebra, relations are variables and finite relations are constants. In other words, relations are the operands (thngs we apply operators to) in relational algebra.</p>
 <p>When Database Management Systems (DBMS) process queries, the first thing the system does is translate the queries into relational algebra or a very similar internal representation of it.</p>
 <p>We will talk about the following operations in that can be done in relational algebra:</p>
 <ol style="list-style-type: decimal">
@@ -72,36 +72,145 @@
 <strong>Projection <span class="math inline">\(\pi_{A_{1}, A_{2}, ...}\)</span></strong> - This operation choose a subset of columns. Each <span class="math inline">\(A_{i}\)</span> in the subscript is simply the attributes we want to project (select). In relational algebra of sets, duplicate tuples are always removed.<br>
 </li>
 <li>
-<strong>Cartesian Products/Joins <span class="math inline">\(R \times S\)</span></strong> - This concatenates two tuples together. Conventionally, the attributes of in the left side of <span class="math inline">\(\times\)</span> are populated first!<br>
-</li>
+<strong>Cartesian Products/Joins <span class="math inline">\(R \times S\)</span></strong> - This concatenates two tuples together. Conventionally, the attributes of in the left side of <span class="math inline">\(\times\)</span> are populated first.</li>
 <li>
 <strong>Renaming <span class="math inline">\(\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}\)</span></strong> - This changes the names of attributes or relations in the relation schema. <span class="math inline">\(R\)</span> is the relation whos name we are trying to change, <span class="math inline">\(S\)</span> is the new name of <span class="math inline">\(R\)</span>, and <span class="math inline">\(A_{1}, A_{2},..., A_{n}\)</span> are the attribute with their corresponding new names. The attributes are listed in order of their definition in the relation’s schema. If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.</li>
 </ol>
-<p>When working with multiple relations, we typically also apply the fundamental operations from set theory:<br>
+<p>When joining relations together, we typically also apply the fundamental operations from set theory:<br>
 1. <strong>Unions <span class="math inline">\(R \cup S\)</span></strong> - This is the set of elements in R or S or both. If an element appears in both, it is presented only once in union<br>
 2. <strong>Intersection <span class="math inline">\(R \cap S\)</span></strong> - This is the set of elements in both R and S<br>
 3. <strong>Difference <span class="math inline">\(R - S\)</span> (R not in S)</strong> - This is the set of elements in R, but not in S. Note that this is different from <span class="math inline">\(S - R\)</span>, which means the set of elements in S, but not in R.</p>
-<p>When applying these operations to two tables, we implement some constraints with it:<br>
+<p>When applying these operations to two tables, we implement some constraints:<br>
 1. R and S must have schemas with identical attributes and the domains for each attribute must be the same in R and S<br>
 2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations. We cannot do operations on <span class="math inline">\(R = \{Int, Char\}\)</span> to <span class="math inline">\(S = \{Char, Int\}\)</span>. If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations. This is because we can just rename the attributes.</p>
 <p>We will now go in more depth with each operation.</p>
-<!-- Continue here -->
+<p><br></p>
 </div>
 <div id="relational-algebra-operations" class="section level2" number="2.2">
 <h2>
 <span class="header-section-number">2.2</span> Relational Algebra Operations<a class="anchor" aria-label="anchor" href="#relational-algebra-operations"><i class="fas fa-link"></i></a>
 </h2>
-<div id="natural-joins---r-bowtie-s" class="section level3" number="2.2.1">
-<h3>
-<span class="header-section-number">2.2.1</span> Natural Joins - <span class="math inline">\(R \bowtie S\)</span><a class="anchor" aria-label="anchor" href="#natural-joins---r-bowtie-s"><i class="fas fa-link"></i></a>
-</h3>
-<p>If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join. The equivalent component will only appear once. A tuple that fails to pair with any tuple of another relation in a join is know as a <em>dangling tuple</em></p>
+<p>Before we talk about the various operations in relational algebra, we will define what a clause and predicate is.</p>
+<p><strong>Clause</strong>: A clause is any function or keyword in SQL that allows you to filter tuples
+<strong>Predicate</strong>: A predicate is anything that returns a boolean (True, False, Unknown)</p>
+<div class="float">
+<img src="images/clause_graph.png" style="width:100.0%" alt="SQL Clauses"><div class="figcaption"><a href="https://www.scaler.com/topics/clause-in-sql/">SQL Clauses</a></div>
 </div>
-<div id="theta-joins---r-bowtie_c-s" class="section level3" number="2.2.2">
+<div id="selection" class="section level3" number="2.2.1">
 <h3>
-<span class="header-section-number">2.2.2</span> Theta Joins - <span class="math inline">\(R \bowtie_{C} S\)</span><a class="anchor" aria-label="anchor" href="#theta-joins---r-bowtie_c-s"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.1</span> Selection<a class="anchor" aria-label="anchor" href="#selection"><i class="fas fa-link"></i></a>
 </h3>
-<p>Theta joins are simply natural joins with a condition. To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions. Theta joins are called theta joins because the conditions were originally represented by <span class="math inline">\(\theta\)</span>.</p>
+<p><strong>Selection</strong> chooses which attributes we want in our relation. For example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="relational-algebra.html#cb1-1" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="relational-algebra.html#cb1-2" tabindex="-1"></a><span class="kw">FROM</span> instructor</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:Selection">Table 2.1: </span>Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">ID</th>
+<th align="left">name</th>
+<th align="left">dept_name</th>
+<th align="right">salary</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+</tr>
+<tr class="even">
+<td align="left">78699</td>
+<td align="left">Pingr</td>
+<td align="left">Statistics</td>
+<td align="right">59303.62</td>
+</tr>
+<tr class="odd">
+<td align="left">96895</td>
+<td align="left">Mird</td>
+<td align="left">Marketing</td>
+<td align="right">119921.41</td>
+</tr>
+<tr class="even">
+<td align="left">4233</td>
+<td align="left">Luo</td>
+<td align="left">English</td>
+<td align="right">88791.45</td>
+</tr>
+<tr class="odd">
+<td align="left">4034</td>
+<td align="left">Murata</td>
+<td align="left">Athletics</td>
+<td align="right">61387.56</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The notation for selection is <span class="math inline">\(\sigma_{C}({R2})\)</span>. <span class="math inline">\(C\)</span> is the the set of conditions we may want to apply to the selection. The input <span class="math inline">\(R2\)</span> is the relation we like to pull the attributes from. When committing any operator to a relation, we usually assign expression to a new relation. For example:</p>
+<p><span class="math display">\[
+R1 := \sigma_{C}({R2})
+\]</span></p>
+<p>Here <span class="math inline">\(R1\)</span> is the new relation from the expression <span class="math inline">\(\sigma_{C}({R2})\)</span>. <span class="math inline">\(:=\)</span> is an assignment operator that assigns <span class="math inline">\(R1\)</span> to be the relation returned from <span class="math inline">\(\sigma_{C}({R2})\)</span>. When creating relations from any expression, it will have the same schema as the inputted relation. To put our expression in English, we are selecting all tuples. We are not using any conditions to exclude tuples!</p>
+</div>
+<div id="projection" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Projection<a class="anchor" aria-label="anchor" href="#projection"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Projection</strong> selects a subset of attributes from a relation. The order of attributes must be specified or the order of the relation from the schema is returned. Any duplicates are eliminated.</p>
+<p><span class="math display">\[
+R1 := \pi_{L}({R2}) \\ \text{L - List of attributes from R2} \\ \text{In English - R1 is the the attributes "L" from R2}
+\]</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="relational-algebra.html#cb2-1" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb2-2"><a href="relational-algebra.html#cb2-2" tabindex="-1"></a>  ,dept_name</span>
+<span id="cb2-3"><a href="relational-algebra.html#cb2-3" tabindex="-1"></a>  ,salary</span>
+<span id="cb2-4"><a href="relational-algebra.html#cb2-4" tabindex="-1"></a><span class="kw">FROM</span> instructor</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:Projection">Table 2.2: </span>Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="left">dept_name</th>
+<th align="right">salary</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+</tr>
+<tr class="even">
+<td align="left">Pingr</td>
+<td align="left">Statistics</td>
+<td align="right">59303.62</td>
+</tr>
+<tr class="odd">
+<td align="left">Mird</td>
+<td align="left">Marketing</td>
+<td align="right">119921.41</td>
+</tr>
+<tr class="even">
+<td align="left">Luo</td>
+<td align="left">English</td>
+<td align="right">88791.45</td>
+</tr>
+<tr class="odd">
+<td align="left">Murata</td>
+<td align="left">Athletics</td>
+<td align="right">61387.56</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<!-- Continue on slide 9 of relational algebra lecture -->
+<!---
+### Natural Joins - $R \bowtie S$
+If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
+
+### Theta Joins - $R \bowtie_{C} S$
+Theta joins are simply natural joins with a condition.  To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions.  Theta joins are called theta joins because the conditions were originally represented by $\theta$.   
+--->
 
 </div>
 </div>
@@ -116,8 +225,8 @@
 <li><a class="nav-link" href="#algebraic-query-language"><span class="header-section-number">2.1</span> Algebraic Query Language</a></li>
 <li>
 <a class="nav-link" href="#relational-algebra-operations"><span class="header-section-number">2.2</span> Relational Algebra Operations</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#natural-joins---r-bowtie-s"><span class="header-section-number">2.2.1</span> Natural Joins - \(R \bowtie S\)</a></li>
-<li><a class="nav-link" href="#theta-joins---r-bowtie_c-s"><span class="header-section-number">2.2.2</span> Theta Joins - \(R \bowtie_{C} S\)</a></li>
+<li><a class="nav-link" href="#selection"><span class="header-section-number">2.2.1</span> Selection</a></li>
+<li><a class="nav-link" href="#projection"><span class="header-section-number">2.2.2</span> Projection</a></li>
 </ul>
 </li>
 </ul>

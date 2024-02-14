@@ -1,3 +1,5 @@
+tab:Selection
+tab:Projection
 syllabus
 piazza
 zoom-link
@@ -12,8 +14,8 @@ expressing-tables-without-relational-algebra-and-sql
 relational-algebra
 algebraic-query-language
 relational-algebra-operations
-natural-joins---r-bowtie-s
-theta-joins---r-bowtie_c-s
+selection
+projection
 introducion-to-sql
 defining-relationship-schemas-in-sql
 relations-in-sql
