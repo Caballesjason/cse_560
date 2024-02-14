@@ -41,7 +41,12 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">2</span> Relational Algebra</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Jason’s CSE 560 Notes</a></li>
+<li><a class="" href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></li>
+<li><a class="active" href="relational-algebra.html"><span class="header-section-number">2</span> Relational Algebra</a></li>
+<li><a class="" href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></li>
+</ul>
 
         <div class="book-extra">
           
@@ -80,21 +85,17 @@
 2. Before doing any operations, the columns in R and S must be orderd so that the order of attributes are the same for both relations. We cannot do operations on <span class="math inline">\(R = \{Int, Char\}\)</span> to <span class="math inline">\(S = \{Char, Int\}\)</span>. If attributes are identical between two relations, but they have different names, we can still apply this operations to the relations. This is because we can just rename the attributes.</p>
 <p>We will now go in more depth with each operation.</p>
 <p><br></p>
-</div>
-<div id="relational-algebra-operations" class="section level2" number="2.2">
-<h2>
-<span class="header-section-number">2.2</span> Relational Algebra Operations<a class="anchor" aria-label="anchor" href="#relational-algebra-operations"><i class="fas fa-link"></i></a>
-</h2>
 <p>Before we talk about the various operations in relational algebra, we will define what a clause and predicate is.</p>
 <p><strong>Clause</strong>: A clause is any function or keyword in SQL that allows you to filter tuples
 <strong>Predicate</strong>: A predicate is anything that returns a boolean (True, False, Unknown)</p>
 <div class="float">
 <img src="images/clause_graph.png" style="width:100.0%" alt="SQL Clauses"><div class="figcaption"><a href="https://www.scaler.com/topics/clause-in-sql/">SQL Clauses</a></div>
 </div>
-<div id="selection" class="section level3" number="2.2.1">
-<h3>
-<span class="header-section-number">2.2.1</span> Selection<a class="anchor" aria-label="anchor" href="#selection"><i class="fas fa-link"></i></a>
-</h3>
+</div>
+<div id="selection" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Selection<a class="anchor" aria-label="anchor" href="#selection"><i class="fas fa-link"></i></a>
+</h2>
 <p><strong>Selection</strong> chooses which attributes we want in our relation. For example:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="relational-algebra.html#cb1-1" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="relational-algebra.html#cb1-2" tabindex="-1"></a><span class="kw">FROM</span> instructor</span></code></pre></div>
@@ -148,10 +149,10 @@ R1 := \sigma_{C}({R2})
 \]</span></p>
 <p>Here <span class="math inline">\(R1\)</span> is the new relation from the expression <span class="math inline">\(\sigma_{C}({R2})\)</span>. <span class="math inline">\(:=\)</span> is an assignment operator that assigns <span class="math inline">\(R1\)</span> to be the relation returned from <span class="math inline">\(\sigma_{C}({R2})\)</span>. When creating relations from any expression, it will have the same schema as the inputted relation. To put our expression in English, we are selecting all tuples. We are not using any conditions to exclude tuples!</p>
 </div>
-<div id="projection" class="section level3" number="2.2.2">
-<h3>
-<span class="header-section-number">2.2.2</span> Projection<a class="anchor" aria-label="anchor" href="#projection"><i class="fas fa-link"></i></a>
-</h3>
+<div id="projection" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Projection<a class="anchor" aria-label="anchor" href="#projection"><i class="fas fa-link"></i></a>
+</h2>
 <p><strong>Projection</strong> selects a subset of attributes from a relation. The order of attributes must be specified or the order of the relation from the schema is returned. Any duplicates are eliminated.</p>
 <p><span class="math display">\[
 R1 := \pi_{L}({R2}) \\ \text{L - List of attributes from R2} \\ \text{In English - R1 is the the attributes "L" from R2}
@@ -198,10 +199,10 @@ R1 := \pi_{L}({R2}) \\ \text{L - List of attributes from R2} \\ \text{In English
 </tbody>
 </table></div>
 </div>
-<div id="extended-projection" class="section level4" number="2.2.2.1">
-<h4>
-<span class="header-section-number">2.2.2.1</span> Extended Projection<a class="anchor" aria-label="anchor" href="#extended-projection"><i class="fas fa-link"></i></a>
-</h4>
+<div id="extended-projection" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Extended Projection<a class="anchor" aria-label="anchor" href="#extended-projection"><i class="fas fa-link"></i></a>
+</h3>
 <p>We can create attributes for a projection by applying operations to attributes. Think of adding a constant to component of every tuple. or finding the difference between two columns as a new column.</p>
 <p>For example:</p>
 <p><span class="math display">\[
@@ -214,7 +215,72 @@ A &amp; B \\
 \qquad \text{Some relation } R
 \\~\\~\\ % ~ is an operartor to add multiple new lines
 R2 := \pi_{A+B\rightarrow{C}, A, B}({R}) \qquad \text{Assigning a new relation } R2 \text{ with  columns } A, B, C
-\]</span>
+\\~\\
+C \text{ is a column generating in the projection by the expression } A + B \rightarrow{C}
+\\~\\
+R2 = \begin{matrix}
+A &amp; B &amp; C \\
+\hline \\
+1 &amp; 2 &amp; 3 \\
+3 &amp; 4 &amp; 7 \\
+\end{matrix}
+\]</span></p>
+<p><br></p>
+</div>
+</div>
+<div id="cartesian-products-and-joins" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Cartesian Products and Joins<a class="anchor" aria-label="anchor" href="#cartesian-products-and-joins"><i class="fas fa-link"></i></a>
+</h2>
+<div id="natural-joins" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> Natural Joins<a class="anchor" aria-label="anchor" href="#natural-joins"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="theta-joins" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> Theta Joins<a class="anchor" aria-label="anchor" href="#theta-joins"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="self-joins" class="section level3" number="2.4.3">
+<h3>
+<span class="header-section-number">2.4.3</span> Self Joins<a class="anchor" aria-label="anchor" href="#self-joins"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="renaming" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Renaming<a class="anchor" aria-label="anchor" href="#renaming"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="complex-expressions" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Complex Expressions<a class="anchor" aria-label="anchor" href="#complex-expressions"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="sequence-order-of-operations" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Sequence (Order) of Operations<a class="anchor" aria-label="anchor" href="#sequence-order-of-operations"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="expression-trees" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> Expression Trees<a class="anchor" aria-label="anchor" href="#expression-trees"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="schemas-for-results" class="section level2" number="2.9">
+<h2>
+<span class="header-section-number">2.9</span> Schemas for Results<a class="anchor" aria-label="anchor" href="#schemas-for-results"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="relational-algebra-on-bags" class="section level2" number="2.10">
+<h2>
+<span class="header-section-number">2.10</span> Relational Algebra on Bags<a class="anchor" aria-label="anchor" href="#relational-algebra-on-bags"><i class="fas fa-link"></i></a>
+</h2>
+<div id="operations-on-bags" class="section level3" number="2.10.1">
+<h3>
+<span class="header-section-number">2.10.1</span> Operations on Bags<a class="anchor" aria-label="anchor" href="#operations-on-bags"><i class="fas fa-link"></i></a>
+</h3>
 <!-- Continue on slide 10 of relational algebra lecture -->
 <!---
 ### Natural Joins - $R \bowtie S$
@@ -222,18 +288,39 @@ If at least one component in a tuple in R is equal to a component in S, then the
 
 ### Theta Joins - $R \bowtie_{C} S$
 Theta joins are simply natural joins with a condition.  To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions.  Theta joins are called theta joins because the conditions were originally represented by $\theta$.   
----></p>
+--->
 
 </div>
 </div>
 </div>
-</div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></div>
+<div class="next"><a href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#relational-algebra"><span class="header-section-number">2</span> Relational Algebra</a></li>
+<li><a class="nav-link" href="#algebraic-query-language"><span class="header-section-number">2.1</span> Algebraic Query Language</a></li>
+<li><a class="nav-link" href="#selection"><span class="header-section-number">2.2</span> Selection</a></li>
+<li>
+<a class="nav-link" href="#projection"><span class="header-section-number">2.3</span> Projection</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#extended-projection"><span class="header-section-number">2.3.1</span> Extended Projection</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#cartesian-products-and-joins"><span class="header-section-number">2.4</span> Cartesian Products and Joins</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#natural-joins"><span class="header-section-number">2.4.1</span> Natural Joins</a></li>
+<li><a class="nav-link" href="#theta-joins"><span class="header-section-number">2.4.2</span> Theta Joins</a></li>
+<li><a class="nav-link" href="#self-joins"><span class="header-section-number">2.4.3</span> Self Joins</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#renaming"><span class="header-section-number">2.5</span> Renaming</a></li>
+<li><a class="nav-link" href="#complex-expressions"><span class="header-section-number">2.6</span> Complex Expressions</a></li>
+<li><a class="nav-link" href="#sequence-order-of-operations"><span class="header-section-number">2.7</span> Sequence (Order) of Operations</a></li>
+<li><a class="nav-link" href="#expression-trees"><span class="header-section-number">2.8</span> Expression Trees</a></li>
+<li><a class="nav-link" href="#schemas-for-results"><span class="header-section-number">2.9</span> Schemas for Results</a></li>
+<li>
+<a class="nav-link" href="#relational-algebra-on-bags"><span class="header-section-number">2.10</span> Relational Algebra on Bags</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#operations-on-bags"><span class="header-section-number">2.10.1</span> Operations on Bags</a></li></ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

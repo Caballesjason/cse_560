@@ -9,9 +9,11 @@ output:
 ## Defining Relationship Schemas in SQL
 The current standard for SQL is __SQL-99__.  There are two aspects to SQL:    
 1. The __Data-Definition__ to declare database schemas    
-2. The __Data_Manipulation__ sub-language for querying/modifying databases    
+2. The __Data_Manipulation__ sub-language for querying/modifying databases 
 
-### Relations in SQL
+### Why SQL?
+
+## Relations in SQL
 SQL makes a distinction between three kinds of relations:   
 1. __Stored relations__, which are called __tables__    
 2. __Views__, which are relations designed by some computation.  This relations are not stored, but constructed when needed   
@@ -23,6 +25,60 @@ To declare a schema for a stored relation, do the following
 CREATE TABLE -- SOME TABLE NAME --
 ```
 
+## Operational Semantics
+
+## Foreign Keys
+
+## Relation Schema Modification
+
+## SELECT Cause
+
+## DISTINCT
+
+## WHERE
+
+## FROM
+
+## RENAME
+
+## Patterns
+### Like
+
+## Null
+
+## Multiple Relational Queries
+
+## Joining Two Relations
+
+## Explicit Tuple-Variables
+
+## Self-Joins
+
+## Subqueries
+
+## Set Operations
+
+## Single-Tuple Subquery
+
+## Query + Subquery
+
+## Between
+
+## In
+
+## Exists
+
+## Any
+
+## Except
+
+## Union, Intersection, Difference
+
+## Recursive Queries
+
+## Bag Semantics
+
+## Controlling Duplicate Elimination
 ### Data Types
 The following are primitive data types that are supported by SQL    
 

@@ -64,10 +64,16 @@
 <p>The current standard for SQL is <strong>SQL-99</strong>. There are two aspects to SQL:<br>
 1. The <strong>Data-Definition</strong> to declare database schemas<br>
 2. The <strong>Data_Manipulation</strong> sub-language for querying/modifying databases</p>
-<div id="relations-in-sql" class="section level3" number="3.1.1">
+<div id="why-sql" class="section level3" number="3.1.1">
 <h3>
-<span class="header-section-number">3.1.1</span> Relations in SQL<a class="anchor" aria-label="anchor" href="#relations-in-sql"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.1</span> Why SQL?<a class="anchor" aria-label="anchor" href="#why-sql"><i class="fas fa-link"></i></a>
 </h3>
+</div>
+</div>
+<div id="relations-in-sql" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Relations in SQL<a class="anchor" aria-label="anchor" href="#relations-in-sql"><i class="fas fa-link"></i></a>
+</h2>
 <p>SQL makes a distinction between three kinds of relations:<br>
 1. <strong>Stored relations</strong>, which are called <strong>tables</strong><br>
 2. <strong>Views</strong>, which are relations designed by some computation. This relations are not stored, but constructed when needed<br>
@@ -75,44 +81,183 @@
 <p>To declare a schema for a stored relation, do the following</p>
 <pre><code>CREATE TABLE -- SOME TABLE NAME --</code></pre>
 </div>
-<div id="data-types" class="section level3" number="3.1.2">
+<div id="operational-semantics" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Operational Semantics<a class="anchor" aria-label="anchor" href="#operational-semantics"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="foreign-keys" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Foreign Keys<a class="anchor" aria-label="anchor" href="#foreign-keys"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="relation-schema-modification" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Relation Schema Modification<a class="anchor" aria-label="anchor" href="#relation-schema-modification"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="select-cause" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> SELECT Cause<a class="anchor" aria-label="anchor" href="#select-cause"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="distinct" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> DISTINCT<a class="anchor" aria-label="anchor" href="#distinct"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="where" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> WHERE<a class="anchor" aria-label="anchor" href="#where"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="from" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> FROM<a class="anchor" aria-label="anchor" href="#from"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="rename" class="section level2" number="3.10">
+<h2>
+<span class="header-section-number">3.10</span> RENAME<a class="anchor" aria-label="anchor" href="#rename"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="patterns" class="section level2" number="3.11">
+<h2>
+<span class="header-section-number">3.11</span> Patterns<a class="anchor" aria-label="anchor" href="#patterns"><i class="fas fa-link"></i></a>
+</h2>
+<div id="like" class="section level3" number="3.11.1">
 <h3>
-<span class="header-section-number">3.1.2</span> Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.11.1</span> Like<a class="anchor" aria-label="anchor" href="#like"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="null" class="section level2" number="3.12">
+<h2>
+<span class="header-section-number">3.12</span> Null<a class="anchor" aria-label="anchor" href="#null"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="multiple-relational-queries" class="section level2" number="3.13">
+<h2>
+<span class="header-section-number">3.13</span> Multiple Relational Queries<a class="anchor" aria-label="anchor" href="#multiple-relational-queries"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="joining-two-relations" class="section level2" number="3.14">
+<h2>
+<span class="header-section-number">3.14</span> Joining Two Relations<a class="anchor" aria-label="anchor" href="#joining-two-relations"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="explicit-tuple-variables" class="section level2" number="3.15">
+<h2>
+<span class="header-section-number">3.15</span> Explicit Tuple-Variables<a class="anchor" aria-label="anchor" href="#explicit-tuple-variables"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="self-joins-1" class="section level2" number="3.16">
+<h2>
+<span class="header-section-number">3.16</span> Self-Joins<a class="anchor" aria-label="anchor" href="#self-joins-1"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="subqueries" class="section level2" number="3.17">
+<h2>
+<span class="header-section-number">3.17</span> Subqueries<a class="anchor" aria-label="anchor" href="#subqueries"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="set-operations" class="section level2" number="3.18">
+<h2>
+<span class="header-section-number">3.18</span> Set Operations<a class="anchor" aria-label="anchor" href="#set-operations"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="single-tuple-subquery" class="section level2" number="3.19">
+<h2>
+<span class="header-section-number">3.19</span> Single-Tuple Subquery<a class="anchor" aria-label="anchor" href="#single-tuple-subquery"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="query-subquery" class="section level2" number="3.20">
+<h2>
+<span class="header-section-number">3.20</span> Query + Subquery<a class="anchor" aria-label="anchor" href="#query-subquery"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="between" class="section level2" number="3.21">
+<h2>
+<span class="header-section-number">3.21</span> Between<a class="anchor" aria-label="anchor" href="#between"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="in" class="section level2" number="3.22">
+<h2>
+<span class="header-section-number">3.22</span> In<a class="anchor" aria-label="anchor" href="#in"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="exists" class="section level2" number="3.23">
+<h2>
+<span class="header-section-number">3.23</span> Exists<a class="anchor" aria-label="anchor" href="#exists"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="any" class="section level2" number="3.24">
+<h2>
+<span class="header-section-number">3.24</span> Any<a class="anchor" aria-label="anchor" href="#any"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="except" class="section level2" number="3.25">
+<h2>
+<span class="header-section-number">3.25</span> Except<a class="anchor" aria-label="anchor" href="#except"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="union-intersection-difference" class="section level2" number="3.26">
+<h2>
+<span class="header-section-number">3.26</span> Union, Intersection, Difference<a class="anchor" aria-label="anchor" href="#union-intersection-difference"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="recursive-queries" class="section level2" number="3.27">
+<h2>
+<span class="header-section-number">3.27</span> Recursive Queries<a class="anchor" aria-label="anchor" href="#recursive-queries"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="bag-semantics" class="section level2" number="3.28">
+<h2>
+<span class="header-section-number">3.28</span> Bag Semantics<a class="anchor" aria-label="anchor" href="#bag-semantics"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="controlling-duplicate-elimination" class="section level2" number="3.29">
+<h2>
+<span class="header-section-number">3.29</span> Controlling Duplicate Elimination<a class="anchor" aria-label="anchor" href="#controlling-duplicate-elimination"><i class="fas fa-link"></i></a>
+</h2>
+<div id="data-types" class="section level3" number="3.29.1">
+<h3>
+<span class="header-section-number">3.29.1</span> Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
 </h3>
 <p>The following are primitive data types that are supported by SQL</p>
-<div id="character-strings" class="section level4" number="3.1.2.1">
+<div id="character-strings" class="section level4" number="3.29.1.1">
 <h4>
-<span class="header-section-number">3.1.2.1</span> Character Strings<a class="anchor" aria-label="anchor" href="#character-strings"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.1.1</span> Character Strings<a class="anchor" aria-label="anchor" href="#character-strings"><i class="fas fa-link"></i></a>
 </h4>
 <p>They can be of fixed or variable length. To type a fixed length character string, use <code>CHAR(n)</code> for some length <span class="math inline">\(n\)</span>. To create a variable length character string, use <code>VARCHAR(n)</code> for some length <span class="math inline">\(n\)</span>. If a component of a tuple with a domain of <code>CHAR(n)</code> is given and the length of the component is less than <span class="math inline">\(n\)</span>, the component is padded with white space.</p>
 </div>
-<div id="bit-strings" class="section level4" number="3.1.2.2">
+<div id="bit-strings" class="section level4" number="3.29.1.2">
 <h4>
-<span class="header-section-number">3.1.2.2</span> Bit Strings<a class="anchor" aria-label="anchor" href="#bit-strings"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.1.2</span> Bit Strings<a class="anchor" aria-label="anchor" href="#bit-strings"><i class="fas fa-link"></i></a>
 </h4>
 <p>Bit strings can be of fixed or varying length. This data type is analogous to character strings, but their values are strings of bits rather than characters.</p>
 </div>
-<div id="booleans" class="section level4" number="3.1.2.3">
+<div id="booleans" class="section level4" number="3.29.1.3">
 <h4>
-<span class="header-section-number">3.1.2.3</span> BOOLEANs<a class="anchor" aria-label="anchor" href="#booleans"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.1.3</span> BOOLEANs<a class="anchor" aria-label="anchor" href="#booleans"><i class="fas fa-link"></i></a>
 </h4>
 <p>Booleans denote an attribute whose value is logical. The possible values that a boolean can take are <strong>TRUE, FALSE, UNKNOWN</strong>.</p>
 </div>
-<div id="ints" class="section level4" number="3.1.2.4">
+<div id="ints" class="section level4" number="3.29.1.4">
 <h4>
-<span class="header-section-number">3.1.2.4</span> INTs<a class="anchor" aria-label="anchor" href="#ints"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.1.4</span> INTs<a class="anchor" aria-label="anchor" href="#ints"><i class="fas fa-link"></i></a>
 </h4>
 <p>Ints or (Integers) denote some integer value. <code>SHORTINT</code> is also an int but is may have less bits.</p>
 </div>
-<div id="floating-point-numbers" class="section level4" number="3.1.2.5">
+<div id="floating-point-numbers" class="section level4" number="3.29.1.5">
 <h4>
-<span class="header-section-number">3.1.2.5</span> Floating-Point Numbers<a class="anchor" aria-label="anchor" href="#floating-point-numbers"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.1.5</span> Floating-Point Numbers<a class="anchor" aria-label="anchor" href="#floating-point-numbers"><i class="fas fa-link"></i></a>
 </h4>
 <p>Floating points are denoted by <code>FLOAT</code> or <code>REAL</code>. If you would like higher precision with floats, use <code>DOUBLE PRECISION</code>. Like character strings, floats can be of fixed decimal length. You can declare decimal length but calling <code>DECIMAL(n, d)</code> where <span class="math inline">\(n\)</span> is the total number of digits allowed for the float nad <span class="math inline">\(d\)</span> is the number of digits passed the decimal.</p>
 </div>
-<div id="dates-and-times" class="section level4" number="3.1.2.6">
+<div id="dates-and-times" class="section level4" number="3.29.1.6">
 <h4>
-<span class="header-section-number">3.1.2.6</span> Dates and Times<a class="anchor" aria-label="anchor" href="#dates-and-times"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.1.6</span> Dates and Times<a class="anchor" aria-label="anchor" href="#dates-and-times"><i class="fas fa-link"></i></a>
 </h4>
 <p>Dates and times are declared using <code>DATE</code> and <code>TIME</code> respectively. Dates and times are a special form of character strings. Adding a string after the <code>DATE</code> declaration specifies the format of the date. For example <code>DATE '1948-05-14'</code> creates a date value with the form “YYYY-MM-DD”. The same can be done with time. For example <code>TIME '15:00:02.5'</code> specifies that you want to represent time with the format “HH:MM:SS” with the attachment of milliseconds.</p>
 <p>The follow is a simple example of a Relation Schema declaration</p>
@@ -126,9 +271,9 @@
 <span id="cb4-8"><a href="introducion-to-sql.html#cb4-8" tabindex="-1"></a>);</span></code></pre></div>
 </div>
 </div>
-<div id="modifying-relation-schemas" class="section level3" number="3.1.3">
+<div id="modifying-relation-schemas" class="section level3" number="3.29.2">
 <h3>
-<span class="header-section-number">3.1.3</span> Modifying Relation Schemas<a class="anchor" aria-label="anchor" href="#modifying-relation-schemas"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.2</span> Modifying Relation Schemas<a class="anchor" aria-label="anchor" href="#modifying-relation-schemas"><i class="fas fa-link"></i></a>
 </h3>
 <p>To delete or “drop” a table from a database, execute the following</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="introducion-to-sql.html#cb5-1" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE --;</span></span></code></pre></div>
@@ -139,17 +284,17 @@
 <span id="cb6-4"><a href="introducion-to-sql.html#cb6-4" tabindex="-1"></a><span class="co">---- Modifying a table to remove an attribute from its schema ----</span></span>
 <span id="cb6-5"><a href="introducion-to-sql.html#cb6-5" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE -- DROP -- SOME ATTRIBUTE IN SCHEMA --; </span></span></code></pre></div>
 </div>
-<div id="default-values" class="section level3" number="3.1.4">
+<div id="default-values" class="section level3" number="3.29.3">
 <h3>
-<span class="header-section-number">3.1.4</span> Default Values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.3</span> Default Values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
 </h3>
 <p>When adding a new attribute to a relation’s schema, all tuples require some value for that attribute. Database systems will default that value to <code>NULL</code>, but what if you want a specific value for it default to? What if data is uploaded randomly and not all tuples have values for each component? In this case we can use the <code>DEFAULT</code> keyword to add a specific value instead using <code>NULL</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="introducion-to-sql.html#cb7-1" tabindex="-1"></a><span class="co">---- Creating attributes and adding a default value when no data is made available ----</span></span>
 <span id="cb7-2"><a href="introducion-to-sql.html#cb7-2" tabindex="-1"></a>gender <span class="dt">CHAR</span>(<span class="dv">1</span>) <span class="kw">DEFAULT</span> <span class="st">'?'</span></span>
 <span id="cb7-3"><a href="introducion-to-sql.html#cb7-3" tabindex="-1"></a>name <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">DEFAULT</span> <span class="st">'No Name :('</span></span></code></pre></div>
-<div id="declaring-keys" class="section level4" number="3.1.4.1">
+<div id="declaring-keys" class="section level4" number="3.29.3.1">
 <h4>
-<span class="header-section-number">3.1.4.1</span> Declaring Keys<a class="anchor" aria-label="anchor" href="#declaring-keys"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.29.3.1</span> Declaring Keys<a class="anchor" aria-label="anchor" href="#declaring-keys"><i class="fas fa-link"></i></a>
 </h4>
 <p>There are two ways to assign a set of attributes to be a key. Keys are defined in the declaration of the database schema, i.e. the <code>CREATE TABLE</code> statement.</p>
 <p>Use <code>PRIMARY KEY</code> or <code>UNIQUE</code> to declare a set of attributes to be a key. Remember, that keys must always be unique for each tuple. The difference between <code>PRIMARY KEY</code> and <code>UNIQUE</code> is that components a tuple are allowed to have <code>NULL</code> as a value when using <code>UNIQUE</code>. On the other hand, using <code>PRIMARY KEY</code> does not allow <code>NULL</code> to be in a key.</p>
@@ -172,9 +317,9 @@
 </div>
 </div>
 </div>
-<div id="constraints" class="section level2" number="3.2">
+<div id="constraints" class="section level2" number="3.30">
 <h2>
-<span class="header-section-number">3.2</span> Constraints<a class="anchor" aria-label="anchor" href="#constraints"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.30</span> Constraints<a class="anchor" aria-label="anchor" href="#constraints"><i class="fas fa-link"></i></a>
 </h2>
 
 </div>
@@ -187,14 +332,45 @@
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#introducion-to-sql"><span class="header-section-number">3</span> Introducion to SQL</a></li>
 <li>
-<a class="nav-link" href="#defining-relationship-schemas-in-sql"><span class="header-section-number">3.1</span> Defining Relationship Schemas in SQL</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#relations-in-sql"><span class="header-section-number">3.1.1</span> Relations in SQL</a></li>
-<li><a class="nav-link" href="#data-types"><span class="header-section-number">3.1.2</span> Data Types</a></li>
-<li><a class="nav-link" href="#modifying-relation-schemas"><span class="header-section-number">3.1.3</span> Modifying Relation Schemas</a></li>
-<li><a class="nav-link" href="#default-values"><span class="header-section-number">3.1.4</span> Default Values</a></li>
+<a class="nav-link" href="#defining-relationship-schemas-in-sql"><span class="header-section-number">3.1</span> Defining Relationship Schemas in SQL</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#why-sql"><span class="header-section-number">3.1.1</span> Why SQL?</a></li></ul>
+</li>
+<li><a class="nav-link" href="#relations-in-sql"><span class="header-section-number">3.2</span> Relations in SQL</a></li>
+<li><a class="nav-link" href="#operational-semantics"><span class="header-section-number">3.3</span> Operational Semantics</a></li>
+<li><a class="nav-link" href="#foreign-keys"><span class="header-section-number">3.4</span> Foreign Keys</a></li>
+<li><a class="nav-link" href="#relation-schema-modification"><span class="header-section-number">3.5</span> Relation Schema Modification</a></li>
+<li><a class="nav-link" href="#select-cause"><span class="header-section-number">3.6</span> SELECT Cause</a></li>
+<li><a class="nav-link" href="#distinct"><span class="header-section-number">3.7</span> DISTINCT</a></li>
+<li><a class="nav-link" href="#where"><span class="header-section-number">3.8</span> WHERE</a></li>
+<li><a class="nav-link" href="#from"><span class="header-section-number">3.9</span> FROM</a></li>
+<li><a class="nav-link" href="#rename"><span class="header-section-number">3.10</span> RENAME</a></li>
+<li>
+<a class="nav-link" href="#patterns"><span class="header-section-number">3.11</span> Patterns</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#like"><span class="header-section-number">3.11.1</span> Like</a></li></ul>
+</li>
+<li><a class="nav-link" href="#null"><span class="header-section-number">3.12</span> Null</a></li>
+<li><a class="nav-link" href="#multiple-relational-queries"><span class="header-section-number">3.13</span> Multiple Relational Queries</a></li>
+<li><a class="nav-link" href="#joining-two-relations"><span class="header-section-number">3.14</span> Joining Two Relations</a></li>
+<li><a class="nav-link" href="#explicit-tuple-variables"><span class="header-section-number">3.15</span> Explicit Tuple-Variables</a></li>
+<li><a class="nav-link" href="#self-joins-1"><span class="header-section-number">3.16</span> Self-Joins</a></li>
+<li><a class="nav-link" href="#subqueries"><span class="header-section-number">3.17</span> Subqueries</a></li>
+<li><a class="nav-link" href="#set-operations"><span class="header-section-number">3.18</span> Set Operations</a></li>
+<li><a class="nav-link" href="#single-tuple-subquery"><span class="header-section-number">3.19</span> Single-Tuple Subquery</a></li>
+<li><a class="nav-link" href="#query-subquery"><span class="header-section-number">3.20</span> Query + Subquery</a></li>
+<li><a class="nav-link" href="#between"><span class="header-section-number">3.21</span> Between</a></li>
+<li><a class="nav-link" href="#in"><span class="header-section-number">3.22</span> In</a></li>
+<li><a class="nav-link" href="#exists"><span class="header-section-number">3.23</span> Exists</a></li>
+<li><a class="nav-link" href="#any"><span class="header-section-number">3.24</span> Any</a></li>
+<li><a class="nav-link" href="#except"><span class="header-section-number">3.25</span> Except</a></li>
+<li><a class="nav-link" href="#union-intersection-difference"><span class="header-section-number">3.26</span> Union, Intersection, Difference</a></li>
+<li><a class="nav-link" href="#recursive-queries"><span class="header-section-number">3.27</span> Recursive Queries</a></li>
+<li><a class="nav-link" href="#bag-semantics"><span class="header-section-number">3.28</span> Bag Semantics</a></li>
+<li>
+<a class="nav-link" href="#controlling-duplicate-elimination"><span class="header-section-number">3.29</span> Controlling Duplicate Elimination</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-types"><span class="header-section-number">3.29.1</span> Data Types</a></li>
+<li><a class="nav-link" href="#modifying-relation-schemas"><span class="header-section-number">3.29.2</span> Modifying Relation Schemas</a></li>
+<li><a class="nav-link" href="#default-values"><span class="header-section-number">3.29.3</span> Default Values</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#constraints"><span class="header-section-number">3.2</span> Constraints</a></li>
+<li><a class="nav-link" href="#constraints"><span class="header-section-number">3.30</span> Constraints</a></li>
 </ul>
 
       <div class="book-extra">

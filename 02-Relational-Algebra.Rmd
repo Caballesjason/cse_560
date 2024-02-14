@@ -36,7 +36,6 @@ We will now go in more depth with each operation.
 
 \
 
-## Relational Algebra Operations
 Before we talk about the various operations in relational algebra, we will define what a clause and predicate is.
 
 __Clause__:  A clause is any function or keyword in SQL that allows you to filter tuples
@@ -44,7 +43,7 @@ __Predicate__:  A predicate is anything that returns a boolean (True, False, Unk
 
 ![[SQL Clauses](https://www.scaler.com/topics/clause-in-sql/)](images/clause_graph.png){width=100%}
 
-### Selection
+## Selection
 __Selection__ chooses which attributes we want in our relation.  For example:
 
 ```{sql Selection, connection=conn, max.print=5}
@@ -60,7 +59,7 @@ $$
 
 Here $R1$ is the new relation from the expression  $\sigma_{C}({R2})$.  $:=$ is an assignment operator that assigns $R1$ to be the relation returned from $\sigma_{C}({R2})$.  When creating relations from any expression, it will have the same schema as the inputted relation.  To put our expression in English, we are selecting all tuples.  We are not using any conditions to exclude tuples!
 
-### Projection
+## Projection
 
 __Projection__ selects a subset of attributes from a relation.  The order of attributes must be specified or the order of the relation from the schema is returned.  Any duplicates are eliminated.
 
@@ -76,7 +75,7 @@ FROM instructor
 ```
 
 
-#### Extended Projection
+### Extended Projection
 We can create attributes for a projection by applying operations to attributes.  Think of adding a constant to component of every tuple. or finding the difference between two columns as a new column.
 
 For example:
@@ -91,8 +90,37 @@ A & B \\
 \qquad \text{Some relation } R
 \\~\\~\\ % ~ is an operartor to add multiple new lines
 R2 := \pi_{A+B\rightarrow{C}, A, B}({R}) \qquad \text{Assigning a new relation } R2 \text{ with  columns } A, B, C
+\\~\\
+C \text{ is a column generating in the projection by the expression } A + B \rightarrow{C}
+\\~\\
+R2 = \begin{matrix}
+A & B & C \\
+\hline \\
+1 & 2 & 3 \\
+3 & 4 & 7 \\
+\end{matrix}
 $$
-<!-- Continue on slide 9 of relational algebra lecture -->
+
+\
+
+## Cartesian Products and Joins
+### Natural Joins
+### Theta Joins
+### Self Joins
+
+## Renaming
+
+## Complex Expressions
+
+## Sequence (Order) of Operations
+
+## Expression Trees
+
+## Schemas for Results
+
+## Relational Algebra on Bags
+### Operations on Bags
+<!-- Continue on slide 10 of relational algebra lecture -->
 <!---
 ### Natural Joins - $R \bowtie S$
 If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
