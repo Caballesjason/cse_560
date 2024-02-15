@@ -102,7 +102,7 @@ Dates and times are declared using `DATE` and `TIME` respectively. Dates and tim
 
 The follow is a simple example of a Relation Schema declaration
 
-```{SQL}
+```{sql}
 CREATE TABLE Movies(
   title CHAR(100) -- Character string with 100 characters
   ,year INT
@@ -116,13 +116,13 @@ CREATE TABLE Movies(
 ### Modifying Relation Schemas
 To delete or "drop" a table from a database, execute the following    
 
-```{SQL}
+```{sql}
 DROP TABLE -- SOME TABLE --;
 ```
 
 When dropping at able, the table no longer exists in the database schema.  To modify and existing table, use the `ALTER` keyword   
 
-```{SQL}
+```{sql}
 ---- Modifying a table to add a new attribute to its schema ----
 ALTER TABLE -- SOME TABLE -- ADD -- SOME ATTRIBUTE -- CHAR(16); 
 
@@ -133,7 +133,7 @@ ALTER TABLE -- SOME TABLE -- DROP -- SOME ATTRIBUTE IN SCHEMA --;
 ### Default Values
 When adding a new attribute to a relation's schema, all tuples require some value for that attribute.  Database systems will default that value to `NULL`, but what if you want a specific value for it default to?  What if data is uploaded randomly and not all tuples have values for each component?   In this case we can use the `DEFAULT` keyword to add a specific value instead using `NULL`.
 
-```{SQL}
+```{sql}
 ---- Creating attributes and adding a default value when no data is made available ----
 gender CHAR(1) DEFAULT '?'
 name VARCHAR(10) DEFAULT 'No Name :('
@@ -144,7 +144,7 @@ There are two ways to assign a set of attributes to be a key.  Keys are defined 
 
 Use `PRIMARY KEY` or `UNIQUE` to declare a set of attributes to be a key.  Remember, that keys must always be unique for each tuple.  The difference between `PRIMARY KEY` and `UNIQUE` is that components a tuple are allowed to have `NULL` as a value when using `UNIQUE`.  On the other hand, using `PRIMARY KEY` does not allow `NULL` to be in a key.
 
-```{SQL}
+```{sql}
 ---- Assigning name as a primary key ---
 CREATE TABLE MovieStar(
   name CHAR(30) PRIMARY KEY

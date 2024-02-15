@@ -12,7 +12,7 @@ conn <- dbConnect(RSQLite::SQLite(), "databases/University_Database.db")
 ```
 # Relational Algebra
 ## Algebraic Query Language
-SQL is built upon relational Algebra and is simplified for optimization and ease of use.  In relational algebra, relations are variables and finite relations are constants.  In other words, relations are the operands (thngs we apply operators to) in relational algebra.
+SQL is built upon relational Algebra and is simplified for optimization and ease of use.  In relational algebra, relations are variables and finite relations are constants.  In other words, relations are the operands (things we apply operators to) in relational algebra.
 
 When Database Management Systems (DBMS) process queries,  the first thing the system does is translate the queries into relational algebra or a very similar internal representation of it.
 
@@ -104,11 +104,113 @@ $$
 \
 
 ## Cartesian Products and Joins
+### Cartesian Product
+Other names for cartesian product are "product" or "Cross product".  To denote the cartesian product for two relations, we use $\times$
+
+For example:
+
+$$
+R3 := R1 \times R2
+\\~\\
+\text{In English, R3 is assigned to be the cartesian product of } R1 \text{ and } R2
+$$
+
+Cartesian product simple takes the the attributes in the left hand of $\times$ and concatenates it with the attributes in the right hand of $\times$.  The attributes in the left hand side appear first by convention.  If an attribute name appears in both relations, you must rename them.  $R3$ has the schema of both $R1$ and $R2$.
+
 ### Natural Joins
+Natural Joins connect two relations by doing the following:
+
+- Check which attributes in the schemas for both relations have the same name and domain
+- For each tuple in one relation, compare the same attributes to the tuples in the other relation
+- If both tuples have equal values for all shared attributes, concatenate the tuples!
+  - If at least one of the shared attributes do is not equal in both tuples, reject the join of those tuples!
+  - Any tuple that cannot join is known as a __dangling tuple__
+- Any tuples shared attributes only appear once in the tuples (no duplicate attributes)
+
+Natural joins are denoted as $\bowtie$
+
+Lets take the following for an example:
+
+Suppose we have two relations
+
+$$
+Sells = \begin{matrix}
+bar & beer & price \\
+\hline
+Joe's & Bud & 2.50 \\
+Joe's & Miller & 2.75 \\
+Sue's & Bud & 2.50 \\
+Sue's & Coors & 3.00
+\end{matrix} \qquad Bars = \begin{matrix}
+bar & address\\
+\hline
+Joe's & \text{Maple Street }\\
+Sue's & \text{River Road} \\
+\end{matrix}
+$$
+
+Lets join them!
+
+$$
+BarInfo := Sells \bowtie Bars
+\\
+\text{In English: Relation BarInfo is Sells natural join Bars}
+\\~\\
+BarInfo = \begin{matrix}
+bar & beer & price & address \\
+\hline \\
+Joe's & Bud & 2.50 & \text{Maple Street} \\
+Joe's & Miller & 2.75 & \text{Maple Street} \\
+Sue's & Bud & 2.50 & \text{River Road} \\
+Sue's & Bud & 2.50 & \text{River Road} \\
+\end{matrix}
+$$
+
 ### Theta Joins
+A theta join is a cartesian product with a condition.  You simply commit a cartesian product that removes tuples based on some set of conditions.  The notation for a theta join is $\sigma_{C}$ where $C$ is the set of conditions.  Theta joins are called theta joins because historically, we used $\theta$ instead of $C$ to represent the set of conditions.
+
+For example:
+
+$$
+R1 = \begin{matrix}
+A & B \\
+\hline
+1 & 2 \\
+3 & 4
+\end{matrix} \qquad
+R2 = \begin{matrix}
+B & C \\
+\hline
+5 & 6 \\
+7 & 8 \\
+9 & 10
+\end{matrix}
+\\~\\~\\
+R1 \times R2 = \begin{matrix}
+A & R1.B & R2.B & C \\
+\hline
+1 & 2 & 5 & 6 \\
+1 & 2 & 7 & 8 \\
+1 & 2 & 9 & 10 \\
+3 & 4 & 5 & 6 \\
+3 & 4 & 7 & 8 \\
+3 & 4 & 9 & 10 \\
+\end{matrix}
+\\~\\~\\
+R5 := R1 \times_{A + C < 10 \text{ and } A < 2} R2 = \begin{matrix}
+A & R1.B & R2.B & C \\
+\hline
+1 & 2 & 5 & 6 \\
+1 & 2 & 7 & 8 \\
+3 & 4 & 5 & 6
+\end{matrix}
+$$
+
+
 ### Self Joins
 
 ## Renaming
+The rename operation simply renames relations or its attributes.  After renaming a relation, the returned relation retains its tuples, but with different names.
 
 ## Complex Expressions
 
@@ -120,6 +222,7 @@ $$
 
 ## Relational Algebra on Bags
 ### Operations on Bags
+
 <!-- Continue on slide 10 of relational algebra lecture -->
 <!---
 ### Natural Joins - $R \bowtie S$

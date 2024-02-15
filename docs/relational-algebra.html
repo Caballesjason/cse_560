@@ -41,12 +41,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Jason’s CSE 560 Notes</a></li>
-<li><a class="" href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></li>
-<li><a class="active" href="relational-algebra.html"><span class="header-section-number">2</span> Relational Algebra</a></li>
-<li><a class="" href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">2</span> Relational Algebra</a></li></ul>
 
         <div class="book-extra">
           
@@ -61,7 +56,7 @@
 <h2>
 <span class="header-section-number">2.1</span> Algebraic Query Language<a class="anchor" aria-label="anchor" href="#algebraic-query-language"><i class="fas fa-link"></i></a>
 </h2>
-<p>SQL is built upon relational Algebra and is simplified for optimization and ease of use. In relational algebra, relations are variables and finite relations are constants. In other words, relations are the operands (thngs we apply operators to) in relational algebra.</p>
+<p>SQL is built upon relational Algebra and is simplified for optimization and ease of use. In relational algebra, relations are variables and finite relations are constants. In other words, relations are the operands (things we apply operators to) in relational algebra.</p>
 <p>When Database Management Systems (DBMS) process queries, the first thing the system does is translate the queries into relational algebra or a very similar internal representation of it.</p>
 <p>We will talk about the following operations in that can be done in relational algebra:</p>
 <ol style="list-style-type: decimal">
@@ -232,19 +227,114 @@ A &amp; B &amp; C \\
 <h2>
 <span class="header-section-number">2.4</span> Cartesian Products and Joins<a class="anchor" aria-label="anchor" href="#cartesian-products-and-joins"><i class="fas fa-link"></i></a>
 </h2>
-<div id="natural-joins" class="section level3" number="2.4.1">
+<div id="cartesian-product" class="section level3" number="2.4.1">
 <h3>
-<span class="header-section-number">2.4.1</span> Natural Joins<a class="anchor" aria-label="anchor" href="#natural-joins"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.1</span> Cartesian Product<a class="anchor" aria-label="anchor" href="#cartesian-product"><i class="fas fa-link"></i></a>
 </h3>
+<p>Other names for cartesian product are “product” or “Cross product”. To denote the cartesian product for two relations, we use <span class="math inline">\(\times\)</span></p>
+<p>For example:</p>
+<p><span class="math display">\[
+R3 := R1 \times R2
+\\~\\
+\text{In English, R3 is assigned to be the cartesian product of } R1 \text{ and } R2
+\]</span></p>
+<p>Cartesian product simple takes the the attributes in the left hand of <span class="math inline">\(\times\)</span> and concatenates it with the attributes in the right hand of <span class="math inline">\(\times\)</span>. The attributes in the left hand side appear first by convention. If an attribute name appears in both relations, you must rename them. <span class="math inline">\(R3\)</span> has the schema of both <span class="math inline">\(R1\)</span> and <span class="math inline">\(R2\)</span>.</p>
 </div>
-<div id="theta-joins" class="section level3" number="2.4.2">
+<div id="natural-joins" class="section level3" number="2.4.2">
 <h3>
-<span class="header-section-number">2.4.2</span> Theta Joins<a class="anchor" aria-label="anchor" href="#theta-joins"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.2</span> Natural Joins<a class="anchor" aria-label="anchor" href="#natural-joins"><i class="fas fa-link"></i></a>
 </h3>
+<p>Natural Joins connect two relations by doing the following:</p>
+<ul>
+<li>Check which attributes in the schemas for both relations have the same name and domain</li>
+<li>For each tuple in one relation, compare the same attributes to the tuples in the other relation</li>
+<li>If both tuples have equal values for all shared attributes, concatenate the tuples!
+<ul>
+<li>If at least one of the shared attributes do is not equal in both tuples, reject the join of those tuples!</li>
+<li>Any tuple that cannot join is known as a <strong>dangling tuple</strong>
+</li>
+</ul>
+</li>
+<li>Any tuples shared attributes only appear once in the tuples (no duplicate attributes)</li>
+</ul>
+<p>Natural joins are denoted as <span class="math inline">\(\bowtie\)</span></p>
+<p>Lets take the following for an example:</p>
+<p>Suppose we have two relations</p>
+<p><span class="math display">\[
+Sells = \begin{matrix}
+bar &amp; beer &amp; price \\
+\hline
+Joe's &amp; Bud &amp; 2.50 \\
+Joe's &amp; Miller &amp; 2.75 \\
+Sue's &amp; Bud &amp; 2.50 \\
+Sue's &amp; Coors &amp; 3.00
+\end{matrix} \qquad Bars = \begin{matrix}
+bar &amp; address\\
+\hline
+Joe's &amp; \text{Maple Street }\\
+Sue's &amp; \text{River Road} \\
+\end{matrix}
+\]</span></p>
+<p>Lets join them!</p>
+<p><span class="math display">\[
+BarInfo := Sells \bowtie Bars
+\\
+\text{In English: Relation BarInfo is Sells natural join Bars}
+\\~\\
+BarInfo = \begin{matrix}
+bar &amp; beer &amp; price &amp; address \\
+\hline \\
+Joe's &amp; Bud &amp; 2.50 &amp; \text{Maple Street} \\
+Joe's &amp; Miller &amp; 2.75 &amp; \text{Maple Street} \\
+Sue's &amp; Bud &amp; 2.50 &amp; \text{River Road} \\
+Sue's &amp; Bud &amp; 2.50 &amp; \text{River Road} \\
+\end{matrix}
+\]</span></p>
 </div>
-<div id="self-joins" class="section level3" number="2.4.3">
+<div id="theta-joins" class="section level3" number="2.4.3">
 <h3>
-<span class="header-section-number">2.4.3</span> Self Joins<a class="anchor" aria-label="anchor" href="#self-joins"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.3</span> Theta Joins<a class="anchor" aria-label="anchor" href="#theta-joins"><i class="fas fa-link"></i></a>
+</h3>
+<p>A theta join is a cartesian product with a condition. You simply commit a cartesian product that removes tuples based on some set of conditions. The notation for a theta join is <span class="math inline">\(\sigma_{C}\)</span> where <span class="math inline">\(C\)</span> is the set of conditions. Theta joins are called theta joins because historically, we used <span class="math inline">\(\theta\)</span> instead of <span class="math inline">\(C\)</span> to represent the set of conditions.</p>
+<p>For example:</p>
+<p><span class="math display">\[
+R1 = \begin{matrix}
+A &amp; B \\
+\hline
+1 &amp; 2 \\
+3 &amp; 4
+\end{matrix} \qquad
+R2 = \begin{matrix}
+B &amp; C \\
+\hline
+5 &amp; 6 \\
+7 &amp; 8 \\
+9 &amp; 10
+\end{matrix}
+\\~\\~\\
+R1 \times R2 = \begin{matrix}
+A &amp; R1.B &amp; R2.B &amp; C \\
+\hline
+1 &amp; 2 &amp; 5 &amp; 6 \\
+1 &amp; 2 &amp; 7 &amp; 8 \\
+1 &amp; 2 &amp; 9 &amp; 10 \\
+3 &amp; 4 &amp; 5 &amp; 6 \\
+3 &amp; 4 &amp; 7 &amp; 8 \\
+3 &amp; 4 &amp; 9 &amp; 10 \\
+\end{matrix}
+\\~\\~\\
+R5 := R1 \times_{A + C &lt; 10 \text{ and } A &lt; 2} R2 = \begin{matrix}
+A &amp; R1.B &amp; R2.B &amp; C \\
+\hline
+1 &amp; 2 &amp; 5 &amp; 6 \\
+1 &amp; 2 &amp; 7 &amp; 8 \\
+3 &amp; 4 &amp; 5 &amp; 6
+\end{matrix}
+\]</span></p>
+</div>
+<div id="self-joins" class="section level3" number="2.4.4">
+<h3>
+<span class="header-section-number">2.4.4</span> Self Joins<a class="anchor" aria-label="anchor" href="#self-joins"><i class="fas fa-link"></i></a>
 </h3>
 </div>
 </div>
@@ -252,6 +342,7 @@ A &amp; B &amp; C \\
 <h2>
 <span class="header-section-number">2.5</span> Renaming<a class="anchor" aria-label="anchor" href="#renaming"><i class="fas fa-link"></i></a>
 </h2>
+<p>The rename operation simply renames relations or its attributes. After renaming a relation, the returned relation retains its tuples, but with different names.</p>
 </div>
 <div id="complex-expressions" class="section level2" number="2.6">
 <h2>
@@ -294,33 +385,11 @@ Theta joins are simply natural joins with a condition.  To implement a theta joi
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></div>
-<div class="next"><a href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#relational-algebra"><span class="header-section-number">2</span> Relational Algebra</a></li>
-<li><a class="nav-link" href="#algebraic-query-language"><span class="header-section-number">2.1</span> Algebraic Query Language</a></li>
-<li><a class="nav-link" href="#selection"><span class="header-section-number">2.2</span> Selection</a></li>
-<li>
-<a class="nav-link" href="#projection"><span class="header-section-number">2.3</span> Projection</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#extended-projection"><span class="header-section-number">2.3.1</span> Extended Projection</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#cartesian-products-and-joins"><span class="header-section-number">2.4</span> Cartesian Products and Joins</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#natural-joins"><span class="header-section-number">2.4.1</span> Natural Joins</a></li>
-<li><a class="nav-link" href="#theta-joins"><span class="header-section-number">2.4.2</span> Theta Joins</a></li>
-<li><a class="nav-link" href="#self-joins"><span class="header-section-number">2.4.3</span> Self Joins</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#renaming"><span class="header-section-number">2.5</span> Renaming</a></li>
-<li><a class="nav-link" href="#complex-expressions"><span class="header-section-number">2.6</span> Complex Expressions</a></li>
-<li><a class="nav-link" href="#sequence-order-of-operations"><span class="header-section-number">2.7</span> Sequence (Order) of Operations</a></li>
-<li><a class="nav-link" href="#expression-trees"><span class="header-section-number">2.8</span> Expression Trees</a></li>
-<li><a class="nav-link" href="#schemas-for-results"><span class="header-section-number">2.9</span> Schemas for Results</a></li>
-<li>
-<a class="nav-link" href="#relational-algebra-on-bags"><span class="header-section-number">2.10</span> Relational Algebra on Bags</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#operations-on-bags"><span class="header-section-number">2.10.1</span> Operations on Bags</a></li></ul>
-</li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
