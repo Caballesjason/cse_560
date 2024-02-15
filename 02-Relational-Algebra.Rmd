@@ -8,7 +8,7 @@ output:
 ```{r Connection to University Database, message=FALSE, warning=FALSE, include=FALSE}
 library(DBI)
 library(RSQLite)
-conn <- dbConnect(RSQLite::SQLite(), "databases/University_Database.db")
+conn <- dbConnect(RSQLite::SQLite(), "databases/notes_database.db")
 ```
 # Relational Algebra
 ## Algebraic Query Language
