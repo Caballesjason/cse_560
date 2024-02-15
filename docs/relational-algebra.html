@@ -328,7 +328,9 @@ A &amp; R1.B &amp; R2.B &amp; C \\
 3 &amp; 4 &amp; 9 &amp; 10 \\
 \end{matrix}
 \\~\\~\\
-R5 := R1 \times_{A + C &lt; 10 \text{ and } A &lt; 2} R2 = \begin{matrix}
+R5 := R1 \times_{A + C &lt; 10 \text{ and } A &lt; 2} R2
+\\~\\
+R5 = \begin{matrix}
 A &amp; R1.B &amp; R2.B &amp; C \\
 \hline
 1 &amp; 2 &amp; 5 &amp; 6 \\
@@ -347,12 +349,49 @@ A &amp; R1.B &amp; R2.B &amp; C \\
 <h2>
 <span class="header-section-number">2.5</span> Renaming<a class="anchor" aria-label="anchor" href="#renaming"><i class="fas fa-link"></i></a>
 </h2>
-<p>The rename operation simply renames relations or its attributes. After renaming a relation, the returned relation retains its tuples, but with different names.</p>
+<p>The rename operation simply renames relations or its attributes. After renaming a relation, the returned relation retains its tuples, but with different names. The notation for the renaming operation is</p>
+<p><span class="math display">\[
+\rho_{S(A_{1}, A_{2}, ...A_{n})}{(R)}
+\\~\\
+S: \text{ The relations new name} \qquad A_{i}: \text{ The new names of the relations attributes}
+\\~\\
+(R): \text{ The relation you are renaming}
+\]</span></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>If no attributes are in the subscript, then you are only renaming the relation</li>
+<li>If you are renaming at least one attribute, you must list all attributes in the order it appears in the schema with their new names if they are suppose to be renamed and their current names if they are not to be renamed</li>
+</ul>
 </div>
 <div id="complex-expressions" class="section level2" number="2.6">
 <h2>
 <span class="header-section-number">2.6</span> Complex Expressions<a class="anchor" aria-label="anchor" href="#complex-expressions"><i class="fas fa-link"></i></a>
 </h2>
+<p>Like in algebra, you can combine expressions to create complex expressions!</p>
+<p>There are three ways to express relation arithmetic:</p>
+<ol style="list-style-type: decimal">
+<li>Sequences of assignment statements</li>
+<li>Expressions with multiple operators</li>
+<li>Expression Trees</li>
+</ol>
+<p>In regular algebra, we have an order of precedence of operations (PEMDAS). Likewise, the order of precedence of operations in relational algebra is as follows</p>
+<ol style="list-style-type: decimal">
+<li>Selection, Projection, Renaming - <span class="math inline">\(\sigma, \pi, \rho\)</span>
+</li>
+<li>Natural joins/Cartesian Products - <span class="math inline">\(\times, \bowtie\)</span>
+</li>
+<li>Intersections - <span class="math inline">\(\cap\)</span>
+</li>
+<li>Unions, Difference <span class="math inline">\(\cup, -\)</span>
+</li>
+</ol>
+<p>We will now explore the three different methods of expressing relational arithmetic. We will use the following table</p>
+<!-- Continue on slide 31 of relational algebra lecture -->
+<div id="section" class="section level3" number="2.6.1">
+<h3>
+<span class="header-section-number">2.6.1</span> <a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
+</h3>
+</div>
 </div>
 <div id="sequence-order-of-operations" class="section level2" number="2.7">
 <h2>
@@ -377,7 +416,6 @@ A &amp; R1.B &amp; R2.B &amp; C \\
 <h3>
 <span class="header-section-number">2.10.1</span> Operations on Bags<a class="anchor" aria-label="anchor" href="#operations-on-bags"><i class="fas fa-link"></i></a>
 </h3>
-<!-- Continue on slide 10 of relational algebra lecture -->
 <!---
 ### Natural Joins - $R \bowtie S$
 If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
@@ -410,7 +448,9 @@ Theta joins are simply natural joins with a condition.  To implement a theta joi
 </ul>
 </li>
 <li><a class="nav-link" href="#renaming"><span class="header-section-number">2.5</span> Renaming</a></li>
-<li><a class="nav-link" href="#complex-expressions"><span class="header-section-number">2.6</span> Complex Expressions</a></li>
+<li>
+<a class="nav-link" href="#complex-expressions"><span class="header-section-number">2.6</span> Complex Expressions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#section"><span class="header-section-number">2.6.1</span></a></li></ul>
+</li>
 <li><a class="nav-link" href="#sequence-order-of-operations"><span class="header-section-number">2.7</span> Sequence (Order) of Operations</a></li>
 <li><a class="nav-link" href="#expression-trees"><span class="header-section-number">2.8</span> Expression Trees</a></li>
 <li><a class="nav-link" href="#schemas-for-results"><span class="header-section-number">2.9</span> Schemas for Results</a></li>
