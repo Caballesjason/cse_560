@@ -197,7 +197,9 @@ A & R1.B & R2.B & C \\
 3 & 4 & 9 & 10 \\
 \end{matrix}
 \\~\\~\\
-R5 := R1 \times_{A + C < 10 \text{ and } A < 2} R2 = \begin{matrix}
+R5 := R1 \times_{A + C < 10 \text{ and } A < 2} R2
+\\~\\
+R5 = \begin{matrix}
 A & R1.B & R2.B & C \\
 \hline
 1 & 2 & 5 & 6 \\
@@ -210,20 +212,58 @@ $$
 ### Self Joins
 
 ## Renaming
-The rename operation simply renames relations or its attributes.  After renaming a relation, the returned relation retains its tuples, but with different names.
+The rename operation simply renames relations or its attributes.  After renaming a relation, the returned relation retains its tuples, but with different names.  The notation for the renaming operation is
+
+$$
+\rho_{S(A_{1}, A_{2}, ...A_{n})}{(R)}
+\\~\\
+S: \text{ The relations new name} \qquad A_{i}: \text{ The new names of the relations attributes}
+\\~\\
+(R): \text{ The relation you are renaming}
+$$
+
+__Note__:
+
+* If no attributes are in the subscript, then you are only renaming the relation
+* If you are renaming at least one attribute, you must list all attributes in the order it appears in the schema with their new names if they are suppose to be renamed and their current names if they are not to be renamed
+
 
 ## Complex Expressions
+Like in algebra, you can combine expressions to create complex expressions!
+
+There are three ways to express relation arithmetic:
+
+1. Sequences of assignment statements
+2. Expressions with multiple operators
+3. Expression Trees
+
+In regular algebra, we have an order of precedence of operations (PEMDAS).  Likewise, the order of precedence of operations in relational algebra is as follows
+
+1. Selection, Projection, Renaming - $\sigma, \pi, \rho$ 
+2. Natural joins/Cartesian Products - $\times, \bowtie$
+3. Intersections - $\cap$
+4. Unions, Difference $\cup, -$
+
+We will now explore the three different methods of expressing relational arithmetic.  We will use the following table
+
+<!-- Continue on slide 31 of relational algebra lecture -->
+
+###
+
 
 ## Sequence (Order) of Operations
 
+
 ## Expression Trees
 
+
 ## Schemas for Results
+
 
 ## Relational Algebra on Bags
 ### Operations on Bags
 
-<!-- Continue on slide 10 of relational algebra lecture -->
+
 <!---
 ### Natural Joins - $R \bowtie S$
 If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_

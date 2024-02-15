@@ -10,5 +10,6 @@ serve_site <- function() {
   file.create(paste(getwd(), "/docs", "/.nojekyll", sep=''))
 }
 
+
 serve_site()
 
