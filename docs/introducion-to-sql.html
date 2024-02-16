@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="3.1 Defining Relationship Schemas in SQL The current standard for SQL is SQL-99. There are two aspects to SQL: 1. The Data-Definition to declare database schemas 2. The Data_Manipulation...">
-<meta property="og:description" content="3.1 Defining Relationship Schemas in SQL The current standard for SQL is SQL-99. There are two aspects to SQL: 1. The Data-Definition to declare database schemas 2. The Data_Manipulation...">
-<meta name="twitter:description" content="3.1 Defining Relationship Schemas in SQL The current standard for SQL is SQL-99. There are two aspects to SQL: 1. The Data-Definition to declare database schemas 2. The Data_Manipulation...">
+<meta name="description" content="3.1 Partition of the SQL language The current standard for SQL is SQL-99. There are two aspects to the SQL language: 1. The Data Definition Language (DDL) to declare database schemas 2. The Data...">
+<meta property="og:description" content="3.1 Partition of the SQL language The current standard for SQL is SQL-99. There are two aspects to the SQL language: 1. The Data Definition Language (DDL) to declare database schemas 2. The Data...">
+<meta name="twitter:description" content="3.1 Partition of the SQL language The current standard for SQL is SQL-99. There are two aspects to the SQL language: 1. The Data Definition Language (DDL) to declare database schemas 2. The Data...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -57,17 +57,18 @@
 <h1>
 <span class="header-section-number">3</span> Introducion to SQL<a class="anchor" aria-label="anchor" href="#introducion-to-sql"><i class="fas fa-link"></i></a>
 </h1>
-<div id="defining-relationship-schemas-in-sql" class="section level2" number="3.1">
+<div id="partition-of-the-sql-language" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">3.1</span> Defining Relationship Schemas in SQL<a class="anchor" aria-label="anchor" href="#defining-relationship-schemas-in-sql"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> Partition of the SQL language<a class="anchor" aria-label="anchor" href="#partition-of-the-sql-language"><i class="fas fa-link"></i></a>
 </h2>
-<p>The current standard for SQL is <strong>SQL-99</strong>. There are two aspects to SQL:<br>
-1. The <strong>Data-Definition</strong> to declare database schemas<br>
-2. The <strong>Data_Manipulation</strong> sub-language for querying/modifying databases</p>
+<p>The current standard for SQL is <strong>SQL-99</strong>. There are two aspects to the SQL language:<br>
+1. The <strong>Data Definition Language (DDL)</strong> to declare database schemas<br>
+2. The <strong>Data Manipulation Language (DML)</strong> sub-language for querying/modifying databases</p>
 <div id="why-sql" class="section level3" number="3.1.1">
 <h3>
 <span class="header-section-number">3.1.1</span> Why SQL?<a class="anchor" aria-label="anchor" href="#why-sql"><i class="fas fa-link"></i></a>
 </h3>
+<p>SQL is a high level language. When using SQL, we simply ask “what to do” rather than “how to do it.”. This allows to disregard complex data manipulation and DBMS utilize <em>query optimizations</em> to optimize queries.</p>
 </div>
 </div>
 <div id="relations-in-sql" class="section level2" number="3.2">
@@ -76,25 +77,90 @@
 </h2>
 <p>SQL makes a distinction between three kinds of relations:<br>
 1. <strong>Stored relations</strong>, which are called <strong>tables</strong><br>
-2. <strong>Views</strong>, which are relations designed by some computation. This relations are not stored, but constructed when needed<br>
-3. <strong>Temporary Tables</strong> which are constructed by the SQL language processor when executing queries and data modifications. These relations are not stored and discarded when no longer used.</p>
+2. <strong>Views</strong>, which are relations designed by some computation. These relations are not stored in memory, but constructed when needed<br>
+3. <strong>Temporary Tables</strong> which are constructed by the SQL language processor when executing queries and data modifications. These relations are not stored in memory and discarded when no longer used.</p>
+<p>Before we dive into operations in SQL, we will go over the order of execution for any query. The order of execution for any query is as follows</p>
+<ol style="list-style-type: decimal">
+<li><code>FROM</code></li>
+<li><code>JOIN</code></li>
+<li><code>WHERE</code></li>
+<li><code>GROUP BY</code></li>
+<li><code>HAVING</code></li>
+<li><code>SELECT</code></li>
+<li><code>ORDER BY</code></li>
+<li><code>LIMIT</code></li>
+</ol>
 <p>To declare a schema for a stored relation, do the following</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="introducion-to-sql.html#cb3-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE NAME --</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="introducion-to-sql.html#cb3-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar( <span class="co">-- CREATE TABLE Initializes the create of the MovieStar schema</span></span>
+<span id="cb3-2"><a href="introducion-to-sql.html#cb3-2" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>)         <span class="co">-- For every attribute, declare its data type</span></span>
+<span id="cb3-3"><a href="introducion-to-sql.html#cb3-3" tabindex="-1"></a>  ,address <span class="dt">CHAR</span>(<span class="dv">30</span>)</span>
+<span id="cb3-4"><a href="introducion-to-sql.html#cb3-4" tabindex="-1"></a>  ,gender <span class="dt">char</span>(<span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="introducion-to-sql.html#cb3-5" tabindex="-1"></a>  ,birthdate <span class="dt">date</span></span>
+<span id="cb3-6"><a href="introducion-to-sql.html#cb3-6" tabindex="-1"></a><span class="kw">PRIMARY</span> <span class="kw">KEY</span> (name)  <span class="co">-- Assign the name attribute as the primary key for the schema</span></span>
+<span id="cb3-7"><a href="introducion-to-sql.html#cb3-7" tabindex="-1"></a>);</span></code></pre></div>
 </div>
-<div id="operational-semantics" class="section level2" number="3.3">
+<div id="foreign-keys" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">3.3</span> Operational Semantics<a class="anchor" aria-label="anchor" href="#operational-semantics"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Foreign Keys<a class="anchor" aria-label="anchor" href="#foreign-keys"><i class="fas fa-link"></i></a>
 </h2>
+<p>A foreign key is designed to create a relationship between two or more relations utilizing attributes that are similar to each other. We say “similar”because these attributes can have different names for each relation. Foreign keys reference primary keys or “unique” attributes from other relations.</p>
+<p>The table that contains a foreign key is referencing an attribute from another table. The relations with the foreign key is the <em>referencing table</em> while the relation that the referencing relation is referring to is known as the <em>referenced table</em>. There is no constraint to how many foreign keys a table may have, as long as they define a relationship to another relation.</p>
+<p>There are two ways to declare a column to be a foreign key. Both use the keyword <code>REFERENCE</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="introducion-to-sql.html#cb4-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> Student(</span>
+<span id="cb4-2"><a href="introducion-to-sql.html#cb4-2" tabindex="-1"></a>  <span class="kw">id</span> <span class="dt">VARCHAR</span>(<span class="dv">5</span>)</span>
+<span id="cb4-3"><a href="introducion-to-sql.html#cb4-3" tabindex="-1"></a>  ,name <span class="dt">VARCHAR</span>(<span class="dv">20</span>) <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb4-4"><a href="introducion-to-sql.html#cb4-4" tabindex="-1"></a>  ,dept_name <span class="dt">VARCHAR</span>(<span class="dv">20</span>)</span>
+<span id="cb4-5"><a href="introducion-to-sql.html#cb4-5" tabindex="-1"></a>  ,tot_cred <span class="dt">NUMERIC</span>(<span class="dv">3</span>, <span class="dv">0</span>) <span class="co">-- 3 indicates the total # of digits allowed for the float while 0 indicates the number of digits allowed after the decimal point</span></span>
+<span id="cb4-6"><a href="introducion-to-sql.html#cb4-6" tabindex="-1"></a>  ,<span class="kw">PRIMARY</span> <span class="kw">KEY</span> (<span class="kw">id</span>)</span>
+<span id="cb4-7"><a href="introducion-to-sql.html#cb4-7" tabindex="-1"></a>  ,<span class="kw">FOREIGN</span> <span class="kw">KEY</span> (dept_name) <span class="kw">REFERENCES</span> department</span>
+<span id="cb4-8"><a href="introducion-to-sql.html#cb4-8" tabindex="-1"></a>);</span>
+<span id="cb4-9"><a href="introducion-to-sql.html#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="introducion-to-sql.html#cb4-10" tabindex="-1"></a><span class="co">-- This needs to be reviewed</span></span></code></pre></div>
 </div>
-<div id="foreign-keys" class="section level2" number="3.4">
+<div id="select-from-where-statements" class="section level2" number="3.4">
 <h2>
-<span class="header-section-number">3.4</span> Foreign Keys<a class="anchor" aria-label="anchor" href="#foreign-keys"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4</span> SELECT, FROM, WHERE Statements<a class="anchor" aria-label="anchor" href="#select-from-where-statements"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>
+<code>SELECT</code>: Chooses a subset of tuples</li>
+<li>
+<code>FROM</code>: Chooses which relation to pull data from</li>
+<li>
+<code>WHERE</code>: Choose tuples based on conditions</li>
+</ul>
 </div>
 <div id="relation-schema-modification" class="section level2" number="3.5">
 <h2>
 <span class="header-section-number">3.5</span> Relation Schema Modification<a class="anchor" aria-label="anchor" href="#relation-schema-modification"><i class="fas fa-link"></i></a>
 </h2>
+<div id="deleting-relations" class="section level3" number="3.5.1">
+<h3>
+<span class="header-section-number">3.5.1</span> Deleting Relations<a class="anchor" aria-label="anchor" href="#deleting-relations"><i class="fas fa-link"></i></a>
+</h3>
+<p>This is how we can delete relations</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="introducion-to-sql.html#cb5-1" tabindex="-1"></a><span class="kw">DELETE</span> <span class="co">-- Some Table</span></span>
+<span id="cb5-2"><a href="introducion-to-sql.html#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="introducion-to-sql.html#cb5-3" tabindex="-1"></a><span class="co">-- We can also do this</span></span>
+<span id="cb5-4"><a href="introducion-to-sql.html#cb5-4" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> <span class="co">-- Some Table</span></span></code></pre></div>
+</div>
+<div id="altering-tables" class="section level3" number="3.5.2">
+<h3>
+<span class="header-section-number">3.5.2</span> Altering Tables<a class="anchor" aria-label="anchor" href="#altering-tables"><i class="fas fa-link"></i></a>
+</h3>
+<p>This is how we alter tables</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="introducion-to-sql.html#cb6-1" tabindex="-1"></a><span class="co">-- Adding a attribute "surname" to Instructor1 --</span></span>
+<span id="cb6-2"><a href="introducion-to-sql.html#cb6-2" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> Instructor1 <span class="kw">ADD</span> surname <span class="dt">CHAR</span>(<span class="dv">100</span>);</span>
+<span id="cb6-3"><a href="introducion-to-sql.html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="introducion-to-sql.html#cb6-4" tabindex="-1"></a><span class="co">-- Dropping surname from Instructor1 --</span></span>
+<span id="cb6-5"><a href="introducion-to-sql.html#cb6-5" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> Instructor1 <span class="kw">DROP</span> surname;</span>
+<span id="cb6-6"><a href="introducion-to-sql.html#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="introducion-to-sql.html#cb6-7" tabindex="-1"></a><span class="co">-- Renaming department attribute to dept from Instructor</span></span>
+<span id="cb6-8"><a href="introducion-to-sql.html#cb6-8" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> Instuctor <span class="kw">RENAME</span> <span class="kw">COLUMN</span> Department <span class="kw">TO</span> dept;</span>
+<span id="cb6-9"><a href="introducion-to-sql.html#cb6-9" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="introducion-to-sql.html#cb6-10" tabindex="-1"></a><span class="co">-- Renaming relation Instructor to "Teacher"</span></span>
+<span id="cb6-11"><a href="introducion-to-sql.html#cb6-11" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> Instuctor <span class="kw">RENAME</span> <span class="kw">TO</span> Teacher;</span></code></pre></div>
+</div>
 </div>
 <div id="select-cause" class="section level2" number="3.6">
 <h2>
@@ -215,112 +281,101 @@
 <h2>
 <span class="header-section-number">3.28</span> Bag Semantics<a class="anchor" aria-label="anchor" href="#bag-semantics"><i class="fas fa-link"></i></a>
 </h2>
-</div>
-<div id="controlling-duplicate-elimination" class="section level2" number="3.29">
-<h2>
-<span class="header-section-number">3.29</span> Controlling Duplicate Elimination<a class="anchor" aria-label="anchor" href="#controlling-duplicate-elimination"><i class="fas fa-link"></i></a>
-</h2>
-<div id="data-types" class="section level3" number="3.29.1">
-<h3>
-<span class="header-section-number">3.29.1</span> Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
-</h3>
-<p>The following are primitive data types that are supported by SQL</p>
-<div id="character-strings" class="section level4" number="3.29.1.1">
-<h4>
-<span class="header-section-number">3.29.1.1</span> Character Strings<a class="anchor" aria-label="anchor" href="#character-strings"><i class="fas fa-link"></i></a>
-</h4>
-<p>They can be of fixed or variable length. To type a fixed length character string, use <code>CHAR(n)</code> for some length <span class="math inline">\(n\)</span>. To create a variable length character string, use <code>VARCHAR(n)</code> for some length <span class="math inline">\(n\)</span>. If a component of a tuple with a domain of <code>CHAR(n)</code> is given and the length of the component is less than <span class="math inline">\(n\)</span>, the component is padded with white space.</p>
-</div>
-<div id="bit-strings" class="section level4" number="3.29.1.2">
-<h4>
-<span class="header-section-number">3.29.1.2</span> Bit Strings<a class="anchor" aria-label="anchor" href="#bit-strings"><i class="fas fa-link"></i></a>
-</h4>
-<p>Bit strings can be of fixed or varying length. This data type is analogous to character strings, but their values are strings of bits rather than characters.</p>
-</div>
-<div id="booleans" class="section level4" number="3.29.1.3">
-<h4>
-<span class="header-section-number">3.29.1.3</span> BOOLEANs<a class="anchor" aria-label="anchor" href="#booleans"><i class="fas fa-link"></i></a>
-</h4>
-<p>Booleans denote an attribute whose value is logical. The possible values that a boolean can take are <strong>TRUE, FALSE, UNKNOWN</strong>.</p>
-</div>
-<div id="ints" class="section level4" number="3.29.1.4">
-<h4>
-<span class="header-section-number">3.29.1.4</span> INTs<a class="anchor" aria-label="anchor" href="#ints"><i class="fas fa-link"></i></a>
-</h4>
-<p>Ints or (Integers) denote some integer value. <code>SHORTINT</code> is also an int but is may have less bits.</p>
-</div>
-<div id="floating-point-numbers" class="section level4" number="3.29.1.5">
-<h4>
-<span class="header-section-number">3.29.1.5</span> Floating-Point Numbers<a class="anchor" aria-label="anchor" href="#floating-point-numbers"><i class="fas fa-link"></i></a>
-</h4>
-<p>Floating points are denoted by <code>FLOAT</code> or <code>REAL</code>. If you would like higher precision with floats, use <code>DOUBLE PRECISION</code>. Like character strings, floats can be of fixed decimal length. You can declare decimal length but calling <code>DECIMAL(n, d)</code> where <span class="math inline">\(n\)</span> is the total number of digits allowed for the float nad <span class="math inline">\(d\)</span> is the number of digits passed the decimal.</p>
-</div>
-<div id="dates-and-times" class="section level4" number="3.29.1.6">
-<h4>
-<span class="header-section-number">3.29.1.6</span> Dates and Times<a class="anchor" aria-label="anchor" href="#dates-and-times"><i class="fas fa-link"></i></a>
-</h4>
-<p>Dates and times are declared using <code>DATE</code> and <code>TIME</code> respectively. Dates and times are a special form of character strings. Adding a string after the <code>DATE</code> declaration specifies the format of the date. For example <code>DATE '1948-05-14'</code> creates a date value with the form “YYYY-MM-DD”. The same can be done with time. For example <code>TIME '15:00:02.5'</code> specifies that you want to represent time with the format “HH:MM:SS” with the attachment of milliseconds.</p>
-<p>The follow is a simple example of a Relation Schema declaration</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="introducion-to-sql.html#cb4-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> Movies(</span>
-<span id="cb4-2"><a href="introducion-to-sql.html#cb4-2" tabindex="-1"></a>  title <span class="dt">CHAR</span>(<span class="dv">100</span>) <span class="co">-- Character string with 100 characters</span></span>
-<span id="cb4-3"><a href="introducion-to-sql.html#cb4-3" tabindex="-1"></a>  ,<span class="dt">year</span> <span class="dt">INT</span></span>
-<span id="cb4-4"><a href="introducion-to-sql.html#cb4-4" tabindex="-1"></a>  ,lengh <span class="dt">INT</span></span>
-<span id="cb4-5"><a href="introducion-to-sql.html#cb4-5" tabindex="-1"></a>  ,genre <span class="dt">CHAR</span>(<span class="dv">10</span>)</span>
-<span id="cb4-6"><a href="introducion-to-sql.html#cb4-6" tabindex="-1"></a>  ,studioName <span class="dt">CHAR</span>(<span class="dv">30</span>)</span>
-<span id="cb4-7"><a href="introducion-to-sql.html#cb4-7" tabindex="-1"></a>  ,producerC# <span class="dt">INT</span></span>
-<span id="cb4-8"><a href="introducion-to-sql.html#cb4-8" tabindex="-1"></a>);</span></code></pre></div>
-</div>
-</div>
-<div id="modifying-relation-schemas" class="section level3" number="3.29.2">
-<h3>
-<span class="header-section-number">3.29.2</span> Modifying Relation Schemas<a class="anchor" aria-label="anchor" href="#modifying-relation-schemas"><i class="fas fa-link"></i></a>
-</h3>
-<p>To delete or “drop” a table from a database, execute the following</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="introducion-to-sql.html#cb5-1" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE --;</span></span></code></pre></div>
-<p>When dropping at able, the table no longer exists in the database schema. To modify and existing table, use the <code>ALTER</code> keyword</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="introducion-to-sql.html#cb6-1" tabindex="-1"></a><span class="co">---- Modifying a table to add a new attribute to its schema ----</span></span>
-<span id="cb6-2"><a href="introducion-to-sql.html#cb6-2" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE -- ADD -- SOME ATTRIBUTE -- CHAR(16); </span></span>
-<span id="cb6-3"><a href="introducion-to-sql.html#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="introducion-to-sql.html#cb6-4" tabindex="-1"></a><span class="co">---- Modifying a table to remove an attribute from its schema ----</span></span>
-<span id="cb6-5"><a href="introducion-to-sql.html#cb6-5" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="co">-- SOME TABLE -- DROP -- SOME ATTRIBUTE IN SCHEMA --; </span></span></code></pre></div>
-</div>
-<div id="default-values" class="section level3" number="3.29.3">
-<h3>
-<span class="header-section-number">3.29.3</span> Default Values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
-</h3>
-<p>When adding a new attribute to a relation’s schema, all tuples require some value for that attribute. Database systems will default that value to <code>NULL</code>, but what if you want a specific value for it default to? What if data is uploaded randomly and not all tuples have values for each component? In this case we can use the <code>DEFAULT</code> keyword to add a specific value instead using <code>NULL</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="introducion-to-sql.html#cb7-1" tabindex="-1"></a><span class="co">---- Creating attributes and adding a default value when no data is made available ----</span></span>
-<span id="cb7-2"><a href="introducion-to-sql.html#cb7-2" tabindex="-1"></a>gender <span class="dt">CHAR</span>(<span class="dv">1</span>) <span class="kw">DEFAULT</span> <span class="st">'?'</span></span>
-<span id="cb7-3"><a href="introducion-to-sql.html#cb7-3" tabindex="-1"></a>name <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">DEFAULT</span> <span class="st">'No Name :('</span></span></code></pre></div>
-<div id="declaring-keys" class="section level4" number="3.29.3.1">
-<h4>
-<span class="header-section-number">3.29.3.1</span> Declaring Keys<a class="anchor" aria-label="anchor" href="#declaring-keys"><i class="fas fa-link"></i></a>
-</h4>
-<p>There are two ways to assign a set of attributes to be a key. Keys are defined in the declaration of the database schema, i.e. the <code>CREATE TABLE</code> statement.</p>
-<p>Use <code>PRIMARY KEY</code> or <code>UNIQUE</code> to declare a set of attributes to be a key. Remember, that keys must always be unique for each tuple. The difference between <code>PRIMARY KEY</code> and <code>UNIQUE</code> is that components a tuple are allowed to have <code>NULL</code> as a value when using <code>UNIQUE</code>. On the other hand, using <code>PRIMARY KEY</code> does not allow <code>NULL</code> to be in a key.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="introducion-to-sql.html#cb8-1" tabindex="-1"></a><span class="co">---- Assigning name as a primary key ---</span></span>
-<span id="cb8-2"><a href="introducion-to-sql.html#cb8-2" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar(</span>
-<span id="cb8-3"><a href="introducion-to-sql.html#cb8-3" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span></span>
-<span id="cb8-4"><a href="introducion-to-sql.html#cb8-4" tabindex="-1"></a>  ,address <span class="dt">VARCHAR</span>(<span class="dv">255</span>)</span>
-<span id="cb8-5"><a href="introducion-to-sql.html#cb8-5" tabindex="-1"></a>  ,gender <span class="dt">CHAR</span>(<span class="dv">1</span>)</span>
-<span id="cb8-6"><a href="introducion-to-sql.html#cb8-6" tabindex="-1"></a>  ,birthdate <span class="dt">DATE</span></span>
-<span id="cb8-7"><a href="introducion-to-sql.html#cb8-7" tabindex="-1"></a>);</span>
-<span id="cb8-8"><a href="introducion-to-sql.html#cb8-8" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="introducion-to-sql.html#cb8-9" tabindex="-1"></a><span class="co">---- You can assign keys after declaring all attributes as well! ----</span></span>
-<span id="cb8-10"><a href="introducion-to-sql.html#cb8-10" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar(</span>
-<span id="cb8-11"><a href="introducion-to-sql.html#cb8-11" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>)</span>
-<span id="cb8-12"><a href="introducion-to-sql.html#cb8-12" tabindex="-1"></a>  ,address <span class="dt">VARCHAR</span>(<span class="dv">255</span>)</span>
-<span id="cb8-13"><a href="introducion-to-sql.html#cb8-13" tabindex="-1"></a>  ,gender <span class="dt">CHAR</span>(<span class="dv">1</span>)</span>
-<span id="cb8-14"><a href="introducion-to-sql.html#cb8-14" tabindex="-1"></a>  ,birthdate <span class="dt">DATE</span></span>
-<span id="cb8-15"><a href="introducion-to-sql.html#cb8-15" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (name)</span>
-<span id="cb8-16"><a href="introducion-to-sql.html#cb8-16" tabindex="-1"></a>);</span></code></pre></div>
-</div>
-</div>
-</div>
-<div id="constraints" class="section level2" number="3.30">
-<h2>
-<span class="header-section-number">3.30</span> Constraints<a class="anchor" aria-label="anchor" href="#constraints"><i class="fas fa-link"></i></a>
-</h2>
+<!--- 
+ADD THE FOLLOWING AFTER ORGANZING NOTES
+## Controlling Duplicate Elimination
+### Data Types
+The following are primitive data types that are supported by SQL    
+
+#### Character Strings
+They can be of fixed or variable length.  To type a fixed length character string, use `CHAR(n)` for some length $n$.  To create a variable length character string, use `VARCHAR(n)` for some length $n$.  If a component of a tuple with a domain of `CHAR(n)` is given and the length of the component is less than $n$, the component is padded with white space. 
+
+#### Bit Strings
+Bit strings can be of fixed or varying length. This data type is analogous to character strings, but their values are strings of bits rather than characters.
+
+#### BOOLEANs
+Booleans denote an attribute whose value is logical.  The possible values that a boolean can take are __TRUE, FALSE, UNKNOWN__.
+
+#### INTs
+Ints or (Integers) denote some integer value.  `SHORTINT` is also an int but is may have less bits.
+
+#### Floating-Point Numbers
+Floating points are denoted by `FLOAT` or `REAL`.  If you would like higher precision with floats, use `DOUBLE PRECISION`.  Like character strings, floats can be of fixed decimal length.  You can declare decimal length but calling `DECIMAL(n, d)` where $n$ is the total number of digits allowed for the float nad $d$ is the number of digits passed the decimal. 
+
+#### Dates and Times
+Dates and times are declared using `DATE` and `TIME` respectively. Dates and times are a special form of character strings.  Adding a string after the `DATE` declaration specifies the format of the date.  For example `DATE '1948-05-14'` creates a date value with the form "YYYY-MM-DD".  The same can be done with time.  For example `TIME '15:00:02.5'` specifies that you want to represent time with the format "HH:MM:SS" with the attachment of milliseconds. 
+
+The follow is a simple example of a Relation Schema declaration
+
+
+```sql
+CREATE TABLE Movies(
+  title CHAR(100) -- Character string with 100 characters
+  ,year INT
+  ,lengh INT
+  ,genre CHAR(10)
+  ,studioName CHAR(30)
+  ,producerC# INT
+);
+```
+
+### Modifying Relation Schemas
+To delete or "drop" a table from a database, execute the following    
+
+
+```sql
+DROP TABLE -- SOME TABLE --;
+```
+
+When dropping at able, the table no longer exists in the database schema.  To modify and existing table, use the `ALTER` keyword   
+
+
+```sql
+---- Modifying a table to add a new attribute to its schema ----
+ALTER TABLE -- SOME TABLE -- ADD -- SOME ATTRIBUTE -- CHAR(16); 
+
+---- Modifying a table to remove an attribute from its schema ----
+ALTER TABLE -- SOME TABLE -- DROP -- SOME ATTRIBUTE IN SCHEMA --; 
+```
+
+### Default Values
+When adding a new attribute to a relation's schema, all tuples require some value for that attribute.  Database systems will default that value to `NULL`, but what if you want a specific value for it default to?  What if data is uploaded randomly and not all tuples have values for each component?   In this case we can use the `DEFAULT` keyword to add a specific value instead using `NULL`.
+
+
+```sql
+---- Creating attributes and adding a default value when no data is made available ----
+gender CHAR(1) DEFAULT '?'
+name VARCHAR(10) DEFAULT 'No Name :('
+```
+
+#### Declaring Keys
+There are two ways to assign a set of attributes to be a key.  Keys are defined in the declaration of the database schema, i.e. the  `CREATE TABLE` statement.
+
+Use `PRIMARY KEY` or `UNIQUE` to declare a set of attributes to be a key.  Remember, that keys must always be unique for each tuple.  The difference between `PRIMARY KEY` and `UNIQUE` is that components a tuple are allowed to have `NULL` as a value when using `UNIQUE`.  On the other hand, using `PRIMARY KEY` does not allow `NULL` to be in a key.
+
+
+```sql
+---- Assigning name as a primary key ---
+CREATE TABLE MovieStar(
+  name CHAR(30) PRIMARY KEY
+  ,address VARCHAR(255)
+  ,gender CHAR(1)
+  ,birthdate DATE
+);
+
+---- You can assign keys after declaring all attributes as well! ----
+CREATE TABLE MovieStar(
+  name CHAR(30)
+  ,address VARCHAR(255)
+  ,gender CHAR(1)
+  ,birthdate DATE
+  PRIMARY KEY (name)
+);
+```
+
+## Constraints
+
+--->
 
 </div>
 </div>
@@ -332,12 +387,17 @@
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#introducion-to-sql"><span class="header-section-number">3</span> Introducion to SQL</a></li>
 <li>
-<a class="nav-link" href="#defining-relationship-schemas-in-sql"><span class="header-section-number">3.1</span> Defining Relationship Schemas in SQL</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#why-sql"><span class="header-section-number">3.1.1</span> Why SQL?</a></li></ul>
+<a class="nav-link" href="#partition-of-the-sql-language"><span class="header-section-number">3.1</span> Partition of the SQL language</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#why-sql"><span class="header-section-number">3.1.1</span> Why SQL?</a></li></ul>
 </li>
 <li><a class="nav-link" href="#relations-in-sql"><span class="header-section-number">3.2</span> Relations in SQL</a></li>
-<li><a class="nav-link" href="#operational-semantics"><span class="header-section-number">3.3</span> Operational Semantics</a></li>
-<li><a class="nav-link" href="#foreign-keys"><span class="header-section-number">3.4</span> Foreign Keys</a></li>
-<li><a class="nav-link" href="#relation-schema-modification"><span class="header-section-number">3.5</span> Relation Schema Modification</a></li>
+<li><a class="nav-link" href="#foreign-keys"><span class="header-section-number">3.3</span> Foreign Keys</a></li>
+<li><a class="nav-link" href="#select-from-where-statements"><span class="header-section-number">3.4</span> SELECT, FROM, WHERE Statements</a></li>
+<li>
+<a class="nav-link" href="#relation-schema-modification"><span class="header-section-number">3.5</span> Relation Schema Modification</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#deleting-relations"><span class="header-section-number">3.5.1</span> Deleting Relations</a></li>
+<li><a class="nav-link" href="#altering-tables"><span class="header-section-number">3.5.2</span> Altering Tables</a></li>
+</ul>
+</li>
 <li><a class="nav-link" href="#select-cause"><span class="header-section-number">3.6</span> SELECT Cause</a></li>
 <li><a class="nav-link" href="#distinct"><span class="header-section-number">3.7</span> DISTINCT</a></li>
 <li><a class="nav-link" href="#where"><span class="header-section-number">3.8</span> WHERE</a></li>
@@ -363,14 +423,6 @@
 <li><a class="nav-link" href="#union-intersection-difference"><span class="header-section-number">3.26</span> Union, Intersection, Difference</a></li>
 <li><a class="nav-link" href="#recursive-queries"><span class="header-section-number">3.27</span> Recursive Queries</a></li>
 <li><a class="nav-link" href="#bag-semantics"><span class="header-section-number">3.28</span> Bag Semantics</a></li>
-<li>
-<a class="nav-link" href="#controlling-duplicate-elimination"><span class="header-section-number">3.29</span> Controlling Duplicate Elimination</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-types"><span class="header-section-number">3.29.1</span> Data Types</a></li>
-<li><a class="nav-link" href="#modifying-relation-schemas"><span class="header-section-number">3.29.2</span> Modifying Relation Schemas</a></li>
-<li><a class="nav-link" href="#default-values"><span class="header-section-number">3.29.3</span> Default Values</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#constraints"><span class="header-section-number">3.30</span> Constraints</a></li>
 </ul>
 
       <div class="book-extra">

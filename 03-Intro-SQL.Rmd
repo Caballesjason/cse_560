@@ -6,78 +6,168 @@ output:
 ---
 
 # Introducion to SQL
-## Defining Relationship Schemas in SQL
-The current standard for SQL is __SQL-99__.  There are two aspects to SQL:    
-1. The __Data-Definition__ to declare database schemas    
-2. The __Data_Manipulation__ sub-language for querying/modifying databases 
+## Partition of the SQL language
+The current standard for SQL is __SQL-99__.  There are two aspects to the SQL language:    
+1. The __Data Definition Language (DDL)__ to declare database schemas    
+2. The __Data Manipulation Language (DML)__ sub-language for querying/modifying databases 
 
 ### Why SQL?
+SQL is a high level language.  When using SQL, we simply ask “what to do” rather than “how to do it.”.  This allows to disregard complex data manipulation and DBMS utilize _query optimizations_ to optimize queries.
 
 ## Relations in SQL
 SQL makes a distinction between three kinds of relations:   
 1. __Stored relations__, which are called __tables__    
-2. __Views__, which are relations designed by some computation.  This relations are not stored, but constructed when needed   
-3. __Temporary Tables__ which are constructed by the SQL language processor when executing queries and data modifications.  These relations are not stored and discarded when no longer used.   
+2. __Views__, which are relations designed by some computation.  These relations are not stored in memory, but constructed when needed   
+3. __Temporary Tables__ which are constructed by the SQL language processor when executing queries and data modifications.  These relations are not stored in memory and discarded when no longer used.   
+
+Before we dive into operations in SQL, we will go over the order of execution for any query.  The order of execution for any query is as follows
+
+1. `FROM`
+2. `JOIN`
+3. `WHERE`
+4. `GROUP BY`
+5. `HAVING`
+6. `SELECT`
+7. `ORDER BY`
+8. `LIMIT`
 
 To declare a schema for a stored relation, do the following
 
 ```{sql, eval=FALSE}
-CREATE TABLE -- SOME TABLE NAME --
+CREATE TABLE MovieStar( -- CREATE TABLE Initializes the create of the MovieStar schema
+  name CHAR(30)         -- For every attribute, declare its data type
+  ,address CHAR(30)
+  ,gender char(1)
+  ,birthdate date
+PRIMARY KEY (name)  -- Assign the name attribute as the primary key for the schema
+);
 ```
 
-## Operational Semantics
 
 ## Foreign Keys
+A foreign key is designed to create a relationship between two or more relations utilizing attributes that are similar to each other.  We say "similar"because  these attributes can have different names for each relation.  Foreign keys reference primary keys or "unique" attributes from other relations.
+
+The table that contains a foreign key is referencing an attribute from another table.  The relations with the foreign key is the _referencing table_ while the relation that the referencing relation is referring to is known as the _referenced table_.  There is no constraint to how many foreign keys a table may have, as long as they define a relationship to another relation.
+
+There are two ways to declare a column to be a foreign key.  Both use the keyword `REFERENCE`.
+
+```{sql Foreign Key Syntax, eval=FALSE}
+CREATE TABLE Student(
+  id VARCHAR(5)
+  ,name VARCHAR(20) NOT NULL
+  ,dept_name VARCHAR(20)
+  ,tot_cred NUMERIC(3, 0) -- 3 indicates the total # of digits allowed for the float while 0 indicates the number of digits allowed after the decimal point
+  ,PRIMARY KEY (id)
+  ,FOREIGN KEY (dept_name) REFERENCES department
+);
+
+-- This needs to be reviewed
+```
+
+## SELECT, FROM, WHERE Statements
+- `SELECT`:  Chooses a subset of tuples
+- `FROM`:  Chooses which relation to pull data from
+- `WHERE`:  Choose tuples based on conditions
 
 ## Relation Schema Modification
+### Deleting Relations
+This is how we can delete relations
+
+```{sql Deleting Tables, eval=FALSE}
+DELETE -- Some Table
+
+-- We can also do this
+DELETE FROM -- Some Table
+```
+
+### Altering Tables
+This is how we alter tables
+
+```{sql Altering tables, eval=FALSE}
+-- Adding a attribute "surname" to Instructor1 --
+ALTER TABLE Instructor1 ADD surname CHAR(100);
+
+-- Dropping surname from Instructor1 --
+ALTER TABLE Instructor1 DROP surname;
+
+-- Renaming department attribute to dept from Instructor
+ALTER TABLE Instuctor RENAME COLUMN Department TO dept;
+
+-- Renaming relation Instructor to "Teacher"
+ALTER TABLE Instuctor RENAME TO Teacher;
+```
 
 ## SELECT Cause
 
+
 ## DISTINCT
+
 
 ## WHERE
 
+
 ## FROM
 
+
 ## RENAME
+
 
 ## Patterns
 ### Like
 
+
 ## Null
+
 
 ## Multiple Relational Queries
 
+
 ## Joining Two Relations
+
 
 ## Explicit Tuple-Variables
 
+
 ## Self-Joins
+
 
 ## Subqueries
 
+
 ## Set Operations
+
 
 ## Single-Tuple Subquery
 
+
 ## Query + Subquery
+
 
 ## Between
 
+
 ## In
+
 
 ## Exists
 
+
 ## Any
+
 
 ## Except
 
+
 ## Union, Intersection, Difference
+
 
 ## Recursive Queries
 
+
 ## Bag Semantics
 
+<!--- 
+ADD THE FOLLOWING AFTER ORGANZING NOTES
 ## Controlling Duplicate Elimination
 ### Data Types
 The following are primitive data types that are supported by SQL    
@@ -164,3 +254,5 @@ CREATE TABLE MovieStar(
 ```
 
 ## Constraints
+
+--->
