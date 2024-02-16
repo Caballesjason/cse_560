@@ -279,7 +279,7 @@ How do relations created by relational algebra affect their schemas?
 \
 
 ## Relational Algebra on Bags
-A __bag__ is a set with duplicate values  The normal mathematical sets are a special case of bags where all elements in the bag are unique.
+A __bag__ is a set with duplicate values  The normal mathematical sets are a special case of bags where all elements in the bag are
 
 ### Operations on Bags
 
