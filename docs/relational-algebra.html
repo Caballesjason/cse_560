@@ -41,7 +41,12 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">2</span> Relational Algebra</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Jason’s CSE 560 Notes</a></li>
+<li><a class="" href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></li>
+<li><a class="active" href="relational-algebra.html"><span class="header-section-number">2</span> Relational Algebra</a></li>
+<li><a class="" href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></li>
+</ul>
 
         <div class="book-extra">
           
@@ -69,7 +74,7 @@
 <li>
 <strong>Cartesian Products/Joins <span class="math inline">\(R \times S\)</span></strong> - This concatenates two tuples together. Conventionally, the attributes of in the left side of <span class="math inline">\(\times\)</span> are populated first.</li>
 <li>
-<strong>Renaming <span class="math inline">\(\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}\)</span></strong> - This changes the names of attributes or relations in the relation schema. <span class="math inline">\(R\)</span> is the relation whos name we are trying to change, <span class="math inline">\(S\)</span> is the new name of <span class="math inline">\(R\)</span>, and <span class="math inline">\(A_{1}, A_{2},..., A_{n}\)</span> are the attribute with their corresponding new names. The attributes are listed in order of their definition in the relation’s schema. If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.</li>
+<strong>Renaming <span class="math inline">\(\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}\)</span></strong> - This changes the names of attributes or relations in the relation schema. <span class="math inline">\(R\)</span> is the relation who’s name we are trying to change, <span class="math inline">\(S\)</span> is the new name of <span class="math inline">\(R\)</span>, and <span class="math inline">\(A_{1}, A_{2},..., A_{n}\)</span> are the attribute with their corresponding new names. The attributes are listed in order of their definition in the relation’s schema. If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.</li>
 </ol>
 <p>When joining relations together, we typically also apply the fundamental operations from set theory:<br>
 1. <strong>Unions <span class="math inline">\(R \cup S\)</span></strong> - This is the set of elements in R or S or both. If an element appears in both, it is presented only once in union<br>
@@ -416,9 +421,9 @@ bars that are either on Maple St. or sell Bud for less than $3.</p>
 <li>
 <strong>Projection</strong>: The chosen attributes become the schema</li>
 <li>
-<strong>Cartesian Product</strong>: The schema is the attributes of both relations in the product (Use _-<em>RelationName</em>.attribute) for common attributes</li>
+<strong>Cartesian Product</strong>: The schema is the attributes of both relations in the product (Use <strong>RelationName</strong>.attribute) for common attributes</li>
 <li>
-<strong>Thea Join</strong>: The schema is the attributes of both relations in the product (Use _-<em>RelationName</em>.attribute) for common attributes</li>
+<strong>Thea Join</strong>: The schema is the attributes of both relations in the product (Use <strong>RelationName</strong>.attribute) for common attributes</li>
 <li>
 <strong>Natural Join</strong>: The union of the two attributes of the relation with no repeats in shared attributes.</li>
 <li>
@@ -436,16 +441,49 @@ bars that are either on Maple St. or sell Bud for less than $3.</p>
 <h3>
 <span class="header-section-number">2.7.1</span> Operations on Bags<a class="anchor" aria-label="anchor" href="#operations-on-bags"><i class="fas fa-link"></i></a>
 </h3>
+<p><strong>Selection</strong>: Selection chooses tuples, so it works exactly like selection in sets</p>
+<p><strong>Projection</strong>: Like projection of sets, chosen attributes become the schema, but duplications are not removed</p>
+<p><strong>Cartesian Product/joins</strong>: This is the same as regular sets, however duplicates are not removed</p>
+<p><strong>Bag Union</strong>: In the union of bags, duplicates are not removed</p>
+<p><strong>Bag Intersection</strong>: In the intersection of bags, duplicates are not removed</p>
+<p><strong>Bag Difference</strong>: The elements that appear in a difference of bags <span class="math inline">\(A - B\)</span> is the the same as sets, but you treat each element (even if they are duplicates) as its own entity</p>
+<!--- Look up PC example!--->
 
 </div>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="relational-databases.html"><span class="header-section-number">1</span> Relational Databases</a></div>
+<div class="next"><a href="introducion-to-sql.html"><span class="header-section-number">3</span> Introducion to SQL</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#relational-algebra"><span class="header-section-number">2</span> Relational Algebra</a></li>
+<li><a class="nav-link" href="#algebraic-query-language"><span class="header-section-number">2.1</span> Algebraic Query Language</a></li>
+<li><a class="nav-link" href="#selection"><span class="header-section-number">2.2</span> Selection</a></li>
+<li>
+<a class="nav-link" href="#projection"><span class="header-section-number">2.3</span> Projection</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#extended-projection"><span class="header-section-number">2.3.1</span> Extended Projection</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#cartesian-products-and-joins"><span class="header-section-number">2.4</span> Cartesian Products and Joins</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#cartesian-product"><span class="header-section-number">2.4.1</span> Cartesian Product</a></li>
+<li><a class="nav-link" href="#natural-joins"><span class="header-section-number">2.4.2</span> Natural Joins</a></li>
+<li><a class="nav-link" href="#theta-joins"><span class="header-section-number">2.4.3</span> Theta Joins</a></li>
+<li><a class="nav-link" href="#self-joins"><span class="header-section-number">2.4.4</span> Self Joins</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#renaming"><span class="header-section-number">2.5</span> Renaming</a></li>
+<li>
+<a class="nav-link" href="#complex-expressions"><span class="header-section-number">2.6</span> Complex Expressions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sequence-order-of-operations"><span class="header-section-number">2.6.1</span> Sequence (Order) of Operations</a></li>
+<li><a class="nav-link" href="#expression-trees"><span class="header-section-number">2.6.2</span> Expression Trees</a></li>
+<li><a class="nav-link" href="#schemas-for-results"><span class="header-section-number">2.6.3</span> Schemas for Results</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#relational-algebra-on-bags"><span class="header-section-number">2.7</span> Relational Algebra on Bags</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#operations-on-bags"><span class="header-section-number">2.7.1</span> Operations on Bags</a></li></ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

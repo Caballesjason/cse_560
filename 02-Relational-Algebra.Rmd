@@ -21,7 +21,7 @@ We will talk about the following operations in that can be done in relational al
 1. __Selection $\sigma_{C}{(R)}$__ - This operation chooses a subset of tuples.  $C$ is a set of conditions that determines which tuples are chosen and $R$ is the input of $\sigma$ that indicates which relation we want to execute the selection on.    
 2. __Projection $\pi_{A_{1}, A_{2}, ...}$__ - This operation choose a subset of columns.  Each $A_{i}$ in the subscript is simply the attributes we want to project (select).  In relational algebra of sets, duplicate tuples are always removed.    
 3. __Cartesian Products/Joins  $R \times S$__ - This concatenates two tuples together.  Conventionally, the attributes of in the left side of $\times$ are populated first.
-4. __Renaming $\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}$__ - This changes the names of attributes or relations in the relation schema.  $R$ is the relation whos name we are trying to change, $S$ is the new name of $R$, and $A_{1}, A_{2},..., A_{n}$ are the attribute with their corresponding new names.  The attributes are listed in order of their definition in the relation's schema.  If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.
+4. __Renaming $\rho_{S{(A_{1}, A_{2}, ..., A_{n})}}{(R)}$__ - This changes the names of attributes or relations in the relation schema.  $R$ is the relation who's name we are trying to change, $S$ is the new name of $R$, and $A_{1}, A_{2},..., A_{n}$ are the attribute with their corresponding new names.  The attributes are listed in order of their definition in the relation's schema.  If you do not want to change some attributes, just list their current names in the subscript along with the new names of the attributes you wanted to change.
 
 When joining relations together, we typically also apply the fundamental operations from set theory:   
 1. __Unions $R \cup S$__ - This is the set of elements in R or S or both.  If an element appears in both, it is presented only once in union    
@@ -271,8 +271,8 @@ How do relations created by relational algebra affect their schemas?
 * __Union, intersection, difference__:  The schemas of two oprands must be identical,  therefore that schema becomes the schema for the result
 * __Selection__:  The schema of the result is the same as the schema of the operand
 * __Projection__:  The chosen attributes become the schema
-* __Cartesian Product__:  The schema is the attributes of both relations in the product (Use _-_RelationName_.attribute) for common attributes
-* __Thea Join__: The schema is the attributes of both relations in the product (Use _-_RelationName_.attribute) for common attributes
+* __Cartesian Product__:  The schema is the attributes of both relations in the product (Use  __RelationName__.attribute) for common attributes
+* __Thea Join__: The schema is the attributes of both relations in the product (Use  __RelationName__.attribute) for common attributes
 * __Natural Join__: The union of the two attributes of the relation with no repeats in shared attributes.
 * __Renaming__: the operator tells the schema
 
@@ -282,4 +282,16 @@ How do relations created by relational algebra affect their schemas?
 A __bag__ is a set with duplicate values  The normal mathematical sets are a special case of bags where all elements in the bag are
 
 ### Operations on Bags
+__Selection__:  Selection chooses tuples, so it works exactly like selection in sets
 
+__Projection__:  Like projection of sets, chosen attributes become the schema, but duplications are not removed
+
+__Cartesian Product/joins__:  This is the same as regular sets, however duplicates are not removed
+
+__Bag Union__:  In the union of bags, duplicates are not removed
+
+__Bag Intersection__:  In the intersection of bags, duplicates are not removed
+
+__Bag Difference__:  The elements that appear in a difference of bags $A - B$ is the the same as sets, but you treat each element (even if they are duplicates) as its own entity
+
+<!--- Look up PC example!--->
