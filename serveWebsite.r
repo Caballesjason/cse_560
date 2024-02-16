@@ -6,10 +6,9 @@ serve_site <- function() {
              in_session = TRUE, quiet = FALSE)
   noquote('http://127.0.0.1:4321')
   
-# writes an empty .nojekll file to host on github pages
+# writes an empty .nojekyll file to host on github pages so that we can use the bookdown file
   file.create(paste(getwd(), "/docs", "/.nojekyll", sep=''))
 }
 
 
 serve_site()
-

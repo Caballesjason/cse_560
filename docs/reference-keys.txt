@@ -23,7 +23,6 @@ theta-joins
 self-joins
 renaming
 complex-expressions
-section
 sequence-order-of-operations
 expression-trees
 schemas-for-results

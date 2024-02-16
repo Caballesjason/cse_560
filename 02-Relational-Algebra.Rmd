@@ -210,6 +210,7 @@ $$
 
 
 ### Self Joins
+__PLEASE FIND EXAMPLE OF SELF JOIN IN TEXTBOOK__
 
 ## Renaming
 The rename operation simply renames relations or its attributes.  After renaming a relation, the returned relation retains its tuples, but with different names.  The notation for the renaming operation is
@@ -244,30 +245,41 @@ In regular algebra, we have an order of precedence of operations (PEMDAS).  Like
 3. Intersections - $\cap$
 4. Unions, Difference $\cup, -$
 
-We will now explore the three different methods of expressing relational arithmetic.  We will use the following table
+We will now explore the different methods of expressing relational arithmetic.
 
 <!-- Continue on slide 31 of relational algebra lecture -->
 
-###
+### Sequence (Order) of Operations
+We can rewrite the expression $R3 := R1 \bowtie_{C} R2$ as a sequence of small expressions:
 
+1. $R4 := R1 \times R2 \qquad \text{Commit a cartesian product}$
+2. $R3 := \sigma_{C}{(R4)} \qquad \text{Commit a seleciton}$
 
-## Sequence (Order) of Operations
+### Expression Trees
+Using the relations $Bars(name, addr)$ and $Sells(bar, beer, price)$, find the names of all the
+bars that are either on Maple St. or sell Bud for less than $3.
 
+We can express the example expression as a tree where each leaf node is a relation and each parent node is an operation.  The head of the tree is the new relation! 
 
-## Expression Trees
+![](images/expressionTree.png){width=100%}
 
+We can see in the left hand side of the tree that our relation (leaf node) is $Bars$, we then do a selection.  Finally we do a projection!  The right hand side does the same.  As we traverse the tree, we finally join both sides with a union
 
-## Schemas for Results
+### Schemas for Results
+How do relations created by relational algebra affect their schemas?
 
+* __Union, intersection, difference__:  The schemas of two oprands must be identical,  therefore that schema becomes the schema for the result
+* __Selection__:  The schema of the result is the same as the schema of the operand
+* __Projection__:  The chosen attributes become the schema
+* __Cartesian Product__:  The schema is the attributes of both relations in the product (Use _-_RelationName_.attribute) for common attributes
+* __Thea Join__: The schema is the attributes of both relations in the product (Use _-_RelationName_.attribute) for common attributes
+* __Natural Join__: The union of the two attributes of the relation with no repeats in shared attributes.
+* __Renaming__: the operator tells the schema
+
+\
 
 ## Relational Algebra on Bags
+A __bag__ is a set with duplicate values  The normal mathematical sets are a special case of bags where all elements in the bag are unique.
+
 ### Operations on Bags
 
-
-<!---
-### Natural Joins - $R \bowtie S$
-If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
-
-### Theta Joins - $R \bowtie_{C} S$
-Theta joins are simply natural joins with a condition.  To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions.  Theta joins are called theta joins because the conditions were originally represented by $\theta$.   
---->

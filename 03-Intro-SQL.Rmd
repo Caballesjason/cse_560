@@ -21,7 +21,7 @@ SQL makes a distinction between three kinds of relations:
 
 To declare a schema for a stored relation, do the following
 
-```
+```{sql, eval=FALSE}
 CREATE TABLE -- SOME TABLE NAME --
 ```
 

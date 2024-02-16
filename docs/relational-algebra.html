@@ -343,6 +343,7 @@ A &amp; R1.B &amp; R2.B &amp; C \\
 <h3>
 <span class="header-section-number">2.4.4</span> Self Joins<a class="anchor" aria-label="anchor" href="#self-joins"><i class="fas fa-link"></i></a>
 </h3>
+<p><strong>PLEASE FIND EXAMPLE OF SELF JOIN IN TEXTBOOK</strong></p>
 </div>
 </div>
 <div id="renaming" class="section level2" number="2.5">
@@ -385,44 +386,61 @@ S: \text{ The relations new name} \qquad A_{i}: \text{ The new names of the rela
 <li>Unions, Difference <span class="math inline">\(\cup, -\)</span>
 </li>
 </ol>
-<p>We will now explore the three different methods of expressing relational arithmetic. We will use the following table</p>
+<p>We will now explore the different methods of expressing relational arithmetic.</p>
 <!-- Continue on slide 31 of relational algebra lecture -->
-<div id="section" class="section level3" number="2.6.1">
+<div id="sequence-order-of-operations" class="section level3" number="2.6.1">
 <h3>
-<span class="header-section-number">2.6.1</span> <a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.6.1</span> Sequence (Order) of Operations<a class="anchor" aria-label="anchor" href="#sequence-order-of-operations"><i class="fas fa-link"></i></a>
 </h3>
+<p>We can rewrite the expression <span class="math inline">\(R3 := R1 \bowtie_{C} R2\)</span> as a sequence of small expressions:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(R4 := R1 \times R2 \qquad \text{Commit a cartesian product}\)</span></li>
+<li><span class="math inline">\(R3 := \sigma_{C}{(R4)} \qquad \text{Commit a seleciton}\)</span></li>
+</ol>
 </div>
-</div>
-<div id="sequence-order-of-operations" class="section level2" number="2.7">
-<h2>
-<span class="header-section-number">2.7</span> Sequence (Order) of Operations<a class="anchor" aria-label="anchor" href="#sequence-order-of-operations"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="expression-trees" class="section level2" number="2.8">
-<h2>
-<span class="header-section-number">2.8</span> Expression Trees<a class="anchor" aria-label="anchor" href="#expression-trees"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="schemas-for-results" class="section level2" number="2.9">
-<h2>
-<span class="header-section-number">2.9</span> Schemas for Results<a class="anchor" aria-label="anchor" href="#schemas-for-results"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="relational-algebra-on-bags" class="section level2" number="2.10">
-<h2>
-<span class="header-section-number">2.10</span> Relational Algebra on Bags<a class="anchor" aria-label="anchor" href="#relational-algebra-on-bags"><i class="fas fa-link"></i></a>
-</h2>
-<div id="operations-on-bags" class="section level3" number="2.10.1">
+<div id="expression-trees" class="section level3" number="2.6.2">
 <h3>
-<span class="header-section-number">2.10.1</span> Operations on Bags<a class="anchor" aria-label="anchor" href="#operations-on-bags"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.6.2</span> Expression Trees<a class="anchor" aria-label="anchor" href="#expression-trees"><i class="fas fa-link"></i></a>
 </h3>
-<!---
-### Natural Joins - $R \bowtie S$
-If at least one component in a tuple in R is equal to a component in S, then the tuples can be a natural join.   The equivalent component will only appear once.  A tuple that fails to pair with any tuple of another relation in a join is know as a _dangling tuple_
-
-### Theta Joins - $R \bowtie_{C} S$
-Theta joins are simply natural joins with a condition.  To implement a theta join, simply do a natural join and remove tuples that do not satisfy your provided conditions.  Theta joins are called theta joins because the conditions were originally represented by $\theta$.   
---->
+<p>Using the relations <span class="math inline">\(Bars(name, addr)\)</span> and <span class="math inline">\(Sells(bar, beer, price)\)</span>, find the names of all the
+bars that are either on Maple St. or sell Bud for less than $3.</p>
+<p>We can express the example expression as a tree where each leaf node is a relation and each parent node is an operation. The head of the tree is the new relation!</p>
+<div class="inline-figure"><img src="images/expressionTree.png" style="width:100.0%"></div>
+<p>We can see in the left hand side of the tree that our relation (leaf node) is <span class="math inline">\(Bars\)</span>, we then do a selection. Finally we do a projection! The right hand side does the same. As we traverse the tree, we finally join both sides with a union</p>
+</div>
+<div id="schemas-for-results" class="section level3" number="2.6.3">
+<h3>
+<span class="header-section-number">2.6.3</span> Schemas for Results<a class="anchor" aria-label="anchor" href="#schemas-for-results"><i class="fas fa-link"></i></a>
+</h3>
+<p>How do relations created by relational algebra affect their schemas?</p>
+<ul>
+<li>
+<strong>Union, intersection, difference</strong>: The schemas of two oprands must be identical, therefore that schema becomes the schema for the result</li>
+<li>
+<strong>Selection</strong>: The schema of the result is the same as the schema of the operand</li>
+<li>
+<strong>Projection</strong>: The chosen attributes become the schema</li>
+<li>
+<strong>Cartesian Product</strong>: The schema is the attributes of both relations in the product (Use _-<em>RelationName</em>.attribute) for common attributes</li>
+<li>
+<strong>Thea Join</strong>: The schema is the attributes of both relations in the product (Use _-<em>RelationName</em>.attribute) for common attributes</li>
+<li>
+<strong>Natural Join</strong>: The union of the two attributes of the relation with no repeats in shared attributes.</li>
+<li>
+<strong>Renaming</strong>: the operator tells the schema</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="relational-algebra-on-bags" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Relational Algebra on Bags<a class="anchor" aria-label="anchor" href="#relational-algebra-on-bags"><i class="fas fa-link"></i></a>
+</h2>
+<p>A <strong>bag</strong> is a set with duplicate values The normal mathematical sets are a special case of bags where all elements in the bag are unique.</p>
+<div id="operations-on-bags" class="section level3" number="2.7.1">
+<h3>
+<span class="header-section-number">2.7.1</span> Operations on Bags<a class="anchor" aria-label="anchor" href="#operations-on-bags"><i class="fas fa-link"></i></a>
+</h3>
 
 </div>
 </div>
@@ -449,13 +467,14 @@ Theta joins are simply natural joins with a condition.  To implement a theta joi
 </li>
 <li><a class="nav-link" href="#renaming"><span class="header-section-number">2.5</span> Renaming</a></li>
 <li>
-<a class="nav-link" href="#complex-expressions"><span class="header-section-number">2.6</span> Complex Expressions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#section"><span class="header-section-number">2.6.1</span></a></li></ul>
+<a class="nav-link" href="#complex-expressions"><span class="header-section-number">2.6</span> Complex Expressions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sequence-order-of-operations"><span class="header-section-number">2.6.1</span> Sequence (Order) of Operations</a></li>
+<li><a class="nav-link" href="#expression-trees"><span class="header-section-number">2.6.2</span> Expression Trees</a></li>
+<li><a class="nav-link" href="#schemas-for-results"><span class="header-section-number">2.6.3</span> Schemas for Results</a></li>
+</ul>
 </li>
-<li><a class="nav-link" href="#sequence-order-of-operations"><span class="header-section-number">2.7</span> Sequence (Order) of Operations</a></li>
-<li><a class="nav-link" href="#expression-trees"><span class="header-section-number">2.8</span> Expression Trees</a></li>
-<li><a class="nav-link" href="#schemas-for-results"><span class="header-section-number">2.9</span> Schemas for Results</a></li>
 <li>
-<a class="nav-link" href="#relational-algebra-on-bags"><span class="header-section-number">2.10</span> Relational Algebra on Bags</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#operations-on-bags"><span class="header-section-number">2.10.1</span> Operations on Bags</a></li></ul>
+<a class="nav-link" href="#relational-algebra-on-bags"><span class="header-section-number">2.7</span> Relational Algebra on Bags</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#operations-on-bags"><span class="header-section-number">2.7.1</span> Operations on Bags</a></li></ul>
 </li>
 </ul>
 
