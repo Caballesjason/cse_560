@@ -224,19 +224,78 @@ FROM instructor;
 ```
 
 ## WHERE
+The `WHERE` clause specifies conditions must pass for a tuple to be returned.  You can use comparators and logical connectives (`AND`, `OR`, `<`, `<=`, `>`, `>=`, `=`, `<>`).
 
+For example, we will select all instructors from the Computer Science department who have a salary greater than $80,000
 
-## FROM
+```{sql WHERE Example, connection=conn, max.print=5}
+-- SELECTING CS Instructors who make that bread --
+SELECT name
+FROM Instructor
+WHERE dept_name='Comp. Sci.';
+```
 
+## FROM Clause with Multiple Relations
+`FROM` allows you to choose where you are sourcing your data.  This clause corresponds to the Cartesian Product in relational algebra.
+
+For example, the following returns the cartesian product $Instructor \times Teaches$
+
+```{sql FROM Example, connection=conn, max.prin=5}
+-- Cartesian Product Of Instructor and Teaches --
+SELECT *
+FROM Instructor, Teaches;
+```
+
+If there is a naming conflict between attributes of different relations, you must explicitly rename the attributes.
+
+For example
+
+```{sql FROM Naming Conflict Example, connection=conn, max.print=5}
+-- Renaming attributes with the same name --
+SELECT name
+  ,instructor.dept_name AS dept1
+  ,salary
+  ,department.dept_name AS dept2
+  ,building
+FROM instructor, department
+WHERE instructor.dept_name=department.dept_name;
+```
 
 ## RENAME
+Using `AS`, we can rename relations and attributes
 
+```{sql Renaming Example, connection=conn, max.print=5}
+SELECT DISTINCT T.name
+FROM Instructor AS T, Instructor AS S -- WE have two copies of Instructors!
+WHERE T.salary > S.salary AND
+  S.dept_name='Comp. Sci.';
+  
+-- We use DISTINCT because the cartesian product of relation and a copy of itself create's duplicates!
+```
 
 ## Patterns
-### Like
+We can compare strings in a query that follow some pattern using wild cards (`%`, `_`).  `%` means "any string" while `_` means any character.
 
+For example:
+```{sql Wildcard Example, connection=conn, max.print=5}
+-- Using Wild cards to find patterns in name attribute --
+SELECT *
+FROM Instructor
+WHERE name LIKE 'Mc%'; -- Look for any string beginning wiht "Wu"
+```
+
+Using `LIKE` in conjunction with a wild card.  We return any tuple that is follows the pattern expressed with the wild card.
 
 ## Null
+Its possible for a component in a tuple to not have a value.  DBMS' use the keyword `NULL` to indicate that there is a value does not exist for a component.  Any arithmetic operation that deals with a component with `NULL` returns `NULL`.
+
+```{sql Arithmetic Null Example, connection=conn}
+-- NULL Arithmetic --
+SELECT NULL + 1 AS null_arithmetic;
+```
+
+The predicate `IS NULL` or `IS NOT NULL` can check if a component is or is not `NULL`.
+
 
 
 ## Multiple Relational Queries

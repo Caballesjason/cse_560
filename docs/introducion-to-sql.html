@@ -364,31 +364,322 @@ From <code>Sells</code>, find the different prices charged for beers</p>
 <h2>
 <span class="header-section-number">3.7</span> WHERE<a class="anchor" aria-label="anchor" href="#where"><i class="fas fa-link"></i></a>
 </h2>
+<p>The <code>WHERE</code> clause specifies conditions must pass for a tuple to be returned. You can use comparators and logical connectives (<code>AND</code>, <code>OR</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>=</code>, <code>&lt;&gt;</code>).</p>
+<p>For example, we will select all instructors from the Computer Science department who have a salary greater than $80,000</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="introducion-to-sql.html#cb17-1" tabindex="-1"></a><span class="co">-- SELECTING CS Instructors who make that bread --</span></span>
+<span id="cb17-2"><a href="introducion-to-sql.html#cb17-2" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb17-3"><a href="introducion-to-sql.html#cb17-3" tabindex="-1"></a><span class="kw">FROM</span> Instructor</span>
+<span id="cb17-4"><a href="introducion-to-sql.html#cb17-4" tabindex="-1"></a><span class="kw">WHERE</span> dept_name<span class="op">=</span><span class="st">'Comp. Sci.'</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:WHERE Example)2 records</caption>
+<thead><tr class="header">
+<th align="left">name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bondi</td>
+</tr>
+<tr class="even">
+<td align="left">Bourrier</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-<div id="from" class="section level2" number="3.8">
+</div>
+<div id="from-clause-with-multiple-relations" class="section level2" number="3.8">
 <h2>
-<span class="header-section-number">3.8</span> FROM<a class="anchor" aria-label="anchor" href="#from"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.8</span> FROM Clause with Multiple Relations<a class="anchor" aria-label="anchor" href="#from-clause-with-multiple-relations"><i class="fas fa-link"></i></a>
 </h2>
+<p><code>FROM</code> allows you to choose where you are sourcing your data. This clause corresponds to the Cartesian Product in relational algebra.</p>
+<p>For example, the following returns the cartesian product <span class="math inline">\(Instructor \times Teaches\)</span></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="introducion-to-sql.html#cb18-1" tabindex="-1"></a><span class="co">-- Cartesian Product Of Instructor and Teaches --</span></span>
+<span id="cb18-2"><a href="introducion-to-sql.html#cb18-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb18-3"><a href="introducion-to-sql.html#cb18-3" tabindex="-1"></a><span class="kw">FROM</span> Instructor, Teaches;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:FROM Example)Displaying records 1 - 10</caption>
+<colgroup>
+<col width="8%">
+<col width="12%">
+<col width="16%">
+<col width="12%">
+<col width="8%">
+<col width="13%">
+<col width="9%">
+<col width="12%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">ID</th>
+<th align="left">name</th>
+<th align="left">dept_name</th>
+<th align="right">salary</th>
+<th align="left">ID</th>
+<th align="left">course_id</th>
+<th align="left">sec_id</th>
+<th align="left">semester</th>
+<th align="right">year</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">34175</td>
+<td align="left">747</td>
+<td align="left">1</td>
+<td align="left">Spring</td>
+<td align="right">2004</td>
+</tr>
+<tr class="even">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">3199</td>
+<td align="left">169</td>
+<td align="left">1</td>
+<td align="left">Spring</td>
+<td align="right">2007</td>
+</tr>
+<tr class="odd">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">6569</td>
+<td align="left">445</td>
+<td align="left">1</td>
+<td align="left">Spring</td>
+<td align="right">2001</td>
+</tr>
+<tr class="even">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">28097</td>
+<td align="left">808</td>
+<td align="left">1</td>
+<td align="left">Fall</td>
+<td align="right">2003</td>
+</tr>
+<tr class="odd">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">22591</td>
+<td align="left">962</td>
+<td align="left">1</td>
+<td align="left">Spring</td>
+<td align="right">2008</td>
+</tr>
+<tr class="even">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">90376</td>
+<td align="left">158</td>
+<td align="left">1</td>
+<td align="left">Fall</td>
+<td align="right">2008</td>
+</tr>
+<tr class="odd">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">3199</td>
+<td align="left">561</td>
+<td align="left">1</td>
+<td align="left">Fall</td>
+<td align="right">2006</td>
+</tr>
+<tr class="even">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">34175</td>
+<td align="left">274</td>
+<td align="left">1</td>
+<td align="left">Fall</td>
+<td align="right">2002</td>
+</tr>
+<tr class="odd">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">34175</td>
+<td align="left">571</td>
+<td align="left">1</td>
+<td align="left">Spring</td>
+<td align="right">2004</td>
+</tr>
+<tr class="even">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">79081</td>
+<td align="left">345</td>
+<td align="left">1</td>
+<td align="left">Spring</td>
+<td align="right">2008</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>If there is a naming conflict between attributes of different relations, you must explicitly rename the attributes.</p>
+<p>For example</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="introducion-to-sql.html#cb19-1" tabindex="-1"></a><span class="co">-- Renaming attributes with the same name --</span></span>
+<span id="cb19-2"><a href="introducion-to-sql.html#cb19-2" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb19-3"><a href="introducion-to-sql.html#cb19-3" tabindex="-1"></a>  ,instructor.dept_name <span class="kw">AS</span> dept1</span>
+<span id="cb19-4"><a href="introducion-to-sql.html#cb19-4" tabindex="-1"></a>  ,salary</span>
+<span id="cb19-5"><a href="introducion-to-sql.html#cb19-5" tabindex="-1"></a>  ,department.dept_name <span class="kw">AS</span> dept2</span>
+<span id="cb19-6"><a href="introducion-to-sql.html#cb19-6" tabindex="-1"></a>  ,building</span>
+<span id="cb19-7"><a href="introducion-to-sql.html#cb19-7" tabindex="-1"></a><span class="kw">FROM</span> instructor, department</span>
+<span id="cb19-8"><a href="introducion-to-sql.html#cb19-8" tabindex="-1"></a><span class="kw">WHERE</span> instructor.dept_name<span class="op">=</span>department.dept_name;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:FROM Naming Conflict Example)Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="left">dept1</th>
+<th align="right">salary</th>
+<th align="left">dept2</th>
+<th align="left">building</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+<td align="left">Cybernetics</td>
+<td align="left">Mercer</td>
+</tr>
+<tr class="even">
+<td align="left">Pingr</td>
+<td align="left">Statistics</td>
+<td align="right">59303.62</td>
+<td align="left">Statistics</td>
+<td align="left">Taylor</td>
+</tr>
+<tr class="odd">
+<td align="left">Mird</td>
+<td align="left">Marketing</td>
+<td align="right">119921.41</td>
+<td align="left">Marketing</td>
+<td align="left">Lambeau</td>
+</tr>
+<tr class="even">
+<td align="left">Luo</td>
+<td align="left">English</td>
+<td align="right">88791.45</td>
+<td align="left">English</td>
+<td align="left">Palmer</td>
+</tr>
+<tr class="odd">
+<td align="left">Murata</td>
+<td align="left">Athletics</td>
+<td align="right">61387.56</td>
+<td align="left">Athletics</td>
+<td align="left">Bronfman</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <div id="rename" class="section level2" number="3.9">
 <h2>
 <span class="header-section-number">3.9</span> RENAME<a class="anchor" aria-label="anchor" href="#rename"><i class="fas fa-link"></i></a>
 </h2>
+<p>Using <code>AS</code>, we can rename relations and attributes</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="introducion-to-sql.html#cb20-1" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> T.name</span>
+<span id="cb20-2"><a href="introducion-to-sql.html#cb20-2" tabindex="-1"></a><span class="kw">FROM</span> Instructor <span class="kw">AS</span> T, Instructor <span class="kw">AS</span> S <span class="co">-- WE have two copies of Instructors!</span></span>
+<span id="cb20-3"><a href="introducion-to-sql.html#cb20-3" tabindex="-1"></a><span class="kw">WHERE</span> T.salary <span class="op">&gt;</span> S.salary <span class="kw">AND</span></span>
+<span id="cb20-4"><a href="introducion-to-sql.html#cb20-4" tabindex="-1"></a>  S.dept_name<span class="op">=</span><span class="st">'Comp. Sci.'</span>;</span>
+<span id="cb20-5"><a href="introducion-to-sql.html#cb20-5" tabindex="-1"></a>  </span>
+<span id="cb20-6"><a href="introducion-to-sql.html#cb20-6" tabindex="-1"></a><span class="co">-- We use DISTINCT because the cartesian product of relation and a copy of itself create's duplicates!</span></span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:Renaming Example)Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">McKinnon</td>
+</tr>
+<tr class="even">
+<td align="left">Mird</td>
+</tr>
+<tr class="odd">
+<td align="left">Luo</td>
+</tr>
+<tr class="even">
+<td align="left">Levine</td>
+</tr>
+<tr class="odd">
+<td align="left">Shuming</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <div id="patterns" class="section level2" number="3.10">
 <h2>
 <span class="header-section-number">3.10</span> Patterns<a class="anchor" aria-label="anchor" href="#patterns"><i class="fas fa-link"></i></a>
 </h2>
-<div id="like" class="section level3" number="3.10.1">
-<h3>
-<span class="header-section-number">3.10.1</span> Like<a class="anchor" aria-label="anchor" href="#like"><i class="fas fa-link"></i></a>
-</h3>
+<p>We can compare strings in a query that follow some pattern using wild cards (<code>%</code>, <code>_</code>). <code>%</code> means “any string” while <code>_</code> means any character.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="introducion-to-sql.html#cb21-1" tabindex="-1"></a><span class="co">-- Using Wild cards to find patterns in name attribute --</span></span>
+<span id="cb21-2"><a href="introducion-to-sql.html#cb21-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb21-3"><a href="introducion-to-sql.html#cb21-3" tabindex="-1"></a><span class="kw">FROM</span> Instructor</span>
+<span id="cb21-4"><a href="introducion-to-sql.html#cb21-4" tabindex="-1"></a><span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">'Mc%'</span>; <span class="co">-- Look for any string beginning wiht "Wu"</span></span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:Wildcard Example)1 records</caption>
+<thead><tr class="header">
+<th align="left">ID</th>
+<th align="left">name</th>
+<th align="left">dept_name</th>
+<th align="right">salary</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">63395</td>
+<td align="left">McKinnon</td>
+<td align="left">Cybernetics</td>
+<td align="right">94333.99</td>
+</tr></tbody>
+</table></div>
 </div>
+<p>Using <code>LIKE</code> in conjunction with a wild card. We return any tuple that is follows the pattern expressed with the wild card.</p>
 </div>
 <div id="null" class="section level2" number="3.11">
 <h2>
 <span class="header-section-number">3.11</span> Null<a class="anchor" aria-label="anchor" href="#null"><i class="fas fa-link"></i></a>
 </h2>
+<p>Its possible for a component in a tuple to not have a value. DBMS’ use the keyword <code>NULL</code> to indicate that there is a value does not exist for a component. Any arithmetic operation that deals with a component with <code>NULL</code> returns <code>NULL</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb22-1"><a href="introducion-to-sql.html#cb22-1" tabindex="-1"></a><span class="co">-- NULL Arithmetic --</span></span>
+<span id="cb22-2"><a href="introducion-to-sql.html#cb22-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">NULL</span> <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> null_arithmetic;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:Arithmetic Null Example)1 records</caption>
+<thead><tr class="header">
+<th align="left">null_arithmetic</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">NA</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>The predicate <code>IS NULL</code> or <code>IS NOT NULL</code> can check if a component is or is not <code>NULL</code>.</p>
 </div>
 <div id="multiple-relational-queries" class="section level2" number="3.12">
 <h2>
@@ -593,11 +884,9 @@ CREATE TABLE MovieStar(
 </ul>
 </li>
 <li><a class="nav-link" href="#where"><span class="header-section-number">3.7</span> WHERE</a></li>
-<li><a class="nav-link" href="#from"><span class="header-section-number">3.8</span> FROM</a></li>
+<li><a class="nav-link" href="#from-clause-with-multiple-relations"><span class="header-section-number">3.8</span> FROM Clause with Multiple Relations</a></li>
 <li><a class="nav-link" href="#rename"><span class="header-section-number">3.9</span> RENAME</a></li>
-<li>
-<a class="nav-link" href="#patterns"><span class="header-section-number">3.10</span> Patterns</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#like"><span class="header-section-number">3.10.1</span> Like</a></li></ul>
-</li>
+<li><a class="nav-link" href="#patterns"><span class="header-section-number">3.10</span> Patterns</a></li>
 <li><a class="nav-link" href="#null"><span class="header-section-number">3.11</span> Null</a></li>
 <li><a class="nav-link" href="#multiple-relational-queries"><span class="header-section-number">3.12</span> Multiple Relational Queries</a></li>
 <li><a class="nav-link" href="#joining-two-relations"><span class="header-section-number">3.13</span> Joining Two Relations</a></li>

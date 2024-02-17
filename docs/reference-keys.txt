@@ -41,10 +41,9 @@ select
 distinctall
 select-and-literals
 where
-from
+from-clause-with-multiple-relations
 rename
 patterns
-like
 null
 multiple-relational-queries
 joining-two-relations
