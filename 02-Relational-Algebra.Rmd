@@ -9,7 +9,11 @@ output:
 library(DBI)
 library(RSQLite)
 conn <- dbConnect(RSQLite::SQLite(), "databases/notes_database.db")
+
+# Warning message:
+# call dbDisconnect() when finished working with a connection 
 ```
+
 # Relational Algebra
 ## Algebraic Query Language
 SQL is built upon relational Algebra and is simplified for optimization and ease of use.  In relational algebra, relations are variables and finite relations are constants.  In other words, relations are the operands (things we apply operators to) in relational algebra.

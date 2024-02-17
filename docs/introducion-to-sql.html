@@ -90,6 +90,7 @@
 <li><code>ORDER BY</code></li>
 <li><code>LIMIT</code></li>
 </ol>
+<p>This is also the meaning of a <em>single relation query</em></p>
 <p>To declare a schema for a stored relation, do the following</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="introducion-to-sql.html#cb3-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> MovieStar( <span class="co">-- CREATE TABLE Initializes the create of the MovieStar schema</span></span>
 <span id="cb3-2"><a href="introducion-to-sql.html#cb3-2" tabindex="-1"></a>  name <span class="dt">CHAR</span>(<span class="dv">30</span>)         <span class="co">-- For every attribute, declare its data type</span></span>
@@ -160,126 +161,313 @@
 <span id="cb6-9"><a href="introducion-to-sql.html#cb6-9" tabindex="-1"></a></span>
 <span id="cb6-10"><a href="introducion-to-sql.html#cb6-10" tabindex="-1"></a><span class="co">-- Renaming relation Instructor to "Teacher"</span></span>
 <span id="cb6-11"><a href="introducion-to-sql.html#cb6-11" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> Instuctor <span class="kw">RENAME</span> <span class="kw">TO</span> Teacher;</span></code></pre></div>
+<p><br></p>
 </div>
 </div>
-<div id="select-cause" class="section level2" number="3.6">
+<div id="select" class="section level2" number="3.6">
 <h2>
-<span class="header-section-number">3.6</span> SELECT Cause<a class="anchor" aria-label="anchor" href="#select-cause"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6</span> SELECT<a class="anchor" aria-label="anchor" href="#select"><i class="fas fa-link"></i></a>
 </h2>
+<p><code>SELECT</code> chooses the attributes that you want in your query. It corresponds to the projection operator <span class="math inline">\(\pi_{C}{(R)}\)</span>. In SQL, names of relations and attributes are not case sensitive. In practice, any keywords should be capitalized.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="introducion-to-sql.html#cb7-1" tabindex="-1"></a><span class="co">-- Using the SELECT clause to grab the name attribute! --</span></span>
+<span id="cb7-2"><a href="introducion-to-sql.html#cb7-2" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb7-3"><a href="introducion-to-sql.html#cb7-3" tabindex="-1"></a><span class="kw">FROM</span> instructor;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:SELECT Example)Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">McKinnon</td>
+</tr>
+<tr class="even">
+<td align="left">Pingr</td>
+</tr>
+<tr class="odd">
+<td align="left">Mird</td>
+</tr>
+<tr class="even">
+<td align="left">Luo</td>
+</tr>
+<tr class="odd">
+<td align="left">Murata</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-<div id="distinct" class="section level2" number="3.7">
-<h2>
-<span class="header-section-number">3.7</span> DISTINCT<a class="anchor" aria-label="anchor" href="#distinct"><i class="fas fa-link"></i></a>
-</h2>
+<p>A short handed way to project all attributes from a relation is by using an asterisk <code>*</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="introducion-to-sql.html#cb8-1" tabindex="-1"></a><span class="co">-- Return all attributes for all tuples with manf=Anheuser-Busch</span></span>
+<span id="cb8-2"><a href="introducion-to-sql.html#cb8-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb8-3"><a href="introducion-to-sql.html#cb8-3" tabindex="-1"></a><span class="kw">FROM</span> Beers</span>
+<span id="cb8-4"><a href="introducion-to-sql.html#cb8-4" tabindex="-1"></a><span class="kw">WHERE</span> manf<span class="op">=</span><span class="st">'Anheuser-Busch'</span>;</span></code></pre></div>
+<p>SQL is an interpreted language (like python). Therefore code gets executed line by line! Likewise each tuple in a relation gets evaluated one at a time to see if it should be returned in the output relation.</p>
+<p>For example, suppose we have the following query:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="introducion-to-sql.html#cb9-1" tabindex="-1"></a><span class="co">-- Grabbing the 'name' attribute from Beers --</span></span>
+<span id="cb9-2"><a href="introducion-to-sql.html#cb9-2" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
+<span id="cb9-3"><a href="introducion-to-sql.html#cb9-3" tabindex="-1"></a><span class="kw">FROM</span> Beers</span>
+<span id="cb9-4"><a href="introducion-to-sql.html#cb9-4" tabindex="-1"></a><span class="kw">WHERE</span> manf<span class="op">=</span><span class="st">'Anheuser-Busch'</span>;</span></code></pre></div>
+<p>For every tuple, the name component is being evaluated. If the component has the value “Anheuser-Busch”, then tuple is returned in the new relation!</p>
+<div class="float">
+<img src="images/03-operationSemantics.png" style="width:100.0%" alt="Operation Semantics"><div class="figcaption">Operation Semantics</div>
 </div>
-<div id="where" class="section level2" number="3.8">
-<h2>
-<span class="header-section-number">3.8</span> WHERE<a class="anchor" aria-label="anchor" href="#where"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="from" class="section level2" number="3.9">
-<h2>
-<span class="header-section-number">3.9</span> FROM<a class="anchor" aria-label="anchor" href="#from"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="rename" class="section level2" number="3.10">
-<h2>
-<span class="header-section-number">3.10</span> RENAME<a class="anchor" aria-label="anchor" href="#rename"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="patterns" class="section level2" number="3.11">
-<h2>
-<span class="header-section-number">3.11</span> Patterns<a class="anchor" aria-label="anchor" href="#patterns"><i class="fas fa-link"></i></a>
-</h2>
-<div id="like" class="section level3" number="3.11.1">
+<p>We can also add new attributes using the attributes from the relation we are retrieving data from.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="introducion-to-sql.html#cb10-1" tabindex="-1"></a><span class="kw">SELECT</span> bar,</span>
+<span id="cb10-2"><a href="introducion-to-sql.html#cb10-2" tabindex="-1"></a>  ,beer</span>
+<span id="cb10-3"><a href="introducion-to-sql.html#cb10-3" tabindex="-1"></a>  ,price<span class="op">*</span><span class="dv">114</span> <span class="kw">AS</span> PriceInYen</span>
+<span id="cb10-4"><a href="introducion-to-sql.html#cb10-4" tabindex="-1"></a><span class="kw">FROM</span> Sells;</span></code></pre></div>
+<div id="distinctall" class="section level3" number="3.6.1">
 <h3>
-<span class="header-section-number">3.11.1</span> Like<a class="anchor" aria-label="anchor" href="#like"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6.1</span> DISTINCT/ALL<a class="anchor" aria-label="anchor" href="#distinctall"><i class="fas fa-link"></i></a>
+</h3>
+<p>SQL allows for duplicate tuples, therefore, to return strictly unique tuples, you can use the <code>DISTINCT</code> clause.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="introducion-to-sql.html#cb11-1" tabindex="-1"></a><span class="co">-- Grabbing the unique department names from Instructor --</span></span>
+<span id="cb11-2"><a href="introducion-to-sql.html#cb11-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> dept_name</span>
+<span id="cb11-3"><a href="introducion-to-sql.html#cb11-3" tabindex="-1"></a><span class="kw">FROM</span> Instructor;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:DISTINCT Example)Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">dept_name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Cybernetics</td>
+</tr>
+<tr class="even">
+<td align="left">Statistics</td>
+</tr>
+<tr class="odd">
+<td align="left">Marketing</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">Athletics</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>In contrast, the SQL keyword <code>ALL</code> allows you to explicitly state that duplicates should not be removed.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="introducion-to-sql.html#cb12-1" tabindex="-1"></a><span class="co">-- Grabbing all instances of dept_name attribute from Instructor --</span></span>
+<span id="cb12-2"><a href="introducion-to-sql.html#cb12-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">ALL</span> dept_name</span>
+<span id="cb12-3"><a href="introducion-to-sql.html#cb12-3" tabindex="-1"></a><span class="kw">FROM</span> Instructor;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:ALL Example)Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">dept_name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Cybernetics</td>
+</tr>
+<tr class="even">
+<td align="left">Statistics</td>
+</tr>
+<tr class="odd">
+<td align="left">Marketing</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">Athletics</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The rest of the examples in this section will use the following relations</p>
+<p><span class="math display">\[
+Beers(\underline{name}, manf) \\
+Bars (\underline{name}, addr, license) \\
+Drinkers(\underline{name}, addr, phone) \\
+Likes(\underline{drinker}, {beer}) \\
+Sells(\underline{bar}, {beer}, price) \\
+Frequents(\underline{drinker}, {bar})
+\\~\\
+\text{Note: underlined attributes indicate keys}
+\]</span>
+<!--- Must review this example --->
+Here is another example using <code>All</code>.</p>
+<p>Using <code>Frequents</code> and <code>Likes</code>, list all drinks who go to a higher number of different bars than they like different beers and does so as many times as the difference of those counts.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="introducion-to-sql.html#cb13-1" tabindex="-1"></a><span class="kw">SELECT</span> drinker</span>
+<span id="cb13-2"><a href="introducion-to-sql.html#cb13-2" tabindex="-1"></a><span class="kw">FROM</span> Frequents</span>
+<span id="cb13-3"><a href="introducion-to-sql.html#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="introducion-to-sql.html#cb13-4" tabindex="-1"></a><span class="kw">EXCEPT</span> <span class="kw">ALL</span></span>
+<span id="cb13-5"><a href="introducion-to-sql.html#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="introducion-to-sql.html#cb13-6" tabindex="-1"></a><span class="kw">SELECT</span> drinker</span>
+<span id="cb13-7"><a href="introducion-to-sql.html#cb13-7" tabindex="-1"></a><span class="kw">FROM</span> Likes;</span></code></pre></div>
+<p>In this query, <code>EXCEPT</code> returns distinct rows from the top query that are not in the bottom query.</p>
+<p>Here is another example using <code>DISTINCT</code>.
+From <code>Sells</code>, find the different prices charged for beers</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="introducion-to-sql.html#cb14-1" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> price</span>
+<span id="cb14-2"><a href="introducion-to-sql.html#cb14-2" tabindex="-1"></a><span class="kw">FROM</span> Sells;</span></code></pre></div>
+<p>If distinct was not used, then your output relation would see duplicates of prices!</p>
+</div>
+<div id="select-and-literals" class="section level3" number="3.6.2">
+<h3>
+<span class="header-section-number">3.6.2</span> SELECT and Literals<a class="anchor" aria-label="anchor" href="#select-and-literals"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can assign relations to contain only literals (any primative data type).</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="introducion-to-sql.html#cb15-1" tabindex="-1"></a><span class="co">-- Selecting a literal --</span></span>
+<span id="cb15-2"><a href="introducion-to-sql.html#cb15-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="st">'437'</span> <span class="kw">AS</span> <span class="st">'Literal'</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:SELECT Literal)1 records</caption>
+<thead><tr class="header">
+<th align="left">Literal</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">437</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>Here we have returned a <span class="math inline">\(1 \times 1\)</span> relation with an attribute name <code>Literal</code> with a value of “437”.</p>
+<p>If we add <code>FROM</code>, to the query, we will have an <span class="math inline">\(n\times{1}\)</span> relation for <span class="math inline">\(n\)</span> tuples in the relation we are referencing in <code>FROM</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="introducion-to-sql.html#cb16-1" tabindex="-1"></a><span class="co">-- Selecting a literal with FROM --</span></span>
+<span id="cb16-2"><a href="introducion-to-sql.html#cb16-2" tabindex="-1"></a><span class="kw">SELECT</span> <span class="st">'437'</span> <span class="kw">AS</span> <span class="st">'Literal'</span></span>
+<span id="cb16-3"><a href="introducion-to-sql.html#cb16-3" tabindex="-1"></a><span class="kw">FROM</span> instructor;</span></code></pre></div>
+<div class="knitsql-table">
+<div class="inline-table"><table class="table table-sm">
+<caption>(#tab:SELECT Literal Example 2)Displaying records 1 - 5</caption>
+<thead><tr class="header">
+<th align="left">Literal</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">437</td>
+</tr>
+<tr class="even">
+<td align="left">437</td>
+</tr>
+<tr class="odd">
+<td align="left">437</td>
+</tr>
+<tr class="even">
+<td align="left">437</td>
+</tr>
+<tr class="odd">
+<td align="left">437</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div id="where" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> WHERE<a class="anchor" aria-label="anchor" href="#where"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="from" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> FROM<a class="anchor" aria-label="anchor" href="#from"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="rename" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> RENAME<a class="anchor" aria-label="anchor" href="#rename"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="patterns" class="section level2" number="3.10">
+<h2>
+<span class="header-section-number">3.10</span> Patterns<a class="anchor" aria-label="anchor" href="#patterns"><i class="fas fa-link"></i></a>
+</h2>
+<div id="like" class="section level3" number="3.10.1">
+<h3>
+<span class="header-section-number">3.10.1</span> Like<a class="anchor" aria-label="anchor" href="#like"><i class="fas fa-link"></i></a>
 </h3>
 </div>
 </div>
-<div id="null" class="section level2" number="3.12">
+<div id="null" class="section level2" number="3.11">
 <h2>
-<span class="header-section-number">3.12</span> Null<a class="anchor" aria-label="anchor" href="#null"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.11</span> Null<a class="anchor" aria-label="anchor" href="#null"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="multiple-relational-queries" class="section level2" number="3.13">
+<div id="multiple-relational-queries" class="section level2" number="3.12">
 <h2>
-<span class="header-section-number">3.13</span> Multiple Relational Queries<a class="anchor" aria-label="anchor" href="#multiple-relational-queries"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.12</span> Multiple Relational Queries<a class="anchor" aria-label="anchor" href="#multiple-relational-queries"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="joining-two-relations" class="section level2" number="3.14">
+<div id="joining-two-relations" class="section level2" number="3.13">
 <h2>
-<span class="header-section-number">3.14</span> Joining Two Relations<a class="anchor" aria-label="anchor" href="#joining-two-relations"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.13</span> Joining Two Relations<a class="anchor" aria-label="anchor" href="#joining-two-relations"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="explicit-tuple-variables" class="section level2" number="3.15">
+<div id="explicit-tuple-variables" class="section level2" number="3.14">
 <h2>
-<span class="header-section-number">3.15</span> Explicit Tuple-Variables<a class="anchor" aria-label="anchor" href="#explicit-tuple-variables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.14</span> Explicit Tuple-Variables<a class="anchor" aria-label="anchor" href="#explicit-tuple-variables"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="self-joins-1" class="section level2" number="3.16">
+<div id="self-joins-1" class="section level2" number="3.15">
 <h2>
-<span class="header-section-number">3.16</span> Self-Joins<a class="anchor" aria-label="anchor" href="#self-joins-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.15</span> Self-Joins<a class="anchor" aria-label="anchor" href="#self-joins-1"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="subqueries" class="section level2" number="3.17">
+<div id="subqueries" class="section level2" number="3.16">
 <h2>
-<span class="header-section-number">3.17</span> Subqueries<a class="anchor" aria-label="anchor" href="#subqueries"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.16</span> Subqueries<a class="anchor" aria-label="anchor" href="#subqueries"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="set-operations" class="section level2" number="3.18">
+<div id="set-operations" class="section level2" number="3.17">
 <h2>
-<span class="header-section-number">3.18</span> Set Operations<a class="anchor" aria-label="anchor" href="#set-operations"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.17</span> Set Operations<a class="anchor" aria-label="anchor" href="#set-operations"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="single-tuple-subquery" class="section level2" number="3.19">
+<div id="single-tuple-subquery" class="section level2" number="3.18">
 <h2>
-<span class="header-section-number">3.19</span> Single-Tuple Subquery<a class="anchor" aria-label="anchor" href="#single-tuple-subquery"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.18</span> Single-Tuple Subquery<a class="anchor" aria-label="anchor" href="#single-tuple-subquery"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="query-subquery" class="section level2" number="3.20">
+<div id="query-subquery" class="section level2" number="3.19">
 <h2>
-<span class="header-section-number">3.20</span> Query + Subquery<a class="anchor" aria-label="anchor" href="#query-subquery"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.19</span> Query + Subquery<a class="anchor" aria-label="anchor" href="#query-subquery"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="between" class="section level2" number="3.21">
+<div id="between" class="section level2" number="3.20">
 <h2>
-<span class="header-section-number">3.21</span> Between<a class="anchor" aria-label="anchor" href="#between"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.20</span> Between<a class="anchor" aria-label="anchor" href="#between"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="in" class="section level2" number="3.22">
+<div id="in" class="section level2" number="3.21">
 <h2>
-<span class="header-section-number">3.22</span> In<a class="anchor" aria-label="anchor" href="#in"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.21</span> In<a class="anchor" aria-label="anchor" href="#in"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="exists" class="section level2" number="3.23">
+<div id="exists" class="section level2" number="3.22">
 <h2>
-<span class="header-section-number">3.23</span> Exists<a class="anchor" aria-label="anchor" href="#exists"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.22</span> Exists<a class="anchor" aria-label="anchor" href="#exists"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="any" class="section level2" number="3.24">
+<div id="any" class="section level2" number="3.23">
 <h2>
-<span class="header-section-number">3.24</span> Any<a class="anchor" aria-label="anchor" href="#any"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.23</span> Any<a class="anchor" aria-label="anchor" href="#any"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="except" class="section level2" number="3.25">
+<div id="except" class="section level2" number="3.24">
 <h2>
-<span class="header-section-number">3.25</span> Except<a class="anchor" aria-label="anchor" href="#except"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.24</span> Except<a class="anchor" aria-label="anchor" href="#except"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="union-intersection-difference" class="section level2" number="3.26">
+<div id="union-intersection-difference" class="section level2" number="3.25">
 <h2>
-<span class="header-section-number">3.26</span> Union, Intersection, Difference<a class="anchor" aria-label="anchor" href="#union-intersection-difference"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.25</span> Union, Intersection, Difference<a class="anchor" aria-label="anchor" href="#union-intersection-difference"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="recursive-queries" class="section level2" number="3.27">
+<div id="recursive-queries" class="section level2" number="3.26">
 <h2>
-<span class="header-section-number">3.27</span> Recursive Queries<a class="anchor" aria-label="anchor" href="#recursive-queries"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.26</span> Recursive Queries<a class="anchor" aria-label="anchor" href="#recursive-queries"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="bag-semantics" class="section level2" number="3.28">
+<div id="bag-semantics" class="section level2" number="3.27">
 <h2>
-<span class="header-section-number">3.28</span> Bag Semantics<a class="anchor" aria-label="anchor" href="#bag-semantics"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.27</span> Bag Semantics<a class="anchor" aria-label="anchor" href="#bag-semantics"><i class="fas fa-link"></i></a>
 </h2>
 <!--- 
 ADD THE FOLLOWING AFTER ORGANZING NOTES
@@ -398,31 +586,35 @@ CREATE TABLE MovieStar(
 <li><a class="nav-link" href="#altering-tables"><span class="header-section-number">3.5.2</span> Altering Tables</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#select-cause"><span class="header-section-number">3.6</span> SELECT Cause</a></li>
-<li><a class="nav-link" href="#distinct"><span class="header-section-number">3.7</span> DISTINCT</a></li>
-<li><a class="nav-link" href="#where"><span class="header-section-number">3.8</span> WHERE</a></li>
-<li><a class="nav-link" href="#from"><span class="header-section-number">3.9</span> FROM</a></li>
-<li><a class="nav-link" href="#rename"><span class="header-section-number">3.10</span> RENAME</a></li>
 <li>
-<a class="nav-link" href="#patterns"><span class="header-section-number">3.11</span> Patterns</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#like"><span class="header-section-number">3.11.1</span> Like</a></li></ul>
+<a class="nav-link" href="#select"><span class="header-section-number">3.6</span> SELECT</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#distinctall"><span class="header-section-number">3.6.1</span> DISTINCT/ALL</a></li>
+<li><a class="nav-link" href="#select-and-literals"><span class="header-section-number">3.6.2</span> SELECT and Literals</a></li>
+</ul>
 </li>
-<li><a class="nav-link" href="#null"><span class="header-section-number">3.12</span> Null</a></li>
-<li><a class="nav-link" href="#multiple-relational-queries"><span class="header-section-number">3.13</span> Multiple Relational Queries</a></li>
-<li><a class="nav-link" href="#joining-two-relations"><span class="header-section-number">3.14</span> Joining Two Relations</a></li>
-<li><a class="nav-link" href="#explicit-tuple-variables"><span class="header-section-number">3.15</span> Explicit Tuple-Variables</a></li>
-<li><a class="nav-link" href="#self-joins-1"><span class="header-section-number">3.16</span> Self-Joins</a></li>
-<li><a class="nav-link" href="#subqueries"><span class="header-section-number">3.17</span> Subqueries</a></li>
-<li><a class="nav-link" href="#set-operations"><span class="header-section-number">3.18</span> Set Operations</a></li>
-<li><a class="nav-link" href="#single-tuple-subquery"><span class="header-section-number">3.19</span> Single-Tuple Subquery</a></li>
-<li><a class="nav-link" href="#query-subquery"><span class="header-section-number">3.20</span> Query + Subquery</a></li>
-<li><a class="nav-link" href="#between"><span class="header-section-number">3.21</span> Between</a></li>
-<li><a class="nav-link" href="#in"><span class="header-section-number">3.22</span> In</a></li>
-<li><a class="nav-link" href="#exists"><span class="header-section-number">3.23</span> Exists</a></li>
-<li><a class="nav-link" href="#any"><span class="header-section-number">3.24</span> Any</a></li>
-<li><a class="nav-link" href="#except"><span class="header-section-number">3.25</span> Except</a></li>
-<li><a class="nav-link" href="#union-intersection-difference"><span class="header-section-number">3.26</span> Union, Intersection, Difference</a></li>
-<li><a class="nav-link" href="#recursive-queries"><span class="header-section-number">3.27</span> Recursive Queries</a></li>
-<li><a class="nav-link" href="#bag-semantics"><span class="header-section-number">3.28</span> Bag Semantics</a></li>
+<li><a class="nav-link" href="#where"><span class="header-section-number">3.7</span> WHERE</a></li>
+<li><a class="nav-link" href="#from"><span class="header-section-number">3.8</span> FROM</a></li>
+<li><a class="nav-link" href="#rename"><span class="header-section-number">3.9</span> RENAME</a></li>
+<li>
+<a class="nav-link" href="#patterns"><span class="header-section-number">3.10</span> Patterns</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#like"><span class="header-section-number">3.10.1</span> Like</a></li></ul>
+</li>
+<li><a class="nav-link" href="#null"><span class="header-section-number">3.11</span> Null</a></li>
+<li><a class="nav-link" href="#multiple-relational-queries"><span class="header-section-number">3.12</span> Multiple Relational Queries</a></li>
+<li><a class="nav-link" href="#joining-two-relations"><span class="header-section-number">3.13</span> Joining Two Relations</a></li>
+<li><a class="nav-link" href="#explicit-tuple-variables"><span class="header-section-number">3.14</span> Explicit Tuple-Variables</a></li>
+<li><a class="nav-link" href="#self-joins-1"><span class="header-section-number">3.15</span> Self-Joins</a></li>
+<li><a class="nav-link" href="#subqueries"><span class="header-section-number">3.16</span> Subqueries</a></li>
+<li><a class="nav-link" href="#set-operations"><span class="header-section-number">3.17</span> Set Operations</a></li>
+<li><a class="nav-link" href="#single-tuple-subquery"><span class="header-section-number">3.18</span> Single-Tuple Subquery</a></li>
+<li><a class="nav-link" href="#query-subquery"><span class="header-section-number">3.19</span> Query + Subquery</a></li>
+<li><a class="nav-link" href="#between"><span class="header-section-number">3.20</span> Between</a></li>
+<li><a class="nav-link" href="#in"><span class="header-section-number">3.21</span> In</a></li>
+<li><a class="nav-link" href="#exists"><span class="header-section-number">3.22</span> Exists</a></li>
+<li><a class="nav-link" href="#any"><span class="header-section-number">3.23</span> Any</a></li>
+<li><a class="nav-link" href="#except"><span class="header-section-number">3.24</span> Except</a></li>
+<li><a class="nav-link" href="#union-intersection-difference"><span class="header-section-number">3.25</span> Union, Intersection, Difference</a></li>
+<li><a class="nav-link" href="#recursive-queries"><span class="header-section-number">3.26</span> Recursive Queries</a></li>
+<li><a class="nav-link" href="#bag-semantics"><span class="header-section-number">3.27</span> Bag Semantics</a></li>
 </ul>
 
       <div class="book-extra">

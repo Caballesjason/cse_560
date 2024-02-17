@@ -37,8 +37,9 @@ select-from-where-statements
 relation-schema-modification
 deleting-relations
 altering-tables
-select-cause
-distinct
+select
+distinctall
+select-and-literals
 where
 from
 rename

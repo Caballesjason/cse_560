@@ -31,6 +31,8 @@ Before we dive into operations in SQL, we will go over the order of execution fo
 7. `ORDER BY`
 8. `LIMIT`
 
+This is also the meaning of a _single relation query_
+
 To declare a schema for a stored relation, do the following
 
 ```{sql, eval=FALSE}
@@ -97,11 +99,129 @@ ALTER TABLE Instuctor RENAME COLUMN Department TO dept;
 ALTER TABLE Instuctor RENAME TO Teacher;
 ```
 
-## SELECT Cause
+\
 
+## SELECT
+`SELECT` chooses the attributes that you want in your query.  It corresponds to the projection operator $\pi_{C}{(R)}$.  In SQL, names of relations and attributes are not case sensitive.  In practice, any keywords should be capitalized.
 
-## DISTINCT
+For example:
 
+```{sql SELECT Example, connection=conn, max.print=5}
+-- Using the SELECT clause to grab the name attribute! --
+SELECT name
+FROM instructor;
+```
+
+A short handed way to project all attributes from a relation is by using an asterisk `*`.
+
+```{sql SELECT * Example, eval=F}
+-- Return all attributes for all tuples with manf=Anheuser-Busch
+SELECT *
+FROM Beers
+WHERE manf='Anheuser-Busch';
+```
+
+SQL is an interpreted language (like python).  Therefore code gets executed line by line!  Likewise each tuple in a relation gets evaluated one at a time to see if it should be returned in the output relation.
+
+For example, suppose we have the following query:
+
+```{sql Operational Semenatics, eval=FALSE}
+-- Grabbing the 'name' attribute from Beers --
+SELECT name
+FROM Beers
+WHERE manf='Anheuser-Busch';
+```
+
+For every tuple, the name component is being evaluated.  If the component has the value "Anheuser-Busch", then tuple is returned in the new relation!
+
+![Operation Semantics](images/03-OperationSemantics.png){width=100%}
+
+We can also add new attributes using the attributes from the relation we are retrieving data from.
+
+```{sql Custom Attributes, eval=F}
+SELECT bar,
+  ,beer
+  ,price*114 AS PriceInYen
+FROM Sells;
+```
+
+### DISTINCT/ALL
+SQL allows for duplicate tuples, therefore, to return strictly unique tuples, you can use the `DISTINCT` clause.
+
+For example:
+
+```{sql DISTINCT Example,  connection=conn, max.print=5}
+-- Grabbing the unique department names from Instructor --
+SELECT DISTINCT dept_name
+FROM Instructor;
+```
+
+In contrast, the SQL keyword `ALL` allows you to explicitly state that duplicates should not be removed.
+
+```{sql ALL Example,  connection=conn, max.print=5}
+-- Grabbing all instances of dept_name attribute from Instructor --
+SELECT ALL dept_name
+FROM Instructor;
+```
+
+The rest of the examples in this section will use the following relations
+
+$$
+Beers(\underline{name}, manf) \\
+Bars (\underline{name}, addr, license) \\
+Drinkers(\underline{name}, addr, phone) \\
+Likes(\underline{drinker}, {beer}) \\
+Sells(\underline{bar}, {beer}, price) \\
+Frequents(\underline{drinker}, {bar})
+\\~\\
+\text{Note: underlined attributes indicate keys}
+$$
+<!--- Must review this example --->
+Here is another example using `All`.
+
+Using `Frequents` and `Likes`, list all drinks who go to a higher number of different bars than they like different beers and does so as many times as the difference of those counts.
+
+```{sql ALL Example 2, eval=FALSE}
+SELECT drinker
+FROM Frequents
+
+EXCEPT ALL
+
+SELECT drinker
+FROM Likes;
+```
+
+In this query, `EXCEPT` returns distinct rows from the top query that are not in the bottom query.  
+
+Here is another example using `DISTINCT`.
+From `Sells`, find the different prices charged for beers
+
+```{sql DISTINCT example 2, eval=F}
+SELECT DISTINCT price
+FROM Sells;
+```
+
+If distinct was not used, then your output relation would see duplicates of prices!
+
+### SELECT and Literals
+You can assign relations to contain only literals (any primative data type).
+
+For example:
+
+```{sql SELECT Literal, connection=conn}
+-- Selecting a literal --
+SELECT '437' AS 'Literal';
+```
+
+Here we have returned a $1 \times 1$ relation with an attribute name `Literal` with a value of "437".
+
+If we add `FROM`, to the query, we will have an $n\times{1}$ relation for $n$ tuples in the relation we are referencing in `FROM`.
+
+```{sql SELECT Literal Example 2, connection=conn, max.print=5}
+-- Selecting a literal with FROM --
+SELECT '437' AS 'Literal'
+FROM instructor;
+```
 
 ## WHERE
 

@@ -13,4 +13,3 @@ RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
 BuildType: Website
-WebsitePath: /Users/jason/Desktop/MSDS/CSE_560/notes/docs
