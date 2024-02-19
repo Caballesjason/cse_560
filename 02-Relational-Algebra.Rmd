@@ -166,7 +166,7 @@ bar & beer & price & address \\
 Joe's & Bud & 2.50 & \text{Maple Street} \\
 Joe's & Miller & 2.75 & \text{Maple Street} \\
 Sue's & Bud & 2.50 & \text{River Road} \\
-Sue's & Bud & 2.50 & \text{River Road} \\
+Sue's & Coors & 3.50 & \text{River Road} \\
 \end{matrix}
 $$
 

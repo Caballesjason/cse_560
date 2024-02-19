@@ -287,7 +287,7 @@ WHERE name LIKE 'Mc%'; -- Look for any string beginning wiht "Wu"
 Using `LIKE` in conjunction with a wild card.  We return any tuple that is follows the pattern expressed with the wild card.
 
 ## Null
-Its possible for a component in a tuple to not have a value.  DBMS' use the keyword `NULL` to indicate that there is a value does not exist for a component.  Any arithmetic operation that deals with a component with `NULL` returns `NULL`.
+Its possible for a component in a tuple to not have a value.  DBMS' use the keyword `NULL` to indicate that there is a value does not exist for a component.  Any arithmetic operation that deals with a component with `NULL` returns `UNKNOWN`.
 
 ```{sql Arithmetic Null Example, connection=conn}
 -- NULL Arithmetic --
@@ -296,43 +296,192 @@ SELECT NULL + 1 AS null_arithmetic;
 
 The predicate `IS NULL` or `IS NOT NULL` can check if a component is or is not `NULL`.
 
+SQL contains 3 boolean values for comparators.  These are (`TRUE`, `FALSE`, `UNKNOWN`).  `UNKNOWN` is used to help handle `NULL` values.  Therefore when using `AND`, `OR`, & `NOT`, we must update the logic to handle `UNKOWN`.
+
+The following is the logic for these operators:
+
+| Logic | Output |
+|:-----:|:------:|
+| `TRUE AND UNKNOWN` | `UNKNOWN` |
+| `FALSE AND UNKNOWN` | `FALSE` |
+| `UNKNOWN AND UNKNOWN` | `UNKNOWN` |
+| `TRUE OR UNKNOWN` | `TRUE` |
+| `FALSE OR UNKNOWN` | `UNKNOWN` |
+| `UNKNOWN OR UNKNOWN` | `UNKNOWN` |
+
+When using the `WHERE` clause, any boolean comparators that yields `UNKNOWN` returns `FALSE`
+
+When working with `WHERE` to subset tuples.  Only tuples that yield `TRUE` are returned.  Any tuples that yield `FALSE` OR `UNKNOWN` are not returned.
 
 
 ## Multiple Relational Queries
+In practice, we typically source data from multiple relations.  We can describe data from multiple relations by referencing the relations in the `FROM` clause.  We distinguish attributes with the same name by `<relation>.<attribute>`
 
+For example:
 
-## Joining Two Relations
+```{sql multiple relation example, eval=F}
+-- SELECTING BEER BASED ON DATA FROM Frequents and Likes --
+SELECT beer                            -- Project beer attribute
+FROM Likes, Frequents                  -- State we want data from Likes and Frequents (Cartesian Product)
+WHERE bar = ’Joe’’s Bar’ AND           -- Select based on bar = "Joes Bar" and the drinkers are equal between
+                                             -- relations
+  Frequents.drinker = Likes.drinker;
+```
 
+We have now successfully joined the relations `Likes` and `Frequents`.
 
 ## Explicit Tuple-Variables
+We can join data from the a relation and a copy of itself.  In this case, we must be explicit and rename the copy of the relation.  This is known as a __Self Join__
+
+```{sql Explict variable naming, connection=conn, max.print=5}
+-- SELECTING WITH A COPY OF A RELATION AND ITS SELF --
+SELECT DISTINCT T.id AS id2
+  ,T.dept_name AS dept1
+  ,S.id AS id2
+  ,S.dept_name AS dept2
+FROM instructor AS T, instructor AS S    -- Remember that this is a cartesian product
+WHERE T.dept_name > S.dept_name;
+```
 
 
-## Self-Joins
+Here is another example:
 
+Using `Course` find all pairs of courses offered by the same department.  order based on the course id.
 
+```{sql self join example, connection=conn, max.print=5}
+SELECT b1.course_id
+  ,b2.course_id
+FROM course AS b1, course AS b2
+WHERE b1.dept_name=b2.dept_name AND
+  b1.course_id > b2.course_id;  -- How does this order courses?  Won't this only order by b2.course_id for each 
+```
+<!--- Continue with slide 50 --->
 ## Subqueries
+A subquery is a query that is nested in another query.  To do create a sub query, you wrap a query around parentheses. ^[Slide 50 of IntroSQLlatest.pdf]
 
+For example:
+```{sql Subquery in FROM Example, eval=F}
+-- Find the beer liked by at least one person who goes to Joe's Bar --
+
+SELECT beer
+FROM Likes, (SELECT drink
+  FROM Frequents
+  WHERE bar='Joe''s Bar') AS JD
+WHERE Likes.drinker = JD.drinker
+
+-- Remember, referencing two relations creates a Cartesian Product from both relations
+```
 
 ## Set Operations
+We can use set operations in SQL by using the `UNION`, `INTERSECT`, and `EXCEPT` (Not in) keywords.
 
+### UNION
+We can create a union of two relations by writing a query, using `UNION`, followed by another query.
+
+For example:
+
+```{sql UNION Example, connection=conn, max.print=5}
+-- Find courses that ran in Fall 2010 or in Spring 2011 --
+SELECT course_id
+FROM section
+WHERE semester='Fall' AND
+  year=2010
+  
+UNION
+
+SELECT course_id
+FROM section
+WHERE semester='Spring' AND 
+  year=2011
+```
+
+### INTERSECTION
+We can create an intersection of two relations by writing a query, using `INTERSECT`, followed by another query.
+
+For example
+
+```{sql INTERSECTION Example, connection=conn, max.print=5}
+-- Find courses that ran in Fall 2005 and in Spring 2006 --
+SELECT course_id
+FROM section
+WHERE semester='Fall' AND
+  year=2005
+  
+INTERSECT
+
+SELECT course_id
+FROM section
+WHERE semester='Fall' AND 
+  year=2006
+```
+
+### EXCEPT
+We can create a difference of two relations by writing a query, using `EXCEPT`, followed by another query.
+
+```{sql EXCEPT Example, connection=conn, max.print=5}
+-- Find courses that ran in Fall 2005 but not in Fall 2006 --
+SELECT course_id
+FROM section
+WHERE semester='Fall' AND
+  year=2005
+  
+EXCEPT
+
+SELECT course_id
+FROM section
+WHERE semester='Fall' AND 
+  year=2006
+```
 
 ## Single-Tuple Subquery
+When a subquery is guaranteed to return one tuple, then the subquery can be used as a value.  The tuple will typically have only one component and run-time errors will arise if there is not exactly one tuple returned.
 
+For example:
 
-## Query + Subquery
+```{sql Single-Tuple Query, eval=FALSE}
+-- Find the bars that server Miller for the same price Joe charges for Bud --
+SELECT bar
+FROM Sells
+WHERE beer = 'Miller' AND
+  price = (
+  SELECT price.  -- This query returns one tuple with one component!
+  FROM Sells
+  WHERE bar = 'Joe''s Bar' AND
+    beer = 'Bud'
+  )
 
+```
 
 ## Between
+`BETWEEN` allows a user to subset tuples based on if a tuple's value falls in between an interval!  To be more specific
 
+`BETWEEN` is defined as $\text{Value} >= \text{Low} \text{ AND} \text{ Value} <= \text{High}$ ^[FIND AN EXAMPLE]
+
+`NOT BETWEEN` is defined as $\text{Value} < \text{Low} \text{ AND} \text{ Value} > \text{High}$
 
 ## In
+`IN` is an keyword that returns a boolean to determine if a value is contained some collection of tuples.  
 
+<tuple> `IN` <subquery> is true if and only if the tuple is a member of a relation
 
+For example:
+
+```{sql IN Example, eval=F}
+-- Find name and manufacturer of each beer that Fred likes --
+SELECT *
+FROM Beers
+WHERE name IN ( -- This subquery makes a relation of beers that Fred Likes!
+  SELECT beer
+  FROM Likes
+  WHERE drinker='FRED'
+  )
+```
 ## Exists
 
 
 ## Any
 
+## All
 
 ## Except
 
