@@ -1,5 +1,3 @@
-tab:Selection
-tab:Projection
 syllabus
 piazza
 zoom-link

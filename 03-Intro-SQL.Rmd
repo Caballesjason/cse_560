@@ -35,13 +35,13 @@ This is also the meaning of a _single relation query_
 
 To declare a schema for a stored relation, do the following
 
-```{sql, eval=FALSE}
+```sql
 CREATE TABLE MovieStar( -- CREATE TABLE Initializes the create of the MovieStar schema
   name CHAR(30)         -- For every attribute, declare its data type
   ,address CHAR(30)
   ,gender char(1)
   ,birthdate date
-PRIMARY KEY (name)  -- Assign the name attribute as the primary key for the schema
+,PRIMARY KEY (name)  -- Assign the name attribute as the primary key for the schema
 );
 ```
 
@@ -53,7 +53,7 @@ The table that contains a foreign key is referencing an attribute from another t
 
 There are two ways to declare a column to be a foreign key.  Both use the keyword `REFERENCE`.
 
-```{sql Foreign Key Syntax, eval=FALSE}
+```sql
 CREATE TABLE Student(
   id VARCHAR(5)
   ,name VARCHAR(20) NOT NULL
@@ -75,7 +75,7 @@ CREATE TABLE Student(
 ### Deleting Relations
 This is how we can delete relations
 
-```{sql Deleting Tables, eval=FALSE}
+```sql
 DELETE -- Some Table
 
 -- We can also do this
@@ -85,7 +85,7 @@ DELETE FROM -- Some Table
 ### Altering Tables
 This is how we alter tables
 
-```{sql Altering tables, eval=FALSE}
+```sql
 -- Adding a attribute "surname" to Instructor1 --
 ALTER TABLE Instructor1 ADD surname CHAR(100);
 
@@ -106,15 +106,18 @@ ALTER TABLE Instuctor RENAME TO Teacher;
 
 For example:
 
-```{sql SELECT Example, connection=conn, max.print=5}
+```{sql SELECT Example, connection=conn, output.var='03-selectOutput'}
 -- Using the SELECT clause to grab the name attribute! --
 SELECT name
 FROM instructor;
 ```
+```{r select output, echo=F, out.width='100%'}
+createTable(`03-selectOutput`)
+```
 
 A short handed way to project all attributes from a relation is by using an asterisk `*`.
 
-```{sql SELECT * Example, eval=F}
+```sql
 -- Return all attributes for all tuples with manf=Anheuser-Busch
 SELECT *
 FROM Beers
@@ -125,7 +128,7 @@ SQL is an interpreted language (like python).  Therefore code gets executed line
 
 For example, suppose we have the following query:
 
-```{sql Operational Semenatics, eval=FALSE}
+```sql
 -- Grabbing the 'name' attribute from Beers --
 SELECT name
 FROM Beers
@@ -138,7 +141,7 @@ For every tuple, the name component is being evaluated.  If the component has th
 
 We can also add new attributes using the attributes from the relation we are retrieving data from.
 
-```{sql Custom Attributes, eval=F}
+```sql
 SELECT bar,
   ,beer
   ,price*114 AS PriceInYen
@@ -150,20 +153,25 @@ SQL allows for duplicate tuples, therefore, to return strictly unique tuples, yo
 
 For example:
 
-```{sql DISTINCT Example,  connection=conn, max.print=5}
+```{sql DISTINCT Example,  connection=conn, output.var='03-distinctOutput'}
 -- Grabbing the unique department names from Instructor --
 SELECT DISTINCT dept_name
 FROM Instructor;
 ```
+```{r DISTINCT output, out.width='100%', echo=F}
+createTable(`03-distinctOutput`)
+```
 
 In contrast, the SQL keyword `ALL` allows you to explicitly state that duplicates should not be removed.
 
-```{sql ALL Example,  connection=conn, max.print=5}
+```{sql ALL Example,  connection=conn, output.var='03-allExample'}
 -- Grabbing all instances of dept_name attribute from Instructor --
 SELECT ALL dept_name
 FROM Instructor;
 ```
-
+```{r ALL output, echo=F, out.width='100%'}
+createTable(`03-allExample`)
+```
 The rest of the examples in this section will use the following relations
 
 $$
@@ -181,7 +189,7 @@ Here is another example using `All`.
 
 Using `Frequents` and `Likes`, list all drinks who go to a higher number of different bars than they like different beers and does so as many times as the difference of those counts.
 
-```{sql ALL Example 2, eval=FALSE}
+```sql
 SELECT drinker
 FROM Frequents
 
@@ -196,7 +204,7 @@ In this query, `EXCEPT` returns distinct rows from the top query that are not in
 Here is another example using `DISTINCT`.
 From `Sells`, find the different prices charged for beers
 
-```{sql DISTINCT example 2, eval=F}
+```sql
 SELECT DISTINCT price
 FROM Sells;
 ```
@@ -208,31 +216,38 @@ You can assign relations to contain only literals (any primative data type).
 
 For example:
 
-```{sql SELECT Literal, connection=conn}
+```{sql SELECT Literal, connection=conn, tab.cap="Literals"}
 -- Selecting a literal --
-SELECT '437' AS 'Literal';
+SELECT '437' AS Literal;
 ```
 
 Here we have returned a $1 \times 1$ relation with an attribute name `Literal` with a value of "437".
 
 If we add `FROM`, to the query, we will have an $n\times{1}$ relation for $n$ tuples in the relation we are referencing in `FROM`.
 
-```{sql SELECT Literal Example 2, connection=conn, max.print=5}
+```{sql SELECT Literal Example 2, connection=conn, output.var='03-literalExample'}
 -- Selecting a literal with FROM --
-SELECT '437' AS 'Literal'
+SELECT '437' AS Literal
 FROM instructor;
 ```
+```{r Literal Output, echo=F, out.width='100%'}
+createTable(`03-literalExample`)
+```
+
 
 ## WHERE
 The `WHERE` clause specifies conditions must pass for a tuple to be returned.  You can use comparators and logical connectives (`AND`, `OR`, `<`, `<=`, `>`, `>=`, `=`, `<>`).
 
 For example, we will select all instructors from the Computer Science department who have a salary greater than $80,000
 
-```{sql WHERE Example, connection=conn, max.print=5}
+```{sql WHERE Example, connection=conn, output.var='03-whereExample'}
 -- SELECTING CS Instructors who make that bread --
 SELECT name
 FROM Instructor
 WHERE dept_name='Comp. Sci.';
+```
+```{r WHERE Output, echo=F, out.width='100%'}
+createTable(`03-whereExample`)
 ```
 
 ## FROM Clause with Multiple Relations
@@ -240,17 +255,21 @@ WHERE dept_name='Comp. Sci.';
 
 For example, the following returns the cartesian product $Instructor \times Teaches$
 
-```{sql FROM Example, connection=conn, max.prin=5}
+```{sql FROM Example, connection=conn, output.var='03-fromExample'}
 -- Cartesian Product Of Instructor and Teaches --
 SELECT *
 FROM Instructor, Teaches;
 ```
+```{r 03-fromExample, echo=F, out.width='100%'}
+createTable(`03-fromExample`)
+```
+
 
 If there is a naming conflict between attributes of different relations, you must explicitly rename the attributes.
 
 For example
 
-```{sql FROM Naming Conflict Example, connection=conn, max.print=5}
+```{sql FROM Naming Conflict Example, connection=conn}
 -- Renaming attributes with the same name --
 SELECT name
   ,instructor.dept_name AS dept1
@@ -264,7 +283,7 @@ WHERE instructor.dept_name=department.dept_name;
 ## RENAME
 Using `AS`, we can rename relations and attributes
 
-```{sql Renaming Example, connection=conn, max.print=5}
+```{sql Renaming Example, connection=conn}
 SELECT DISTINCT T.name
 FROM Instructor AS T, Instructor AS S -- WE have two copies of Instructors!
 WHERE T.salary > S.salary AND
@@ -277,7 +296,7 @@ WHERE T.salary > S.salary AND
 We can compare strings in a query that follow some pattern using wild cards (`%`, `_`).  `%` means "any string" while `_` means any character.
 
 For example:
-```{sql Wildcard Example, connection=conn, max.print=5}
+```{sql Wildcard Example, connection=conn}
 -- Using Wild cards to find patterns in name attribute --
 SELECT *
 FROM Instructor
@@ -319,7 +338,7 @@ In practice, we typically source data from multiple relations.  We can describe 
 
 For example:
 
-```{sql multiple relation example, eval=F}
+```sql
 -- SELECTING BEER BASED ON DATA FROM Frequents and Likes --
 SELECT beer                            -- Project beer attribute
 FROM Likes, Frequents                  -- State we want data from Likes and Frequents (Cartesian Product)
@@ -333,7 +352,7 @@ We have now successfully joined the relations `Likes` and `Frequents`.
 ## Explicit Tuple-Variables
 We can join data from the a relation and a copy of itself.  In this case, we must be explicit and rename the copy of the relation.  This is known as a __Self Join__
 
-```{sql Explict variable naming, connection=conn, max.print=5}
+```{sql Explict variable naming, connection=conn}
 -- SELECTING WITH A COPY OF A RELATION AND ITS SELF --
 SELECT DISTINCT T.id AS id2
   ,T.dept_name AS dept1
@@ -348,7 +367,7 @@ Here is another example:
 
 Using `Course` find all pairs of courses offered by the same department.  order based on the course id.
 
-```{sql self join example, connection=conn, max.print=5}
+```{sql self join example, connection=conn}
 SELECT b1.course_id
   ,b2.course_id
 FROM course AS b1, course AS b2
@@ -360,7 +379,7 @@ WHERE b1.dept_name=b2.dept_name AND
 A subquery is a query that is nested in another query.  To do create a sub query, you wrap a query around parentheses. ^[Slide 50 of IntroSQLlatest.pdf]
 
 For example:
-```{sql Subquery in FROM Example, eval=F}
+```sql
 -- Find the beer liked by at least one person who goes to Joe's Bar --
 
 SELECT beer
@@ -380,7 +399,7 @@ We can create a union of two relations by writing a query, using `UNION`, follow
 
 For example:
 
-```{sql UNION Example, connection=conn, max.print=5}
+```{sql UNION Example, connection=conn}
 -- Find courses that ran in Fall 2010 or in Spring 2011 --
 SELECT course_id
 FROM section
@@ -400,7 +419,7 @@ We can create an intersection of two relations by writing a query, using `INTERS
 
 For example
 
-```{sql INTERSECTION Example, connection=conn, max.print=5}
+```{sql INTERSECTION Example, connection=conn}
 -- Find courses that ran in Fall 2005 and in Spring 2006 --
 SELECT course_id
 FROM section
@@ -418,7 +437,7 @@ WHERE semester='Fall' AND
 ### EXCEPT
 We can create a difference of two relations by writing a query, using `EXCEPT`, followed by another query.
 
-```{sql EXCEPT Example, connection=conn, max.print=5}
+```{sql EXCEPT Example, connection=conn}
 -- Find courses that ran in Fall 2005 but not in Fall 2006 --
 SELECT course_id
 FROM section
@@ -438,7 +457,7 @@ When a subquery is guaranteed to return one tuple, then the subquery can be used
 
 For example:
 
-```{sql Single-Tuple Query, eval=FALSE}
+```sql
 -- Find the bars that server Miller for the same price Joe charges for Bud --
 SELECT bar
 FROM Sells
@@ -466,7 +485,7 @@ WHERE beer = 'Miller' AND
 
 For example:
 
-```{sql IN Example, eval=F}
+```sql
 -- Find name and manufacturer of each beer that Fred likes --
 SELECT *
 FROM Beers
@@ -476,12 +495,51 @@ WHERE name IN ( -- This subquery makes a relation of beers that Fred Likes!
   WHERE drinker='FRED'
   )
 ```
+
 ## Exists
+`EXISTS`^[Slide 62 of IntroSQLlatests.pdf] is a comparator that holds true if and only if a relation from a query is not empty.
+
+For example:^[Follow up on piazza how this query is executed]
+
+```sql
+-- Find beers that are unique beer by their manufacturer --
+SELECT name
+FROM Beers b1
+WHERE NOT EXISTS
+(SELECT *
+FROM Beers
+WHERE manf=b1.manf AND
+  name <> b1.name)
+```
 
 
 ## Any
+`ANY` is a boolean that holds true if and only if there is at least one tuple inside a subquery's relation that holds true for a particular operator.  The subquery must also project only one attribute.
 
+The syntax for `ANY` is
+
+```sql
+<operator> ANY(<subquery>)
+```
+
+For example
+
+```{sql ANY Example, connection=conn, output.var='anyExample'}
+-- Find instructors with the --
+SELECT *
+FROM instructor I1
+WHERE I1.salary > ANY(
+  SELECT salary
+  FROM instructor
+  WHERE dept_name='Athletics'
+	);
+```
+
+```{r,echo=F, out.width="100%"}
+createTable(anyExample)
+```
 ## All
+
 
 ## Except
 

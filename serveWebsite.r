@@ -1,5 +1,6 @@
 serve_site <- function() {
   require(bookdown)
+  
 
 # Creates book to run locally
   serve_book(dir = getwd(), output_dir = "docs", preview = TRUE,
@@ -8,6 +9,7 @@ serve_site <- function() {
   
 # writes an empty .nojekyll file to host on github pages so that we can use the bookdown file
   file.create(paste(getwd(), "/docs", "/.nojekyll", sep=''))
+  
 }
 
 

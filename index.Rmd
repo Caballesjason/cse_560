@@ -6,6 +6,11 @@ documentclass: "book"
 output:
   bookdown::bs4_book: "default"
 ---
+```{r Connection to University Database, message=FALSE, warning=FALSE, include=FALSE}
+source('createConnection.R')
+source('createPlotlyTable.R')
+conn <- createConn()
+```
 
 <!-- Use "{-}" if you want to exclude a heading in the numbering of headings -->
 

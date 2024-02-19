@@ -5,15 +5,6 @@ output:
   bookdown::bs4_book: "default"
 ---
 
-```{r Connection to University Database, message=FALSE, warning=FALSE, include=FALSE}
-library(DBI)
-library(RSQLite)
-conn <- dbConnect(RSQLite::SQLite(), "databases/notes_database.db")
-
-# Warning message:
-# call dbDisconnect() when finished working with a connection 
-```
-
 # Relational Algebra
 ## Algebraic Query Language
 SQL is built upon relational Algebra and is simplified for optimization and ease of use.  In relational algebra, relations are variables and finite relations are constants.  In other words, relations are the operands (things we apply operators to) in relational algebra.
@@ -50,9 +41,12 @@ __Predicate__:  A predicate is anything that returns a boolean (True, False, Unk
 ## Selection
 __Selection__ chooses which attributes we want in our relation.  For example:
 
-```{sql Selection, connection=conn, max.print=5}
+```{sql Selection, connection=conn, output.var='selectionExample'}
 SELECT *
 FROM instructor
+```
+```{r Selection Output, echo=F, out.width='100%'}
+createTable(`02-selectionExample`)
 ```
 
 The notation for selection is $\sigma_{C}({R2})$.  $C$ is the the set of conditions we may want to apply to the selection.  The input $R2$ is the relation we like to pull the attributes from. When committing any operator to a relation, we usually assign expression to a new relation.  For example:
@@ -71,13 +65,15 @@ $$
 R1 := \pi_{L}({R2}) \\ \text{L - List of attributes from R2} \\ \text{In English - R1 is the the attributes "L" from R2}
 $$
 
-```{sql Projection, connection=conn, max.print=5}
+```{sql Projection, connection=conn, output.var='02-projectionOutput'}
 SELECT name
   ,dept_name
   ,salary
 FROM instructor
 ```
-
+```{r projection output, echo=F, out.width='100%'}
+createTable(`02-projectionOutput`)
+```
 
 ### Extended Projection
 We can create attributes for a projection by applying operations to attributes.  Think of adding a constant to component of every tuple. or finding the difference between two columns as a new column.
