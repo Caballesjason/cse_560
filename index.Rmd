@@ -7,8 +7,9 @@ output:
   bookdown::bs4_book: "default"
 ---
 ```{r Connection to University Database, message=FALSE, warning=FALSE, include=FALSE}
+library(kableExtra)
 source('createConnection.R')
-source('createPlotlyTable.R')
+source('createDtTable.R')
 conn <- createConn()
 ```
 

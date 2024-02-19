@@ -269,7 +269,7 @@ If there is a naming conflict between attributes of different relations, you mus
 
 For example
 
-```{sql FROM Naming Conflict Example, connection=conn}
+```{sql FROM Naming Conflict Example, connection=conn, output.var='03-fromNamingConflict'}
 -- Renaming attributes with the same name --
 SELECT name
   ,instructor.dept_name AS dept1
@@ -279,11 +279,14 @@ SELECT name
 FROM instructor, department
 WHERE instructor.dept_name=department.dept_name;
 ```
+```{r 03-fromNamingConflict, echo=F, out.width='100%'}
+createTable(`03-fromNamingConflict`)
+```
 
 ## RENAME
 Using `AS`, we can rename relations and attributes
 
-```{sql Renaming Example, connection=conn}
+```{sql Renaming Example, connection=conn, output.var='03-renameExample'}
 SELECT DISTINCT T.name
 FROM Instructor AS T, Instructor AS S -- WE have two copies of Instructors!
 WHERE T.salary > S.salary AND
@@ -291,26 +294,36 @@ WHERE T.salary > S.salary AND
   
 -- We use DISTINCT because the cartesian product of relation and a copy of itself create's duplicates!
 ```
+```{r 03-renameExample, echo=F, out.width='100%'}
+createTable(`03-renameExample`)
+```
 
 ## Patterns
 We can compare strings in a query that follow some pattern using wild cards (`%`, `_`).  `%` means "any string" while `_` means any character.
 
 For example:
-```{sql Wildcard Example, connection=conn}
+```{sql Wildcard Example, connection=conn, output.var='03-wildcardExample'}
 -- Using Wild cards to find patterns in name attribute --
 SELECT *
 FROM Instructor
 WHERE name LIKE 'Mc%'; -- Look for any string beginning wiht "Wu"
 ```
+```{r 03-wildcardExample, echo=F, out.width='100%'}
+createTable(`03-wildcardExample`)
+```
+
 
 Using `LIKE` in conjunction with a wild card.  We return any tuple that is follows the pattern expressed with the wild card.
 
 ## Null
 Its possible for a component in a tuple to not have a value.  DBMS' use the keyword `NULL` to indicate that there is a value does not exist for a component.  Any arithmetic operation that deals with a component with `NULL` returns `UNKNOWN`.
 
-```{sql Arithmetic Null Example, connection=conn}
+```{sql Arithmetic Null Example, connection=conn, output.var='03-nullArithmeticNull'}
 -- NULL Arithmetic --
 SELECT NULL + 1 AS null_arithmetic;
+```
+```{r 03-nullArithmeticNull, echo=F, out.width='100%'}
+createTable(`03-nullArithmeticNull`)
 ```
 
 The predicate `IS NULL` or `IS NOT NULL` can check if a component is or is not `NULL`.
@@ -352,7 +365,7 @@ We have now successfully joined the relations `Likes` and `Frequents`.
 ## Explicit Tuple-Variables
 We can join data from the a relation and a copy of itself.  In this case, we must be explicit and rename the copy of the relation.  This is known as a __Self Join__
 
-```{sql Explict variable naming, connection=conn}
+```{sql Explict variable naming, connection=conn, output.var='03-explicitVariableNaming'}
 -- SELECTING WITH A COPY OF A RELATION AND ITS SELF --
 SELECT DISTINCT T.id AS id2
   ,T.dept_name AS dept1
@@ -361,18 +374,25 @@ SELECT DISTINCT T.id AS id2
 FROM instructor AS T, instructor AS S    -- Remember that this is a cartesian product
 WHERE T.dept_name > S.dept_name;
 ```
+```{r 03-explicitVariableNaming, echo=F, out.width='100%'}
+createTable(`03-explicitVariableNaming`)
+```
+
 
 
 Here is another example:
 
 Using `Course` find all pairs of courses offered by the same department.  order based on the course id.
 
-```{sql self join example, connection=conn}
+```{sql self join example, connection=conn, output.var='03-selfJoinExample'}
 SELECT b1.course_id
   ,b2.course_id
 FROM course AS b1, course AS b2
 WHERE b1.dept_name=b2.dept_name AND
   b1.course_id > b2.course_id;  -- How does this order courses?  Won't this only order by b2.course_id for each 
+```
+```{r 03-selfJoinExample, echo=F, out.width='100%'}
+createTable(`03-selfJoinExample`)
 ```
 <!--- Continue with slide 50 --->
 ## Subqueries
@@ -399,7 +419,7 @@ We can create a union of two relations by writing a query, using `UNION`, follow
 
 For example:
 
-```{sql UNION Example, connection=conn}
+```{sql UNION Example, connection=conn, output.var='03-unionExample'}
 -- Find courses that ran in Fall 2010 or in Spring 2011 --
 SELECT course_id
 FROM section
@@ -413,13 +433,16 @@ FROM section
 WHERE semester='Spring' AND 
   year=2011
 ```
+```{r 03-unionExample, echo=F, out.width='100%'}
+createTable(`03-unionExample`)
+```
 
 ### INTERSECTION
 We can create an intersection of two relations by writing a query, using `INTERSECT`, followed by another query.
 
 For example
 
-```{sql INTERSECTION Example, connection=conn}
+```{sql INTERSECTION Example, connection=conn, output.var='03-intersectionExample'}
 -- Find courses that ran in Fall 2005 and in Spring 2006 --
 SELECT course_id
 FROM section
@@ -433,11 +456,14 @@ FROM section
 WHERE semester='Fall' AND 
   year=2006
 ```
+```{r 03-intersectionExample, echo=F, out.width='100%'}
+createTable(`03-intersectionExample`)
+```
 
 ### EXCEPT
 We can create a difference of two relations by writing a query, using `EXCEPT`, followed by another query.
 
-```{sql EXCEPT Example, connection=conn}
+```{sql EXCEPT Example, connection=conn, output.var='03-exceptExample'}
 -- Find courses that ran in Fall 2005 but not in Fall 2006 --
 SELECT course_id
 FROM section
@@ -450,6 +476,9 @@ SELECT course_id
 FROM section
 WHERE semester='Fall' AND 
   year=2006
+```
+```{r 03-exceptExample, echo=F, out.width='100%'}
+createTable(`03-exceptExample`)
 ```
 
 ## Single-Tuple Subquery
@@ -535,7 +564,7 @@ WHERE I1.salary > ANY(
 	);
 ```
 
-```{r,echo=F, out.width="100%"}
+```{r anyExample, echo=F, out.width="100%"}
 createTable(anyExample)
 ```
 ## All
