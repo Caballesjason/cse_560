@@ -41,7 +41,7 @@ __Predicate__:  A predicate is anything that returns a boolean (True, False, Unk
 ## Selection
 __Selection__ chooses which attributes we want in our relation.  For example:
 
-```{sql Selection, connection=conn, output.var='selectionExample'}
+```{sql Selection, connection=conn, output.var='02-selectionExample'}
 SELECT *
 FROM instructor
 ```

@@ -4,6 +4,7 @@ rmd_files:
   - "01-Relational-Databases.Rmd"
   - "02-Relational-Algebra.Rmd"
   - "03-Intro-Sql.Rmd"
+  - "04-Intermediate-SQL.Rmd"
   
 site: bookdown::bookdown_site
 output:

@@ -1,0 +1,138 @@
+---
+site: "bookdown::bookdown_site"
+documentclass: "book"
+output:
+  bookdown::bs4_book: "default"
+---
+
+
+# Intermediate SQL
+
+## Join Expressions
+What are join operations?  SQL joins are Cartesian products, therefore duplicates are not removed.  They take two relations and perform a cartesian product.  Afterward, tuples are matched based on some provided conditions.  Once they are matched, they are combined to make one relation and the user can decide what attributes to project.
+
+Join operations are typically used as a subquery expression in the `FROM` clause.
+
+There are three types of joins:
+
+1. Natural Join
+2. Inner Join
+3. Outer Join
+
+## Natural Joins
+Natural joins will concatenate tuples of the a relation with every tuple of the second relation by matching values of common attributes.  The difference between a natural join and a cartesian product is that only one copy of common columns appear in the output relation, however both retain duplicates of tuples.
+
+For example:
+```{sql Natural Join Ex, connection=conn, output.var='04-naturalJoinEx'}
+-- List the names of students along with the course IDs of the courses they taught --
+SELECT name
+  ,course_id                -- Projection
+FROM student, takes         -- Cartesian Product
+WHERE student.ID = takes.ID -- Creates the natural join w/o keyword
+LIMIT 1000; -- For rendering purposes
+```
+```{r 04-naturalJoinEx, echo=F, out.width='100%'}
+createTable(`04-naturalJoinEx`)
+```
+
+
+```{sql Natural Join Ex1, connection=conn, output.var='04-naturalJoinEx1'}
+-- The following query is the same as above, but using the natural join keyword -- 
+
+SELECT name
+  ,course_id
+FROM student NATURAL JOIN takes
+LIMIT 1000; -- For rendering purposes
+```
+```{r 04-naturalJoinEx1, echo=F, out.width='100%'}
+createTable(`04-naturalJoinEx1`)
+```
+
+`student NATURAL JOIN takes` is equivalent to the expression $\pi_{\text{student.name}, \text{takes.course_id}}{(student \bowtie takes)}$ in relational algebra.
+
+You can natural join more than two relations together in the `FROM` clause
+
+For example:
+```sql
+-- Natural Join with WHERE --
+SELECT A1
+  ,A2
+  ,AN
+FROM r1 NATURAL JOIN r2 NATURAL JOIN rn
+WHERE P -- FOR SOME CONDITION P
+```
+
+Or
+
+```sql
+SELECT A1
+  ,A2
+  ,AN
+FROM E1, E2, E3, E4  -- Each Ei is a single relation involving natural joins
+```
+
+### Dangers of Natural Joins
+Recall that a natural join concatenates tables based on __ALL__ of their common attributes.  If not explicitly stated in the `WHERE` clause, you may be omitting some tuples in the natural join due to other common attributes that you did not want to join by.  This can commonly happen when working with more than two relations.
+
+We can using `USING` to help mediate this.
+
+For example:
+```{sql USING Ex, connection=conn, output.var='04-usingEx'}
+SELECT name
+  ,title
+FROM
+Student NATURAL JOIN Takes
+JOIN Course USING(course_id)
+LIMIT 1000; -- For rendering purposes
+```
+```{r 04-usingEx, echo=F, out.width='100%'}
+createTable(`04-usingEx`)
+```
+`USING` explicitly tells SQL to join $\pi_{\text{student.name},\text{takes.title}}(Student \bowtie_{\text{student.id}=\text{takes.id}} Take)$ with `Course` using the `course_id` attribute.
+
+### Join Conditions
+We can use the `ON` keyword instead of a `WHERE` clause to join relations!
+
+For example:
+
+The following two are equivalent
+
+```{sql Join With On Ex, output.var='04-joinWithOnEx', connection=conn}
+SELECT Student.ID AS ID
+  ,name
+  ,dept_name
+  ,tot_cred
+FROM student JOIN takes
+  ON student.ID=takes.ID
+LIMIT 1000;
+```
+```{r 04-joinWithOnEx, out.width='100%', echo=F}
+createTable(`04-joinWithOnEx`)
+```
+
+and 
+
+```{sql Join With Where Ex, output.var='04-joinWithWhereEx', connection=conn}
+SELECT Student.ID AS ID
+  ,name
+  ,dept_name
+  ,tot_cred
+FROM student, takes
+WHERE student.ID=takes.ID
+LIMIT 1000;
+```
+```{r 04-joinWithWhereEx, output.width='100%', echo=F}
+createTable(`04-joinWithWhereEx`)
+```
+
+## Inner Joins
+
+
+## Outer Joins
+### Left Outer Joins
+
+
+## Right Outer Joins
+
+
+## Full Outer Joins
