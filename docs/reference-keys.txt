@@ -56,7 +56,5 @@ in
 exists
 any
 all
-except-1
-union-intersection-difference
 recursive-queries
 bag-semantics

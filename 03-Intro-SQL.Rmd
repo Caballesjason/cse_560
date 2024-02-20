@@ -481,6 +481,8 @@ WHERE semester='Fall' AND
 createTable(`03-exceptExample`)
 ```
 
+__Note__:  By default, SQL will remove duplicates, by using the keyword `ALL` with any set theory keywords, we can retain those duplicates.
+
 ## Single-Tuple Subquery
 When a subquery is guaranteed to return one tuple, then the subquery can be used as a value.  The tuple will typically have only one component and run-time errors will arise if there is not exactly one tuple returned.
 
@@ -567,19 +569,64 @@ WHERE I1.salary > ANY(
 ```{r anyExample, echo=F, out.width="100%"}
 createTable(anyExample)
 ```
+
 ## All
+The `ALL` keyword can also be used as a comparator.  You can compare a tuple to all values in a relation.  If that tuple holds true for all tuples it is compared to, then it is returned.
 
+For example:
 
-## Except
-
-
-## Union, Intersection, Difference
-
+```sql
+-- Find the beer(s) sold for the highest price --
+SELECT beer
+FROM Sells
+WHERE price >= ALL(
+  SELECT price
+  FROM Sells
+  );
+```
 
 ## Recursive Queries
+Recursive queries  are queries that call a reference to a relation and applies a compartor to another relation.  A new relation is created and becomes the relation to a new reference.  We keep repeating this process until the reference holds false for some relation.
 
+The format of recursive queries is as follows:
+
+```sql
+WITH R AS (<BASE QUERY>             -- BASED CASE (DOES NOT INVOLVE R)
+  UNION ALL
+  <RECURSIVE_QUERY INVOLVING R>     -- RECURSIVE STEP
+)
+
+<QUERY INVOLVING R>                 -- SELECTION AFTER RECURSION
+```
+We will use an example of ancestry taken from [here](https://builtin.com/data-science/recursive-sql):
+
+![](images/recursiveQueryExample.png){width=100%}
+
+```sql
+WITH Ancestor AS (
+  SELECT parent AS p FROM ParentOf WHERE child='Frank' -- Base case
+  
+  UNION ALL
+  
+  SELECT parent FROM Ancestor, ParentOf               -- Recursive case
+  WHERE Ancestor.p=ParentOf.child
+  )
+  
+SELECT * From Ancestor
+```
+
+The base query finds Frank’s parent, Mary, and then the recursive query takes this result under the `Ancestor` relation and finds Mary’s parents, who are Dave and Eve. This process repeats until we can’t find any more parents in the `ParentOf` relation.  Once this process ends, the DBMS remembers all of its relations creating in the recursive process and commits a `UNION ALL` on them.
+
+![](images/recursiveExampleMapping.png){width=100%}
+Recursive queries use __Common Table Expressions (CTE)__.  CTE is the result set of query which exists temporarily and for use only within the context of a larger query. Much like a derived table, the result of a CTE is not stored and exists only for the
+duration of the query.
 
 ## Bag Semantics
+`SELECT`, `FROM`, `WHERE` statements use bag semantics (allows duplicates).  On the other hand, `UNION`, `INTERSECTION`, and `DIFFERENCE` are set semantics.  The reason to make this distinction is due to efficiency.  When doing projection, its easier to avoid eliminating duplicates.
+
+When working with intersections and differences, its most efficient to sort relations first.  At that point, you might as well remove the duplicates using the `DISTINCT` statement anyways.
+
+You can always return a relation with duplicates by using the `ALL` keyword.  You can also use the `DISTINCT` keyword to make sure your returned relation is unique for all tuples!
 
 <!--- 
 ADD THE FOLLOWING AFTER ORGANZING NOTES
