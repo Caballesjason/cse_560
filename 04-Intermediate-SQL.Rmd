@@ -2,7 +2,9 @@
 site: "bookdown::bookdown_site"
 documentclass: "book"
 output:
-  bookdown::bs4_book: "default"
+  bookdown::bs4_book:
+    includes:
+      in_header: preamble.tex
 ---
 
 
@@ -125,14 +127,34 @@ LIMIT 1000;
 createTable(`04-joinWithWhereEx`)
 ```
 
-## Inner Joins
-
-
 ## Outer Joins
-### Left Outer Joins
+`OUTER JOIN` is an extension of the `JOIN` that avoids loss of information.  When you do a regular `JOIN`, any tuples with matching attributes concatenate with each other.  The remaining dangling tuples are excluded.  With `OUTER JOIN`, those dangling tuples are included in the returned relation where components are padded with `NULL`.
 
+There are three forms of `OUTER JOIN`
+
+1. `LEFT OUTER JOIN`
+2. `RIGHT OUTER JOIN`
+3. `FULL OUTER JOIN`
+
+Before diving into `LEFT OUTER JOIN` vs `RIGHT OUTER JOIN`, remember that we refer to the relation to the left of `JOIN` as the left relation and the relation to the right of `JOIN` as the right relation
+
+```sql
+LeftRelation JOIN RightRelation
+```
+
+### Left Outer Joins
+`LEFT OUTER JOIN` only preserves dangling tuples from the left relation
 
 ## Right Outer Joins
-
+`RIGHT OUTER JOIN` only preserves dangling tuples from the right relation
 
 ## Full Outer Joins
+`FULL OUTER JOIN` preserves dangling tuples from both relations
+
+Due to LateX rendering issues, we cannot write the notation for outer joins properly in html, so we will rewrite the notation for this notes as follows:
+
+| Join Type | Actual Operator | Note's Operator |
+|:---------:|:---------------:|:---------------:|
+| `LEFT OUTER JOIN` | $R1$ ⟕ $R2$ | $R1 <\bowtie R2 $ |
+| `RIGHT OUTER JOIN` | $R1$ ⟖ $R2$ | $R1 \bowtie> R2 $ |
+| `FULL OUTER JOIN` | $R1$ ⟗ $R2$ | $R1 <\bowtie> R2 $ |

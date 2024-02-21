@@ -63,7 +63,6 @@ join-expressions
 natural-joins-1
 dangers-of-natural-joins
 join-conditions
-inner-joins
 outer-joins
 left-outer-joins
 right-outer-joins
