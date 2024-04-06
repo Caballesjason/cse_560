@@ -1,0 +1,181 @@
+---
+site: "bookdown::bookdown_site"
+documentclass: "book"
+output:
+  bookdown::bs4_book: "default"
+---
+
+# Design Theory
+## Functional Dependencies (FD)
+FDs are great for data storage and queries.  It allows for compression of data and optimization of queries.  FDs is the theory that allows us to decompose data and is the generalization of keys!
+
+* FDs are denoted as $X \rightarrow Y$, read "_$X$ functionally determines $Y$_"
+* $X$ and $Y$ are subsets of attributes in a relation $R$
+* We say that $X\rightarrow Y$ if and only if any two tuples with the same value for $X$, also have the same value for $Y$ for any relation instance of $R$
+* In practice, its common for the attributes in the right side of the FD to be singletons, that is $Y$ is a single attribute
+
+
+## Keys of Relations
+__Key__: Given a set of attributes for a relation $R$,  a set of attributes $K = \{ k_{1}, k_{2}, ... k_{n}\}$  such that $K \subseteq D$ is considered a key for R if it creates a FD for all attributes in $D - K$ and no subset of $K$ is a also a key (no subset creates FD for all attributes not in the subset).
+
+__Superkey__:  Any set of attributes $K = \{ k_{1}, k_{2}, ... k_{n}\}$ is a superkey if $K$ creates a FD for all attributes in $D - K$ and a subset of of $K$ also creates a FD for all attributes no in the subset.
+
+The above definitions imply that all keys are superkeys, but not all superkeys are keys.
+
+
+## FD Equivalencies
+* Given two sets of FDs $S$ and $T$, we say that _$S$ follows  from $T$_ if and only if all relation instances that satisfy $T$ also satisfy $S$
+* $S$ and $T$ are considered equal if and only if $S$ follows from $T$ and $T$ follows from $S$, that is all relation instances that satisfy $T$ also satisfy $S$ and vice versa!
+
+
+## Rules of Functional Dependencies
+### Splitting
+We can split a FD $A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}$ into an equivalent set of FDs by making the right side singletons, that is 
+
+$$A_{1} A_{2} ... A_{n} \rightarrow B_{1}$$
+
+$$ A_{1} A_{2} ... A_{n} \rightarrow B_{2}$$
+$$...$$
+
+$$A_{1} A_{2} ... A_{n} \rightarrow B_{m}$$
+
+$$ \forall i \in \{1, 2, ..., m\}$$
+
+
+### Combining
+We can reconstruct a split as well! that is we can turn
+
+$$A_{1} A_{2} ... A_{n} \rightarrow B_{1}$$
+
+$$ A_{1} A_{2} ... A_{n} \rightarrow B_{2}$$
+$$...$$
+
+$$A_{1} A_{2} ... A_{n} \rightarrow B_{m}$$
+
+$$ \forall i \in \{1, 2, ..., m\}$$
+
+into 
+
+$$A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}$$
+
+\
+
+__NOTE__: You cannot split the left side of a FD!
+
+
+### Trivial FD
+We say a FD $A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}$ is trivial if and only if 
+
+ $$B_{1} B_{2} ... B_{m} \subseteq A_{1} A_{2} ... A_{n}$$
+ 
+ 
+### Trivial Dependency Rule
+ The FD $A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}$ is equivalent to $A_{1} A_{2} ... A_{n} \rightarrow C_{1} C_{2} ... C_{k}$ if there exists $c_{i} \in C_{1} C_{2} ... C_{k}$ such that 
+ 
+ $$c_{i} \in  B_{1} B_{2} ... B_{m} - A_{1} A_{2} ... A_{n}$$
+
+
+### Augmentation
+If $A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}$ then 
+
+$$A_{1} A_{2} ... A_{n} C_{1} C_{2} ... C_{k} \rightarrow B_{1} B_{2} ... B_{m} C_{1} C_{2} ... C_{k}$$
+
+
+
+### Transitive Rule
+If $A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{k}$ and $B_{1} B_{2} ... B_{j} \rightarrow  C_{1} C_{2} ... C_{k}$, then 
+
+$$A_{1} A_{2} ... A_{n} \rightarrow, C_{1} C_{2} ... C_{k}$$
+
+If some $C_{i} = A_{i}$, by the trivial dependency rule, those $C_{i}$ may be omitted.  
+
+
+## Closures
+### Closure Definition
+Let $A = \{A_{1}, A_{2}, ..., A_{n} \}$ be a set of attributes and $S = \{S_{1}, S_{2}, ..., S_{k} \}$ be a set of FDs satisfying $A$
+
+The closure of $A$ under $S$ is the set of attributes $B$ such that 
+
+1. $A \rightarrow B$
+2.  Every relation that satisfies all FD in $S$ also satisfies $A \rightarrow B$ "_$A \rightarrow B$ follows from $S$"_, that is, all relation instances that satisfy $S$ also satisfy $A \rightarrow B$
+
+We denote closures as $A^{+}$
+
+
+### Closure Computation Algorithm
+```
+Inputs:
+  A - Some set of attributes
+  S - Some set of FDs
+  
+BEGIN
+
+  Let C = A (C is the returned closure for A)
+  Split FDs in S so that each FD is singleton on the right side
+  
+  For s in S:
+    If s is of the form B ->> K such that B is contained in C and K is not in C
+      Add K to C
+    Else
+      Do nothing
+  
+  return C
+
+END
+```
+
+### Closures and Keys
+Closures can be used to determine if a set of attributes $A = \{A_{1}, A_{2}, ..., A_{n}\}$ is a key or superkey
+
+If $A^{+}$ functionally determines all attributes not in $A$, then $A$ is a superkey!
+
+If $A^{+}$ functionally determines all attributes not in $A$ and there does not exist a subset of $A$ whos closure functionally determines all attributes not in the subset, then $A$ is a key!
+
+
+### Basis for sets of FDs
+Given a set of FDs $S$ for a relation $R$, any set of FDs $K$ that is equivalent to S (FDs in $S$ & $K$ satisfy the same relation instances) is a basis for $S$.
+
+A basis is minimal if the follow is true:
+
+1. All FDs for $K$ have singleton right sides
+2. If a FD is removed from $K$, then $K$ is no longer a basis for $S$
+3. If at least one attribute is removed from the left side in $K$, then $K$ is no longer a basis for $S$
+
+
+## Projections of FDs
+### FD Projection Definition
+Given a relation $R$, a set of FDs $S$ that satisfy $R$, and some project of $R$, $R_{1} := \pi_{L}(R)$ for some set of attributes $L$, the _projection of FDs $K$_ is a set of FDs that 
+
+1. Follow from $S$ (Satisfy the same relations as $S$)
+2. Involve only attributes in $R_{1}$ (creates a minimal basis for $S$ with only attributes in $R_{1}$)
+
+
+### FD Projection Algorithm
+```
+Inputs:
+  R - some relation
+  R1 - some projection of R
+  
+Outputs:
+  K - The set of FDs that satisfy R1 and are a minimal basis for FDs for R
+  
+BEGIN
+Let T = Null (thius is your returned projection)
+Let Pow(R1) be the powerset of R1's attributes (the set of subsets for R1's attributes)
+Order Pow(R1) to be the by number of attributes in a subset
+
+For ele in Pow(R1)
+  Compute the closure of ele
+  
+  For each FD in of the form X -> A s.t. X, A are in R1 and X, A are in the closure of ele
+    Add FD to T
+
+For each FD in T
+  Check which FDs point to the same attribute and remove all of them except for one
+
+Return T
+END
+```
+
+The for loop that iterates over the projection $T$ ensures that $T$ is a minimal basis for the FDs of $R$ 
+

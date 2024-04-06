@@ -1,10 +1,11 @@
 ---
 rmd_files:
-  - "index.Rmd"
-  - "01-Relational-Databases.Rmd"
-  - "02-Relational-Algebra.Rmd"
-  - "03-Intro-Sql.Rmd"
-  - "04-Intermediate-SQL.Rmd"
+#  - "index.Rmd"
+#  - "01-Relational-Databases.Rmd"
+#  - "02-Relational-Algebra.Rmd"
+#  - "03-Intro-Sql.Rmd"
+#  - "04-Intermediate-SQL.Rmd"
+  - "05-Design-Theory.Rmd"
   
 site: bookdown::bookdown_site
 output:

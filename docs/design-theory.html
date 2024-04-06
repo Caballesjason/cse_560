@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>1 Design Theory | _main.knit</title>
+
+  
+   
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="1 Design Theory | _main.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Design Theory | _main.knit" />
+  
+  
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.6.1/transition.js"></script>
+    <script src="libs/bs3compat-0.6.1/tabs.js"></script>
+    <script src="libs/bs3compat-0.6.1/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+    
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title=""></a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<!--bookdown:title:end-->
+<!--bookdown:title:start-->
+<div id="design-theory" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Design Theory</h1>
+<div id="functional-dependencies-fd" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Functional Dependencies (FD)</h2>
+<p>FDs are great for data storage and queries. It allows for compression of data and optimization of queries. FDs is the theory that allows us to decompose data and is the generalization of keys!</p>
+<ul>
+<li>FDs are denoted as <span class="math inline">\(X \rightarrow Y\)</span>, read “<em><span class="math inline">\(X\)</span> functionally determines <span class="math inline">\(Y\)</span></em>”</li>
+<li><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are subsets of attributes in a relation <span class="math inline">\(R\)</span></li>
+<li>We say that <span class="math inline">\(X\rightarrow Y\)</span> if and only if any two tuples with the same value for <span class="math inline">\(X\)</span>, also have the same value for <span class="math inline">\(Y\)</span> for any relation instance of <span class="math inline">\(R\)</span></li>
+<li>In practice, its common for the attributes in the right side of the FD to be singletons, that is <span class="math inline">\(Y\)</span> is a single attribute</li>
+</ul>
+</div>
+<div id="keys-of-relations" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Keys of Relations</h2>
+<p><strong>Key</strong>: Given a set of attributes for a relation <span class="math inline">\(R\)</span>, a set of attributes <span class="math inline">\(K = \{ k_{1}, k_{2}, ... k_{n}\}\)</span> such that <span class="math inline">\(K \subseteq D\)</span> is considered a key for R if it creates a FD for all attributes in <span class="math inline">\(D - K\)</span> and no subset of <span class="math inline">\(K\)</span> is a also a key (no subset creates FD for all attributes not in the subset).</p>
+<p><strong>Superkey</strong>: Any set of attributes <span class="math inline">\(K = \{ k_{1}, k_{2}, ... k_{n}\}\)</span> is a superkey if <span class="math inline">\(K\)</span> creates a FD for all attributes in <span class="math inline">\(D - K\)</span> and a subset of of <span class="math inline">\(K\)</span> also creates a FD for all attributes no in the subset.</p>
+<p>The above definitions imply that all keys are superkeys, but not all superkeys are keys.</p>
+</div>
+<div id="fd-equivalencies" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> FD Equivalencies</h2>
+<ul>
+<li>Given two sets of FDs <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>, we say that <em><span class="math inline">\(S\)</span> follows from <span class="math inline">\(T\)</span></em> if and only if all relation instances that satisfy <span class="math inline">\(T\)</span> also satisfy <span class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> are considered equal if and only if <span class="math inline">\(S\)</span> follows from <span class="math inline">\(T\)</span> and <span class="math inline">\(T\)</span> follows from <span class="math inline">\(S\)</span>, that is all relation instances that satisfy <span class="math inline">\(T\)</span> also satisfy <span class="math inline">\(S\)</span> and vice versa!</li>
+</ul>
+</div>
+<div id="rules-of-functional-dependencies" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Rules of Functional Dependencies</h2>
+<div id="splitting" class="section level3" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Splitting</h3>
+<p>We can split a FD <span class="math inline">\(A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}\)</span> into an equivalent set of FDs by making the right side singletons, that is</p>
+<p><span class="math display">\[A_{1} A_{2} ... A_{n} \rightarrow B_{1}\]</span></p>
+<p><span class="math display">\[ A_{1} A_{2} ... A_{n} \rightarrow B_{2}\]</span>
+<span class="math display">\[...\]</span></p>
+<p><span class="math display">\[A_{1} A_{2} ... A_{n} \rightarrow B_{m}\]</span></p>
+<p><span class="math display">\[ \forall i \in \{1, 2, ..., m\}\]</span></p>
+</div>
+<div id="combining" class="section level3" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Combining</h3>
+<p>We can reconstruct a split as well! that is we can turn</p>
+<p><span class="math display">\[A_{1} A_{2} ... A_{n} \rightarrow B_{1}\]</span></p>
+<p><span class="math display">\[ A_{1} A_{2} ... A_{n} \rightarrow B_{2}\]</span>
+<span class="math display">\[...\]</span></p>
+<p><span class="math display">\[A_{1} A_{2} ... A_{n} \rightarrow B_{m}\]</span></p>
+<p><span class="math display">\[ \forall i \in \{1, 2, ..., m\}\]</span></p>
+<p>into</p>
+<p><span class="math display">\[A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}\]</span></p>
+<p><br />
+</p>
+<p><strong>NOTE</strong>: You cannot split the left side of a FD!</p>
+</div>
+<div id="trivial-fd" class="section level3" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Trivial FD</h3>
+<p>We say a FD <span class="math inline">\(A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}\)</span> is trivial if and only if</p>
+<p><span class="math display">\[B_{1} B_{2} ... B_{m} \subseteq A_{1} A_{2} ... A_{n}\]</span></p>
+</div>
+<div id="trivial-dependency-rule" class="section level3" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> Trivial Dependency Rule</h3>
+<p>The FD <span class="math inline">\(A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}\)</span> is equivalent to <span class="math inline">\(A_{1} A_{2} ... A_{n} \rightarrow C_{1} C_{2} ... C_{k}\)</span> if there exists <span class="math inline">\(c_{i} \in C_{1} C_{2} ... C_{k}\)</span> such that</p>
+<p><span class="math display">\[c_{i} \in  B_{1} B_{2} ... B_{m} - A_{1} A_{2} ... A_{n}\]</span></p>
+</div>
+<div id="augmentation" class="section level3" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> Augmentation</h3>
+<p>If <span class="math inline">\(A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{m}\)</span> then</p>
+<p><span class="math display">\[A_{1} A_{2} ... A_{n} C_{1} C_{2} ... C_{k} \rightarrow B_{1} B_{2} ... B_{m} C_{1} C_{2} ... C_{k}\]</span></p>
+</div>
+<div id="transitive-rule" class="section level3" number="1.4.6">
+<h3><span class="header-section-number">1.4.6</span> Transitive Rule</h3>
+<p>If <span class="math inline">\(A_{1} A_{2} ... A_{n} \rightarrow B_{1} B_{2} ... B_{k}\)</span> and <span class="math inline">\(B_{1} B_{2} ... B_{j} \rightarrow C_{1} C_{2} ... C_{k}\)</span>, then</p>
+<p><span class="math display">\[A_{1} A_{2} ... A_{n} \rightarrow, C_{1} C_{2} ... C_{k}\]</span></p>
+<p>If some <span class="math inline">\(C_{i} = A_{i}\)</span>, by the trivial dependency rule, those <span class="math inline">\(C_{i}\)</span> may be omitted.</p>
+</div>
+</div>
+<div id="closures" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Closures</h2>
+<div id="closure-definition" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Closure Definition</h3>
+<p>Let <span class="math inline">\(A = \{A_{1}, A_{2}, ..., A_{n} \}\)</span> be a set of attributes and <span class="math inline">\(S = \{S_{1}, S_{2}, ..., S_{k} \}\)</span> be a set of FDs satisfying <span class="math inline">\(A\)</span></p>
+<p>The closure of <span class="math inline">\(A\)</span> under <span class="math inline">\(S\)</span> is the set of attributes <span class="math inline">\(B\)</span> such that</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(A \rightarrow B\)</span></li>
+<li>Every relation that satisfies all FD in <span class="math inline">\(S\)</span> also satisfies <span class="math inline">\(A \rightarrow B\)</span> “<em><span class="math inline">\(A \rightarrow B\)</span> follows from <span class="math inline">\(S\)</span>“</em>, that is, all relation instances that satisfy <span class="math inline">\(S\)</span> also satisfy <span class="math inline">\(A \rightarrow B\)</span></li>
+</ol>
+<p>We denote closures as <span class="math inline">\(A^{+}\)</span></p>
+</div>
+<div id="closure-computation-algorithm" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Closure Computation Algorithm</h3>
+<pre><code>Inputs:
+  A - Some set of attributes
+  S - Some set of FDs
+  
+BEGIN
+
+  Let C = A (C is the returned closure for A)
+  Split FDs in S so that each FD is singleton on the right side
+  
+  For s in S:
+    If s is of the form B -&gt;&gt; K such that B is contained in C and K is not in C
+      Add K to C
+    Else
+      Do nothing
+  
+  return C
+
+END</code></pre>
+</div>
+<div id="closures-and-keys" class="section level3" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Closures and Keys</h3>
+<p>Closures can be used to determine if a set of attributes <span class="math inline">\(A = \{A_{1}, A_{2}, ..., A_{n}\}\)</span> is a key or superkey</p>
+<p>If <span class="math inline">\(A^{+}\)</span> functionally determines all attributes not in <span class="math inline">\(A\)</span>, then <span class="math inline">\(A\)</span> is a superkey!</p>
+<p>If <span class="math inline">\(A^{+}\)</span> functionally determines all attributes not in <span class="math inline">\(A\)</span> and there does not exist a subset of <span class="math inline">\(A\)</span> whos closure functionally determines all attributes not in the subset, then <span class="math inline">\(A\)</span> is a key!</p>
+</div>
+<div id="basis-for-sets-of-fds" class="section level3" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Basis for sets of FDs</h3>
+<p>Given a set of FDs <span class="math inline">\(S\)</span> for a relation <span class="math inline">\(R\)</span>, any set of FDs <span class="math inline">\(K\)</span> that is equivalent to S (FDs in <span class="math inline">\(S\)</span> &amp; <span class="math inline">\(K\)</span> satisfy the same relation instances) is a basis for <span class="math inline">\(S\)</span>.</p>
+<p>A basis is minimal if the follow is true:</p>
+<ol style="list-style-type: decimal">
+<li>All FDs for <span class="math inline">\(K\)</span> have singleton right sides</li>
+<li>If a FD is removed from <span class="math inline">\(K\)</span>, then <span class="math inline">\(K\)</span> is no longer a basis for <span class="math inline">\(S\)</span></li>
+<li>If at least one attribute is removed from the left side in <span class="math inline">\(K\)</span>, then <span class="math inline">\(K\)</span> is no longer a basis for <span class="math inline">\(S\)</span></li>
+</ol>
+</div>
+</div>
+<div id="projections-of-fds" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Projections of FDs</h2>
+<div id="fd-projection-definition" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> FD Projection Definition</h3>
+<p>Given a relation <span class="math inline">\(R\)</span>, a set of FDs <span class="math inline">\(S\)</span> that satisfy <span class="math inline">\(R\)</span>, and some project of <span class="math inline">\(R\)</span>, <span class="math inline">\(R_{1} := \pi_{L}(R)\)</span> for some set of attributes <span class="math inline">\(L\)</span>, the <em>projection of FDs <span class="math inline">\(K\)</span></em> is a set of FDs that</p>
+<ol style="list-style-type: decimal">
+<li>Follow from <span class="math inline">\(S\)</span> (Satisfy the same relations as <span class="math inline">\(S\)</span>)</li>
+<li>Involve only attributes in <span class="math inline">\(R_{1}\)</span> (creates a minimal basis for <span class="math inline">\(S\)</span> with only attributes in <span class="math inline">\(R_{1}\)</span>)</li>
+</ol>
+</div>
+<div id="fd-projection-algorithm" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> FD Projection Algorithm</h3>
+<pre><code>Inputs:
+  R - some relation
+  R1 - some projection of R
+  
+Outputs:
+  K - The set of FDs that satisfy R1 and are a minimal basis for FDs for R
+  
+BEGIN
+Let T = Null (thius is your returned projection)
+Let Pow(R1) be the powerset of R1&#39;s attributes (the set of subsets for R1&#39;s attributes)
+Order Pow(R1) to be the by number of attributes in a subset
+
+For ele in Pow(R1)
+  Compute the closure of ele
+  
+  For each FD in of the form X -&gt; A s.t. X, A are in R1 and X, A are in the closure of ele
+    Add FD to T
+
+For each FD in T
+  Check which FDs point to the same attribute and remove all of them except for one
+
+Return T
+END</code></pre>
+<p>The for loop that iterates over the projection <span class="math inline">\(T\)</span> ensures that <span class="math inline">\(T\)</span> is a minimal basis for the FDs of <span class="math inline">\(R\)</span></p>
+
+</div>
+</div>
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong></strong>" was written by . </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+
+</html>
