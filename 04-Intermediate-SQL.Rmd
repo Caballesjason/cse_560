@@ -155,6 +155,6 @@ Due to LateX rendering issues, we cannot write the notation for outer joins prop
 
 | Join Type | Actual Operator | Note's Operator |
 |:---------:|:---------------:|:---------------:|
-| `LEFT OUTER JOIN` | $R1$ ⟕ $R2$ | $R1 <\bowtie R2 $ |
-| `RIGHT OUTER JOIN` | $R1$ ⟖ $R2$ | $R1 \bowtie> R2 $ |
-| `FULL OUTER JOIN` | $R1$ ⟗ $R2$ | $R1 <\bowtie> R2 $ |
+| `LEFT OUTER JOIN` | $R1$ ⟕ $R2$ | $R1 <\bowtie R2$ |
+| `RIGHT OUTER JOIN` | $R1$ ⟖ $R2$ | $R1 \bowtie> R2$ |
+| `FULL OUTER JOIN` | $R1$ ⟗ $R2$ | $R1  < \bowtie > R2$ |

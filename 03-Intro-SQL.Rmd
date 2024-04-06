@@ -5,7 +5,7 @@ output:
   bookdown::bs4_book: "default"
 ---
 
-# Introducion to SQL
+# Introduction to SQL
 ## Partition of the SQL language
 The current standard for SQL is __SQL-99__.  There are two aspects to the SQL language:    
 1. The __Data Definition Language (DDL)__ to declare database schemas    

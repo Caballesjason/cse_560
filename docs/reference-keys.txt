@@ -26,7 +26,7 @@ expression-trees
 schemas-for-results
 relational-algebra-on-bags
 operations-on-bags
-introducion-to-sql
+introduction-to-sql
 partition-of-the-sql-language
 why-sql
 relations-in-sql
