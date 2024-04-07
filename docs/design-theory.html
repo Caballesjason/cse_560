@@ -234,6 +234,61 @@ For each FD in T
 Return T
 END</code></pre>
 <p>The for loop that iterates over the projection <span class="math inline">\(T\)</span> ensures that <span class="math inline">\(T\)</span> is a minimal basis for the FDs of <span class="math inline">\(R\)</span></p>
+</div>
+</div>
+<div id="design-of-relational-database-schema" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> Design of Relational Database Schema</h2>
+<p>There exists a series of “anomolies” that we want to avoid when designed a database.</p>
+<ol style="list-style-type: decimal">
+<li>Redundancy - When we unnecessarily repeat attributes to compensate for another attribute</li>
+<li>Update Anomaly - When we update a value in a relation, but that update does not reflect all tuples</li>
+<li>Deletion Anomaly - If we delete a tuple, are we effectivly removing information for other attributes?</li>
+</ol>
+<p>Relation Decomposition allows us to avoid anomalies.</p>
+</div>
+<div id="boyce-codd-normal-form-bcnf" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> Boyce-Codd Normal Form (BCNF)</h2>
+<div id="bcnf-definition" class="section level3" number="1.8.1">
+<h3><span class="header-section-number">1.8.1</span> BCNF Definition</h3>
+<p>A relation <span class="math inline">\(R\)</span> is in BCNF if and only if all non-trivial FDs for <span class="math inline">\(R\)</span> have a superkey on the left hand side</p>
+</div>
+<div id="bcnf-decomposition-algorithm" class="section level3" number="1.8.2">
+<h3><span class="header-section-number">1.8.2</span> BCNF Decomposition Algorithm</h3>
+<p>When decomposing a relation to BCNF, the following is required</p>
+<ol style="list-style-type: decimal">
+<li>Each new decomposed relation is in BCNF</li>
+<li>You can join the decomposed relations to reconstruct the original relation (Lossless join)</li>
+</ol>
+<p>The BCNF Decomposition Algorithm allows for this!</p>
+<pre><code>Inputs:
+  R0 - A relation
+  S0 - The set of FDs for R0
+  
+Outputs:
+  C - The collection of decomposed relations that are all in BCNF and can reconstruct R0
+
+BEGIN
+  Let R = R0
+  Let S = S0
+  Let C = Null
+  If R is in BCNF
+    return R
+    
+  Else
+    Take any FD X -&gt; Y in S that violates BCNF
+    Compute the closure of the FD
+    Let R1 = Closure of FD
+    Let R2 = be the union of X + any attribute not in the closure of FD
+    Compute the projection of FDs from R onto R1 and R2
+    
+    If either R1 or R2 is in BCNF
+      Add them to C
+      
+    Else
+      recurse the algorithm with the violating relation and its FDs
+  
+  return C
+END</code></pre>
 
 </div>
 </div>

@@ -178,3 +178,58 @@ END
 
 The for loop that iterates over the projection $T$ ensures that $T$ is a minimal basis for the FDs of $R$ 
 
+
+## Design of Relational Database Schema
+There exists a series of "anomolies" that we want to avoid when designed a database.
+
+1. Redundancy - When we unnecessarily repeat attributes to compensate for another attribute
+2. Update Anomaly - When we update a value in a relation, but that update does not reflect all tuples
+3. Deletion Anomaly - If we delete a tuple, are we effectivly removing information for other attributes?
+
+Relation Decomposition allows us to avoid anomalies.
+
+
+## Boyce-Codd Normal Form (BCNF)
+### BCNF Definition
+A relation $R$ is in BCNF if and only if all non-trivial FDs for $R$ have a superkey on the left hand side
+
+
+### BCNF Decomposition Algorithm
+When decomposing a relation to BCNF, the following is required
+
+1. Each new decomposed relation is in BCNF
+2. You can join the decomposed relations to reconstruct the original relation (Lossless join)
+
+The BCNF Decomposition Algorithm allows for this!
+
+```
+Inputs:
+  R0 - A relation
+  S0 - The set of FDs for R0
+  
+Outputs:
+  C - The collection of decomposed relations that are all in BCNF and can reconstruct R0
+
+BEGIN
+  Let R = R0
+  Let S = S0
+  Let C = Null
+  If R is in BCNF
+    return R
+    
+  Else
+    Take any FD X -> Y in S that violates BCNF
+    Compute the closure of the FD
+    Let R1 = Closure of FD
+    Let R2 = be the union of X + any attribute not in the closure of FD
+    Compute the projection of FDs from R onto R1 and R2
+    
+    If either R1 or R2 is in BCNF
+      Add them to C
+      
+    Else
+      recurse the algorithm with the violating relation and its FDs
+  
+  return C
+END
+```

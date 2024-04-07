@@ -17,3 +17,7 @@ basis-for-sets-of-fds
 projections-of-fds
 fd-projection-definition
 fd-projection-algorithm
+design-of-relational-database-schema
+boyce-codd-normal-form-bcnf
+bcnf-definition
+bcnf-decomposition-algorithm
