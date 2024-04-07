@@ -139,7 +139,10 @@ A basis is minimal if the follow is true:
 
 1. All FDs for $K$ have singleton right sides
 2. If a FD is removed from $K$, then $K$ is no longer a basis for $S$
-3. If at least one attribute is removed from the left side in $K$, then $K$ is no longer a basis for $S$
+  * Can be shown by finding the closure of the FD's left side to the other FDs in the set $S$
+  * If right side of any FD in $S$ does not appear in the closure, then the two sets are not equivalent, i.e. do not hold for the same set of relations!
+3. If at least one attribute is removed from the left side of a FD in $K$, then $K$ is no longer a basis for $S$
+  * Can be shown by checking the closure of the FD where an attribute is dropped on the left side (Same logic follows for bullet points in 2.)
 
 
 ## Projections of FDs
@@ -233,3 +236,54 @@ BEGIN
   return C
 END
 ```
+
+### Pros & Cons of BCNF Decomposition
+When executing BCNF decomposition, we wan to achieve the following
+
+1. Elimination of anomalies 
+2. Recoverability of information - Can we create the original relation with the decomposed relations?
+3. Dependency Preservation - When reconstructing the original relation, can we satisfy its original FDs?
+
+BCNF guarantees FDs from the original relation project onto the decomposed relations, meaning (2) is guranteed.
+
+
+## Chase Test For Indentifying Lossless Joins
+### Definitions
+__Lossless Join:__ When we join all decomposed relations and reconstruct the original relation, this is known as a lossless join (no information was lost).
+
+__Chase Test:__ The chase test uses the set of FDs for a relation $R$ to determine if a row, $t$, exists in $R$ and in the natural of of $R$'s decomposed relations, $\pi_{S1}(R) \bowtie \pi_{S2}(R) \bowtie ... \bowtie \pi_{Sk}(R)$.
+
+The chase test determines if our decomposition creates a lossless join!!!
+
+__Tableau:__  A tableau describes the decomposed relations into one table.  It's used in the chase test to determine lossless joins.
+
+We will now show how to do a chase test via example:
+
+Suppose we have $R(A, B, C, D)$ and decomposed relations $S_{1} = \pi_{AD}(R)$, $S_{1} = \pi_{AC}(R)$ and $S_{1} = \pi_{BCD}(R)$
+
+The tableau for $R$ and its decompositions is
+
+| Decomposition | $A$ | $B$ | $C$ | $D$ |
+|:----:|:----:|:----:|:----:|
+|$S_{1}$|$a$|$b_{1}$|$c_{1}$|$d$|
+|$S_{2}$|$a$|$b_{2}$|$c$|$d_{2}$|
+|$S_{3}$|$a_{3}$|$b$|$c$|$d$|
+
+Each row represents a decomposed relation!  If an attribute is not in a decomposed relation, we provide it a subscript for its row index.
+
+Our goal is to use the FDs for $R$ to remove subscripts to obtain a row with no subscripts.  A row with no subscripts indicates the natural joins of each decomposition $S_{i}$ creates a row $t \in R$.  If we obtain $t$, then we have proven that the decomposition of $R$ has a lossless join!
+
+IF a FD. defines the equivalency of components that have one instance unsubscripted and the others subscripted, make them all unsubscripted
+
+If a FD defines the equivalency of components where all instances have subscripts, make them all have the same subscript
+
+
+### Chase Test Example 
+__INSERT EXAMPLE AFTER QUIZ 7__
+
+__GO THROUGH EXERCISES AND EXAMPLES AFTER THIS SECTION AFTER QUIZ 7__
+
+
+### Dependency Preservation
+If a decomposition of a relation breaks a FD of the original relation, the FDs of the original relation do not hold!  In other words, the FDs for some decomposed relation does not create a basis for the FDs of the original relation, leading to not preserving dependencies during decomposition.
+

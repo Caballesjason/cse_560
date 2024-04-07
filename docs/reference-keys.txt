@@ -21,3 +21,8 @@ design-of-relational-database-schema
 boyce-codd-normal-form-bcnf
 bcnf-definition
 bcnf-decomposition-algorithm
+pros-cons-of-bcnf-decomposition
+chase-test-for-indentifying-lossless-joins
+definitions
+chase-test-example
+dependency-preservation
