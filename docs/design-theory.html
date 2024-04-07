@@ -319,7 +319,7 @@ END</code></pre>
 <p>The chase test determines if our decomposition creates a lossless join!!!</p>
 <p><strong>Tableau:</strong> A tableau describes the decomposed relations into one table. It’s used in the chase test to determine lossless joins.</p>
 <p>We will now show how to do a chase test via example:</p>
-<p>Suppose we have <span class="math inline">\(R(A, B, C, D)\)</span> and decomposed relations <span class="math inline">\(S_{1} = \pi_{AD}(R)\)</span>, <span class="math inline">\(S_{1} = \pi_{AC}(R)\)</span> and <span class="math inline">\(S_{1} = \pi_{BCD}(R)\)</span></p>
+<p>Suppose we have <span class="math inline">\(R(A, B, C, D)\)</span> and decomposed relations <span class="math inline">\(S_{1} = \pi_{AD}(R)\)</span>, <span class="math inline">\(S_{2} = \pi_{AC}(R)\)</span> and <span class="math inline">\(S_{3} = \pi_{BCD}(R)\)</span></p>
 <p>The tableau for <span class="math inline">\(R\)</span> and its decompositions is</p>
 <table>
 <thead>
@@ -328,6 +328,7 @@ END</code></pre>
 <th align="center"><span class="math inline">\(A\)</span></th>
 <th align="center"><span class="math inline">\(B\)</span></th>
 <th align="center"><span class="math inline">\(C\)</span></th>
+<th align="center"><span class="math inline">\(D\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -336,36 +337,192 @@ END</code></pre>
 <td align="center"><span class="math inline">\(a\)</span></td>
 <td align="center"><span class="math inline">\(b_{1}\)</span></td>
 <td align="center"><span class="math inline">\(c_{1}\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
 </tr>
 <tr class="even">
 <td align="center"><span class="math inline">\(S_{2}\)</span></td>
 <td align="center"><span class="math inline">\(a\)</span></td>
 <td align="center"><span class="math inline">\(b_{2}\)</span></td>
 <td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d_{2}\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center"><span class="math inline">\(S_{3}\)</span></td>
 <td align="center"><span class="math inline">\(a_{3}\)</span></td>
 <td align="center"><span class="math inline">\(b\)</span></td>
 <td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>Each row represents a decomposed relation! If an attribute is not in a decomposed relation, we provide it a subscript for its row index.</p>
-<p>Our goal is to use the FDs for <span class="math inline">\(R\)</span> to remove subscripts to obtain a row with no subscripts. A row with no subscripts indicates the natural joins of each decomposition <span class="math inline">\(S_{i}\)</span> creates a row <span class="math inline">\(t \in R\)</span>. If we obtain <span class="math inline">\(t\)</span>, then we have proven that the decomposition of <span class="math inline">\(R\)</span> has a lossless join!</p>
-<p>IF a FD. defines the equivalency of components that have one instance unsubscripted and the others subscripted, make them all unsubscripted</p>
+<p>Each row represents a decomposed relation! If an attribute is not in a decomposed relation, we give it a subscript for its row index.</p>
+<p>Our goal is to use the FDs of <span class="math inline">\(R\)</span> to remove subscripts to obtain a row with no subscripts. A row with no subscripts indicates the natural joins of each decomposition <span class="math inline">\(S_{i}\)</span> creates a row <span class="math inline">\(t \in R\)</span>. If we obtain <span class="math inline">\(t\)</span>, then we have proven that the decomposition of <span class="math inline">\(R\)</span> has a lossless join!</p>
+<p>If a FD defines the equivalency of components that have one instance unsubscripted and the others subscripted, make them all unsubscripted</p>
 <p>If a FD defines the equivalency of components where all instances have subscripts, make them all have the same subscript</p>
 </div>
 <div id="chase-test-example" class="section level3" number="1.9.2">
 <h3><span class="header-section-number">1.9.2</span> Chase Test Example</h3>
-<p><strong>INSERT EXAMPLE AFTER QUIZ 7</strong></p>
-<p><strong>GO THROUGH EXERCISES AND EXAMPLES AFTER THIS SECTION AFTER QUIZ 7</strong></p>
+<p>Suppose we have a relation with functional dependencies</p>
+<p><span class="math display">\[R(A, B, C, D)\]</span></p>
+<p><span class="math display">\[A \rightarrow B \qquad B \rightarrow C \qquad CD \rightarrow A  \qquad A \rightarrow C \text{ Transitive property}\]</span></p>
+<p><span class="math inline">\(R\)</span> has the following decompositions</p>
+<p><span class="math display">\[S_{1} = \pi_{AD}(R) \qquad S_{2} = \pi_{AC}(R) \qquad S_{3} = \pi_{BCD}(R)\]</span></p>
+<p>Then the tableau of this decomposition is as follows</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Decomposition</th>
+<th align="center"><span class="math inline">\(A\)</span></th>
+<th align="center"><span class="math inline">\(B\)</span></th>
+<th align="center"><span class="math inline">\(C\)</span></th>
+<th align="center"><span class="math inline">\(D\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{1}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{1}\)</span></td>
+<td align="center"><span class="math inline">\(c_{1}\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(S_{2}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{2}\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{3}\)</span></td>
+<td align="center"><span class="math inline">\(a_{3}\)</span></td>
+<td align="center"><span class="math inline">\(b\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Since <span class="math inline">\(A \rightarrow C\)</span>, when <span class="math inline">\(a = a\)</span>, then <span class="math inline">\(c = c\)</span>, therefore <span class="math inline">\(c_{1} = c\)</span>. We can rewrite the tableau as follows</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Decomposition</th>
+<th align="center"><span class="math inline">\(A\)</span></th>
+<th align="center"><span class="math inline">\(B\)</span></th>
+<th align="center"><span class="math inline">\(C\)</span></th>
+<th align="center"><span class="math inline">\(D\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{1}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{1}\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(S_{2}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{2}\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{3}\)</span></td>
+<td align="center"><span class="math inline">\(a_{3}\)</span></td>
+<td align="center"><span class="math inline">\(b\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Now since <span class="math inline">\(A \rightarrow B\)</span>, when <span class="math inline">\(a = a\)</span>, <span class="math inline">\(b = b\)</span>. This means that <span class="math inline">\(b_{1} = b_{2}\)</span> and can rewrite them to both be either <span class="math inline">\(b_{1}\)</span> or <span class="math inline">\(b_{2}\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Decomposition</th>
+<th align="center"><span class="math inline">\(A\)</span></th>
+<th align="center"><span class="math inline">\(B\)</span></th>
+<th align="center"><span class="math inline">\(C\)</span></th>
+<th align="center"><span class="math inline">\(D\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{1}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{1}\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(S_{2}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{1}\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{3}\)</span></td>
+<td align="center"><span class="math inline">\(a_{3}\)</span></td>
+<td align="center"><span class="math inline">\(b\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Finally since <span class="math inline">\(CD \rightarrow A\)</span>, when <span class="math inline">\(cd = cd\)</span>, <span class="math inline">\(a = a\)</span>, so we can rewrite the table as follows</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Decomposition</th>
+<th align="center"><span class="math inline">\(A\)</span></th>
+<th align="center"><span class="math inline">\(B\)</span></th>
+<th align="center"><span class="math inline">\(C\)</span></th>
+<th align="center"><span class="math inline">\(D\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{1}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{1}\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(S_{2}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b_{2}\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(S_{3}\)</span></td>
+<td align="center"><span class="math inline">\(a\)</span></td>
+<td align="center"><span class="math inline">\(b\)</span></td>
+<td align="center"><span class="math inline">\(c\)</span></td>
+<td align="center"><span class="math inline">\(d\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The row for <span class="math inline">\(S_{3}\)</span> shows no subscripts, therefore the chase test proves that the decomposition is lossless!</p>
+<p>The chase test proves the existence of a tuple in original relation was constructed with the join of its decompositions. If at least one tuple is constructed from the join, then we know that they all were constructed!</p>
 </div>
 <div id="dependency-preservation" class="section level3" number="1.9.3">
 <h3><span class="header-section-number">1.9.3</span> Dependency Preservation</h3>
 <p>If a decomposition of a relation breaks a FD of the original relation, the FDs of the original relation do not hold! In other words, the FDs for some decomposed relation does not create a basis for the FDs of the original relation, leading to not preserving dependencies during decomposition.</p>
-
 </div>
+</div>
+<div id="third-normal-form-3nf" class="section level2" number="1.10">
+<h2><span class="header-section-number">1.10</span> Third Normal Form (3NF)</h2>
+<p>A table <span class="math inline">\(R\)</span> is in 3NF if one of the the thwo things hold true for every FD of <span class="math inline">\(R\)</span></p>
+<ol style="list-style-type: decimal">
+<li>If all attributes in the right side of FD is prime, i.e. the attribute is a member of some key.
+2.the left side is a super key</li>
+</ol>
+
 </div>
 </div>
   </main>

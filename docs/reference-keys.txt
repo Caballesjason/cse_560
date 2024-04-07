@@ -26,3 +26,4 @@ chase-test-for-indentifying-lossless-joins
 definitions
 chase-test-example
 dependency-preservation
+third-normal-form-3nf

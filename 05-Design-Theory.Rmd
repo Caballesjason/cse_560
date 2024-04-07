@@ -259,31 +259,79 @@ __Tableau:__  A tableau describes the decomposed relations into one table.  It's
 
 We will now show how to do a chase test via example:
 
-Suppose we have $R(A, B, C, D)$ and decomposed relations $S_{1} = \pi_{AD}(R)$, $S_{1} = \pi_{AC}(R)$ and $S_{1} = \pi_{BCD}(R)$
+Suppose we have $R(A, B, C, D)$ and decomposed relations $S_{1} = \pi_{AD}(R)$, $S_{2} = \pi_{AC}(R)$ and $S_{3} = \pi_{BCD}(R)$
 
 The tableau for $R$ and its decompositions is
 
 | Decomposition | $A$ | $B$ | $C$ | $D$ |
-|:----:|:----:|:----:|:----:|
+|:----:|:----:|:----:|:----:|:----:|
 |$S_{1}$|$a$|$b_{1}$|$c_{1}$|$d$|
 |$S_{2}$|$a$|$b_{2}$|$c$|$d_{2}$|
 |$S_{3}$|$a_{3}$|$b$|$c$|$d$|
 
-Each row represents a decomposed relation!  If an attribute is not in a decomposed relation, we provide it a subscript for its row index.
+Each row represents a decomposed relation!  If an attribute is not in a decomposed relation, we give it a subscript for its row index.
 
-Our goal is to use the FDs for $R$ to remove subscripts to obtain a row with no subscripts.  A row with no subscripts indicates the natural joins of each decomposition $S_{i}$ creates a row $t \in R$.  If we obtain $t$, then we have proven that the decomposition of $R$ has a lossless join!
+Our goal is to use the FDs of $R$ to remove subscripts to obtain a row with no subscripts.  A row with no subscripts indicates the natural joins of each decomposition $S_{i}$ creates a row $t \in R$.  If we obtain $t$, then we have proven that the decomposition of $R$ has a lossless join!
 
-IF a FD. defines the equivalency of components that have one instance unsubscripted and the others subscripted, make them all unsubscripted
+If a FD defines the equivalency of components that have one instance unsubscripted and the others subscripted, make them all unsubscripted
 
 If a FD defines the equivalency of components where all instances have subscripts, make them all have the same subscript
 
 
 ### Chase Test Example 
-__INSERT EXAMPLE AFTER QUIZ 7__
+Suppose we have a relation with functional dependencies
 
-__GO THROUGH EXERCISES AND EXAMPLES AFTER THIS SECTION AFTER QUIZ 7__
+$$R(A, B, C, D)$$
+
+$$A \rightarrow B \qquad B \rightarrow C \qquad CD \rightarrow A  \qquad A \rightarrow C \text{ Transitive property}$$
+
+$R$ has the following decompositions
+
+$$S_{1} = \pi_{AD}(R) \qquad S_{2} = \pi_{AC}(R) \qquad S_{3} = \pi_{BCD}(R)$$
+
+Then the tableau of this decomposition is as follows 
+
+| Decomposition | $A$ | $B$ | $C$ | $D$ |
+|:----:|:----:|:----:|:----:|:----:|
+|$S_{1}$|$a$|$b_{1}$|$c_{1}$|$d$|
+|$S_{2}$|$a$|$b_{2}$|$c$|$d_{2}$|
+|$S_{3}$|$a_{3}$|$b$|$c$|$d$|
+
+Since $A \rightarrow C$, when $a = a$, then $c = c$, therefore $c_{1} = c$.  We can rewrite the tableau as follows
+
+| Decomposition | $A$ | $B$ | $C$ | $D$ |
+|:----:|:----:|:----:|:----:|:----:|
+|$S_{1}$|$a$|$b_{1}$|$c$|$d$|
+|$S_{2}$|$a$|$b_{2}$|$c$|$d_{2}$|
+|$S_{3}$|$a_{3}$|$b$|$c$|$d$|
+
+Now since $A \rightarrow B$, when $a = a$, $b = b$.  This means that $b_{1} = b_{2}$ and can rewrite them to both be either $b_{1}$ or $b_{2}$.
+
+| Decomposition | $A$ | $B$ | $C$ | $D$ |
+|:----:|:----:|:----:|:----:|:----:|
+|$S_{1}$|$a$|$b_{1}$|$c$|$d$|
+|$S_{2}$|$a$|$b_{1}$|$c$|$d_{2}$|
+|$S_{3}$|$a_{3}$|$b$|$c$|$d$|
+
+Finally since $CD \rightarrow A$, when $cd = cd$, $a = a$, so we can rewrite the table as follows
+
+| Decomposition | $A$ | $B$ | $C$ | $D$ |
+|:----:|:----:|:----:|:----:|:----:|
+|$S_{1}$|$a$|$b_{1}$|$c$|$d$|
+|$S_{2}$|$a$|$b_{2}$|$c$|$d_{2}$|
+|$S_{3}$|$a$|$b$|$c$|$d$|
+
+The row for $S_{3}$ shows no subscripts, therefore the chase test proves that the decomposition is lossless!
+
+The chase test proves the existence of a tuple in original relation was constructed with the join of its decompositions.  If at least one tuple is constructed from the join, then we know that they all were constructed!
 
 
 ### Dependency Preservation
 If a decomposition of a relation breaks a FD of the original relation, the FDs of the original relation do not hold!  In other words, the FDs for some decomposed relation does not create a basis for the FDs of the original relation, leading to not preserving dependencies during decomposition.
 
+
+## Third Normal Form (3NF)
+A table $R$ is in 3NF if one of the the thwo things hold true for every FD of $R$
+
+1. If all attributes in the right side of FD is prime, i.e.  the attribute is a member of some key.
+2.the left side is a super key
