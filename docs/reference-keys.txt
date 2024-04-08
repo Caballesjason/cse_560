@@ -27,3 +27,5 @@ definitions
 chase-test-example
 dependency-preservation
 third-normal-form-3nf
+other-normal-forms
+synthesis-algorithm-for-3nf

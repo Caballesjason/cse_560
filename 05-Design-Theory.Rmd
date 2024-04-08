@@ -335,3 +335,36 @@ A table $R$ is in 3NF if one of the the thwo things hold true for every FD of $R
 
 1. If all attributes in the right side of FD is prime, i.e.  the attribute is a member of some key.
 2.the left side is a super key
+
+### Other Normal Forms
+__First Normal Form (1NF)__:  All values in relation are atomic
+
+__Second Normal Form (2NF)__:  All attributes or sets of attributes taht are not keys are functionally determined a key.
+
+### Synthesis Algorithm for 3NF
+The Synthesis algorithm decomposes a relation into 3NF decomposed relations.  These decomposed relations will have a lossless join (Can create original relation from decomposed relations).  & preserve dependencies (Once original relation is mde, FDs of original relation still hold)
+
+```
+Synthesis Algorithm
+
+Inputs:
+  R - Some relation
+  F - Some set of functional dependencies for R
+  
+Outputs:
+  A set of relation decompositions that have a lossless join and dependency preservation
+  
+BEGIN
+  Determine if F is a minimal basis for R (Use closures to determine this)
+  Determine the possible keys for R
+  
+  If the F is not a minimal basis
+    Remove FDs to make it minimal
+  
+  Let the attributes of the FDs be the decomposed relations
+  If the decomposed relations do not contain a superkey
+    Make another relation with only the attributes in a key for R as the schema
+  
+  Return the decomposed relations
+END
+```
