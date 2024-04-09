@@ -3,6 +3,9 @@ site: "bookdown::bookdown_site"
 documentclass: "book"
 output:
   bookdown::bs4_book: "default"
+  extra_dependencies:
+    - amssymb
+    - graphicx
 ---
 
 # Design Theory
@@ -368,3 +371,176 @@ BEGIN
   Return the decomposed relations
 END
 ```
+
+
+## Multiple Valued Dependencies (MVD)
+MVD is the assertion that two attributes or sets of attributes are independent of each other.  MVDs are a generalization of FDs!
+
+### Definition of MVDs
+A MVD, denoted $A_{1}A_{2}...A_{n} \twoheadrightarrow B_{1}B_{2}...B_{k}$, holds true if for each pair of tuples $i, j$ that agree on the values of $A_{1}A_{2}...A_{n}$, there exists two other tuples $x$ such that
+
+* $x, y$ agrees with $i, j$ for $A_{1}A_{2}...A_{n}$
+* $x$ agrees with $i$ for $B_{1}B_{2}...B_{k}$
+* $x$ agrees with $j$ for all attributes __NOT IN__ $B_{1}B_{2}...B_{k}$
+
+The definition works when you "swap" $i$ and $j$.  In other words, there exists a tuple $y$ such that
+
+* $y$ agrees with $j$ for $B_{1}B_{2}...B_{k}$
+* $y$ agrees with $i$ for all attributes __NOT IN__ $B_{1}B_{2}...B_{k}$
+
+
+### Rules for MVDs
+MVDs share a lot of rules with FDs
+
+#### Trivial MVD
+$A_{1}A_{2}...A_{n} \twoheadrightarrow B_{1}B_{2}...B_{k}$ is considered trivial if and only if
+
+$$B_{1}B_{2}...B_{k} \subseteq A_{1}A_{2}...A_{n}$$
+
+#### Transitive Rule
+If $A_{1}A_{2}...A_{n} \twoheadrightarrow B_{1}B_{2}...B_{k}$ and $B_{1}B_{2}...B_{n} \twoheadrightarrow C_{1}C_{2}...C_{j}$ then
+
+$$A_{1}A_{2}...A_{n} \twoheadrightarrow C_{1}C_{2}...C_{j}$$
+
+#### Splitting Rule
+MVDs do not follow the splitting rule!!!
+
+#### FD Promotion
+FD Promotion simply states that all FDs are MVDs
+
+#### Complementation Rule
+If $A_{1}A_{2}...A_{n} \twoheadrightarrow B_{1}B_{2}...B_{k}$ holds for R, then the MVD
+
+$$A_{1}A_{2}...A_{n} \twoheadrightarrow C_{1}C_{2}...C_{k}$$
+
+$$\text{Where no } C_{i} \text{ is equal to any } B_{i}$$
+
+must also hold true.
+
+
+#### More Trivial MVD
+If all attributes for a relation $R$ are $\{A_{1}A_{2}...A_{n}B_{1}B_{2}...B_{k}\}$ then 
+
+$$A_{1}A_{2}...A_{n} \twoheadrightarrow B_{1}B_{2}...B_{k}$$
+
+also holds for $R$
+
+
+## Fourth Normal Form (4NF)
+A relation $R$ is in 4NF if the MVDs $A_{1}A_{2}...A_{n} \twoheadrightarrow B_{1}B_{2}...B_{k}$ for $R$ are non-trivial and $A_{1}A_{2}...A_{n}$ is a superkey.
+
+__Note:__  Keys and superkeys retrain teh same definition as before (have no relation to MVDs)
+
+__Note:__ Since by FD promotion, all FDs are MVDs, if a relation is in 4NF, then the relation must also be in BCNF, which means it also is in 3NF.  Each normal form implies the other
+
+![Normal Form Implications](images/nf_implications.png){width=100%}
+\
+![Normal Form Properties](images/nf_properties.png){width=100%}
+
+### 4NF Decomposition
+The following algorithm is used to decompose a relation into 4NF
+
+```
+Inputs:
+  R0 - Some relation
+  S0 - R0's set of FDs and MVDs
+  
+Outputs:
+  A set of decomposed relations
+  
+BEGIN
+  Find a violating MVD, say A1,A2,...An ->> B1,B2,...Bk
+  Create two relations
+    R1 - A relation of all attributes in the MVD
+    R2 - A relation of all attributes on the left side of the MVD and attributes not in the MVD
+    
+  Compute the projection of MVDs onto R1 and R2
+  
+  If either R1 or R2 violates 4NF, repeat the algorithm for that relation
+END
+```
+
+## Closures, Chases, and MVDs
+we can use the chase test to determine the following
+
+1. If a set of decomposed relations is lossess
+2. If an FD satisfies a relation
+3. If a MVD satisfies a relation
+
+### How to Use the Chase Test to Determine if a FD satisfies a relation
+Example:
+Suppose we are given the following
+
+$$R(A,B,C,D,E,F)$$
+$$AB \rightarrow C \quad BC \rightarrow AD \quad D \rightarrow E \quad CF \rightarrow B$$
+
+We want to prove if the FD $AB \rightarrow D$ satisfies $R$
+
+we will start with creating a two row tableau
+
+|A|B|C|D|E|F|
+|:----:|:----:|:----:|:----:|:----:|:----:
+|$a$|$b$|$c_{1}$|$d_{1}$|$e_{1}$|$f_{1}$|
+|$a$|$b$|$c_{2}$|$d_{2}$|$e_{2}$|$f_{2}$|
+
+Each row replicates the FD in question, that is, we do not give the subscripts to attributes on the left side of the FD, but we give subscripts for attributes not on the left side.
+
+We will now use the provided functional dependencies to try and get the two rows to show that $AB \rightarrow D$ holds
+
+For $AB \rightarrow C$
+
+|A|B|C|D|E|F|
+|:----:|:----:|:----:|:----:|:----:|:----:
+|$a$|$b$|$c_{1}$|$d_{1}$|$e_{1}$|$f_{1}$|
+|$a$|$b$|$c_{1}$|$d_{2}$|$e_{2}$|$f_{2}$|
+
+For $BC \rightarrow AD$
+
+|A|B|C|D|E|F|
+|:----:|:----:|:----:|:----:|:----:|:----:
+|$a$|$b$|$c_{1}$|$d_{1}$|$e_{1}$|$f_{1}$|
+|$a$|$b$|$c_{1}$|$d_{1}$|$e_{2}$|$f_{2}$|
+
+Here we can see that the $a$, $b$ and $d$ are equal for both tuples, hence proving that the FD $AB \rightarrow D$ holds for $R$!
+
+
+### How to Use the Chase Test to Determine if a MVD satisfies a relation
+Like proving a loessless join, our goal is to obtain a row with no subscripts.  The tableau works the same except we add "swapped" rows for MVDs
+
+Example:
+
+Suppose we are provided with the following
+
+$$R(A,B,C,D)$$
+$$A \rightarrow B \qquad B \twoheadrightarrow C$$
+
+We wish to prove that $A \twoheadrightarrow C$ satisfies $R$, so lets create a tableau for it
+
+|tuple|A|B|C|D|
+|:----:|:----:|:----:|:----:|:----:|
+|$i$|$a$|$b_{1}$|$c$|$d_{1}$|
+|$j$|$a$|$b$|$c_{2}$|$d$|
+
+By the definition of MVDs, when two tuples agree on the left hand side, a tuple $x$ exists and shares the same value with $i$ for the right hand side of the MVD, while also agreeing with the with $j$ for the attributes not in the right hand side of the MVD.  The tableau will model $i$ and $j$.
+
+We will now use the dependencies to see if we can obtain a row without subscripts!
+
+For $A \rightarrow B$
+
+|tuple|A|B|C|D|
+|:----:|:----:|:----:|:----:|:----:|
+|$i$|$a$|$b$|$c$|$d_{1}$|
+|$j$|$a$|$b$|$c_{2}$|$d$|
+
+For $B \twoheadrightarrow C$
+
+When working with a MVD, we find rows with the same value on the left side. We then take two rows on and swap the values for the attributes on the right side and create two new rows for the tableau reflecting that.
+
+|tuple|A|B|C|D|
+|:----:|:----:|:----:|:----:|:----:|
+|$i$|$a$|$b$|$c$|$d_{1}$|
+|$j$|$a$|$b$|$c_{2}$|$d$|
+|$x$|$a$|$b$|$c_{2}$|$d_{1}$|
+|$y$|$a$|$b$|$c$|$d$|
+
+We have obtained a row with no subscripts, therefore we have proven that the MVD $A \twoheadrightarrow C$ holds for $R$!

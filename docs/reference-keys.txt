@@ -29,3 +29,17 @@ dependency-preservation
 third-normal-form-3nf
 other-normal-forms
 synthesis-algorithm-for-3nf
+multiple-valued-dependencies-mvd
+definition-of-mvds
+rules-for-mvds
+trivial-mvd
+transitive-rule-1
+splitting-rule
+fd-promotion
+complementation-rule
+more-trivial-mvd
+fourth-normal-form-4nf
+nf-decomposition
+closures-chases-and-mvds
+how-to-use-the-chase-test-to-determine-if-a-fd-satisfies-a-relation
+how-to-use-the-chase-test-to-determine-if-a-mvd-satisfies-a-relation
